@@ -21,6 +21,7 @@ settings.gradle
 
 ## gradle tasks --all
 gradle로 사용할 수 있는 모든 작업을 출력한다.
+gradle 설정파일(build.gradle)이 있는 폴더에서 실행해야한다
 
 ## plugin
 gradle로 실행할 수 있는 작업들을 모아둔 라이브러리이다.
