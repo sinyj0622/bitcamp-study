@@ -1,3 +1,5 @@
+
+191209
 //리터럴 (literal) : 데이터 표현법
 
  1. 정수 리터럴
@@ -102,4 +104,47 @@ e 기호를 사용하면 소수점의 위치를 조정할수있다
  4. 논리 리터럴
  system.out.println(true);
  system.out.println(false);
+
+
+191210
+// 자바 애플리케이션 프로젝트 만들기
+1. 로컬 git 저장소에 자바 프로젝트 폴더를 생성한다
+ $ mkdir [프로젝트 이름]
+2. 프로젝트 폴더를 자바 앱 프로젝트로 초기화 시킨다
+***src 폴더 만드는법*** > $ gradle init
+3. 설치된 build.gradle 파일에 다음 설정을 추가한다
+
+```
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+    sourceCompatibility = '1.8'
+    targetCompatibility = '1.8'
+}
+```
+4. 프로젝트를 빌드하라 
+ ***build 폴더 만드는법***
+ $ gradle build 
+ $ gradle compileJava  <distribution 폴더가 안만들어짐
+
+ 5.프로젝트를 실행하라
+  $ gradle run
+
+// '이클립스 IDE'로 프로젝트 다루기
+1. build.gradle 파일에 eclipse 플러그인을 추가한다
+
+```
+plugins {
+    id 'java'
+    id 'application'
+    id 'eclipse'   <추가!
+}
+```
+
+2. 이클립스 IDE에서 사용할 프로젝트 설정 파일을 생성하라
+ $ gradle eclipse
+3. 이클립스 워크스페이스로 프로젝트를 가져와라
+  이클립스 file > import
+4. 이클립스 메뉴를 통해 App 클래스를 실행한다
+
+
 
