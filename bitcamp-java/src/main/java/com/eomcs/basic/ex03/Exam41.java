@@ -14,8 +14,7 @@ public class Exam41 {
    System.out.println('\u0041'); // A 문자
    System.out.println('\u0030'); // 0 문자
    System.out.println('\u0025'); // % 문자
-   System.out.println('\uac00'); // 가 문자
-
+   System.out.println('\uac00'); // 가 문자  
 
 
 
