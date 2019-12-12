@@ -1,4 +1,5 @@
 package com.eomcs.lms;
+
 import java.sql.Date;
 import java.util.Scanner;
 
@@ -11,7 +12,7 @@ public class App {
         System.out.print("번호? ");
         int no = keyboard.nextInt();
         
-        keyboard.nextLine(); //nextInt() 후에 정수 값 다음에 있는 줄바꿈 기호를 제거한다.
+        keyboard.nextLine(); //nextInt() 후에정수 값 다음에 있는 줄바꿈 기호를 제거한다.
         
         System.out.print("수업명? ");
         String title = keyboard.nextLine();

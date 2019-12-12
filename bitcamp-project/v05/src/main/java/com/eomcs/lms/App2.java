@@ -10,7 +10,7 @@ public class App2 {
     System.out.print("번호?: ");
     int no = keyboard.nextInt();
     
-    keyboard.nextLine(); //줄바꿈 기호 제거용
+    keyboard.hasNextLine(); //줄바꿈 기호 제거용
     
     System.out.print("이름?: ");
     String name = keyboard.next();

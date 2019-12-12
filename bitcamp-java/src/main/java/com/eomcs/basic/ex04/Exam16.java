@@ -16,6 +16,7 @@ public class Exam16 {
 
     char c; //2
 
+    // 위의 변수를 제외하곤 다 메모리의 주소다!
     // > reference : 다른 메모리의 주소를 저장하는 변수
     String str;
     java.sql.Date date;
