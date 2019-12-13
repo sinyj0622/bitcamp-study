@@ -3,44 +3,67 @@ import java.sql.Date;
 import java.util.Scanner;
 
 public class App {
-    public static void main(String[] args) {
-      // 키보드에서 사용자가 입력한 값을 읽어 문자열이나 정수,부동소수점 등으로 리턴하는 역할
-      Scanner keyboard = new Scanner(System.in);
-      // 키보드를 동작
+  public static void main(String[] args) {
+
+    Scanner keyboard = new Scanner(System.in);
+
+    int[] no = new int[100];
+    String[] title = new String[100];
+    String[] description = new String[100];
+    Date[] startDate = new Date[100];
+    Date[] endDate = new Date[100];
+    int[] totalHours = new int[100];
+    int[] dayHours = new int[100];
+    String response;
+
+
+
+    int count = 0;
+    for (int i = 0; i < 100; i++) {
+      System.out.print("번호? ");
+      no[i] = keyboard.nextInt();
+
+      keyboard.nextLine(); 
+
+      System.out.print("수업명? ");
+      title[i] = keyboard.nextLine();
+
+      System.out.print("설명? ");
+      description[i] = keyboard.nextLine();       
+
+      System.out.print("시작일? ");
+      startDate[i] = Date.valueOf(keyboard.next());
+
+      System.out.print("종료일? ");
+      endDate[i] = Date.valueOf(keyboard.next());
+
+      System.out.print("총수업시간? ");
+      totalHours[i] = keyboard.nextInt();
+
+      System.out.print("일수업시간? ");
+      dayHours[i] = keyboard.nextInt();
+      keyboard.nextLine();
       
-        System.out.print("번호? ");
-        int no = keyboard.nextInt();
-        
-        keyboard.nextLine(); //nextInt() 후에 정수 값 다음에 있는 줄바꿈 기호를 제거한다.
-        
-        System.out.print("수업명? ");
-        String title = keyboard.nextLine();
-        
-        System.out.print("설명? ");
-        String desciption = keyboard.nextLine();       
+      
+      count++;
 
-        System.out.print("시작일? ");
-        Date startDate = Date.valueOf(keyboard.next());
-        // "yyyy-MM-dd" 형태로 입력된 문자열을 날짜 정보로 바꾼다.
-        System.out.print("종료일? ");
-        Date endDate = Date.valueOf(keyboard.next());
-       
-        System.out.print("총수업시간? ");
-        int totalHours = keyboard.nextInt();
+      System.out.print("계속 입력하시겠습니까?(Y/n) ");
+      response = keyboard.nextLine();
+      if (!response.equalsIgnoreCase("y")) {
+        break;
+      }
 
-        System.out.print("일수업시간? ");
-        int dayHours = keyboard.nextInt();
-        
-        System.out.println();
-        
-        System.out.printf("번호: %d\n", no);
-        System.out.printf("수업명: %s\n", title);
-        System.out.printf("설명: %s\n", desciption);
-        System.out.printf("기간: %s ~ %s\n", startDate, endDate);
-        System.out.printf("총수업시간: %d 시간\n", totalHours);
-        System.out.printf("일수업시간: %d 시간\n", dayHours );
-        
-        keyboard.close(); //프로젝트를 닫는다 썼으니까 돌려줌
-        
     }
+
+
+
+
+
+    for (int i = 0; i < count; i++) {
+    System.out.printf("%d, %s ~ %s, %d\n", no[i], startDate[i], endDate[i], totalHours[i]); 
+    
+    }
+    keyboard.close(); //프로젝트를 닫는다 썼으니까 돌려줌
+
+  }
 }
