@@ -28,6 +28,8 @@ public class App3 {
       viewCount[i] = 0;
 
       count++;
+      
+      System.out.println();
 
       System.out.print("계속 입력하시겠습니까?(Y/n) ");
       response = keyboard.nextLine();
