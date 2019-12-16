@@ -12,7 +12,7 @@ public class assign {
 // => 10 + 20 = 30 
 
 Scanner keyboard = new Scanner(System.in);
-int result = 0;
+
 
 int i, j;
 String response;
@@ -27,22 +27,20 @@ keyboard.nextLine();
 System.out.print("연산자(+,-,*,/)? ");
 response = keyboard.nextLine();
 
+
+int result = 0;
 if (response.equals("+")){
-  result = i + j;}
-  else if (response.equals("-")){
-    result = i - j;}
-    else if (response.equals("*")){
-      result = i * j;}
-      else if (response.equals("/")){
+  result = i + j;
+} else if (response.equals("-")){
+    result = i - j;
+  } else if (response.equals("*")){
+      result = i * j;
+    } else if (response.equals("/")){
         result = i / j;}
 
 
-
-
-        System.out.println("=>" + i + response + j +"=" + result);
+        System.out.printf("=> %d %s %d = %d ", i, response, j, result);
 keyboard.close();
-
-
 
 
 

@@ -19,23 +19,25 @@ Scanner keyboard = new Scanner(System.in);
 
 String user;
 int computer;
-int users;
 
 System.out.print("가위,바위,보? ");
 user = keyboard.nextLine();
+
+
+System.out.println("컴퓨터: ");
+computer = (int) (Math.random() * 3) + 1; 
+
+if (computer){
+  System.out.println("");
+}
+
+
 if (user.equals("가위")){
   users = 1; }
   else if(user.equals("바위")){
     users = 2; }
     else if(user.equals("바위")){
       users = 3; };
-
-System.out.println("컴퓨터: ");
-computer = (int) (Math.random() * 3) + 1; 
-if (computer == users){
-  System.out.println("");
-}
-
 
 
 
