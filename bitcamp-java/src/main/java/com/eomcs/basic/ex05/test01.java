@@ -8,18 +8,20 @@ public class test01 {
       Scanner keyboard = new Scanner(System.in);
 // 입력? 3, 7
 // 3에서 7까지의 합은  입니다
-      
 
       System.out.print("입력? ");
       int a = keyboard.nextInt();
-      int[] arr1 = new int[] {3,4,5,6,7};
+      System.out.print("입력? ");
+      int b = keyboard.nextInt();
       
       int sum = 0;
-      for (int i = 0; i < 8; i++) {
-       
+      for (int i = a; i <= b; i++) {
+    	  sum = sum + i;
       }
       
-      System.out.printf("3에서 7까지의 합은 %d입니다.", sum);
+     
+      
+      System.out.printf("%d에서 %d까지의 합은 %d입니다.", a, b, sum);
       
 
         
