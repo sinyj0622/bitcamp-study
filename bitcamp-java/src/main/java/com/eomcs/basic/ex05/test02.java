@@ -15,7 +15,7 @@ public class test02 {
 		
 		System.out.print("입력? ");
 		keyboard.nextInt();
-
+//index
 		for (int i = 1; i < arr.length; i++) { 
 			if ( arr[i] > max ) { max = arr[i]; 
 			} else if ( arr[i] < min ) { min = arr[i]; 

@@ -8,15 +8,23 @@ public class Exam04_6 {
         // => 각 비트의 해당하는 프로그래밍 언어는 다음 순서를 따른다.
         //    c, cpp, java, js, python, php, html, css
         //    
-        int lang = 0b1110_0011;
+        int lang = 0b11100011;
         
-        // lang 변수에 들어 있는 각 비트 값을 조사하여 
+        // lang 변수에 들어 있는 각 비트 값을 조사하는 방법!
         // 1이면 그 변수에 해당하는 프로그래밍 이름을 출력한다.
         // => if 조건문, &, == 연산자를 활용하라!
         // => 실행 결과
         //    c cpp java html css 
+        
+        //=> 공식
+        // 11100011
 
         if ((lang & 0x80) == 0x80) System.out.print("c ");
+        //=> 공식
+        // 11100011
+        //&10000000  <이거와 (차단벽)
+        //-------------
+        // 10000000 < 이 값이 같으면 c할줄안다
         if ((lang & 0x40) > 0) System.out.print("cpp ");
         if ((lang & 0x20) > 0) System.out.print("java ");
         if ((lang & 0x10) > 0) System.out.print("js ");

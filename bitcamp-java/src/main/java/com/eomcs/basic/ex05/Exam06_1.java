@@ -13,7 +13,7 @@ public class Exam06_1 {
 
         System.out.println(i);
 
-        System.out.println(i++);
+        System.out.println(i++); //현재 i의 값을 넣고 ++은 그후에
         // System.out.println(4);
         // i = i + 1;
         System.out.println(i);

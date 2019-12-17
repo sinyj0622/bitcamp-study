@@ -5,8 +5,8 @@ public class Exam06_4 {
     public static void main(String[] args) {
         int i = 2;
         int result = i++ + i++ * i++;
-        // 연산자 우선수위: 
-        // 1) ++, -- 
+        // 연산자 우선순위: 
+        // 1) ++, --  ++이 *보다 우선순위이기 때문에
         // 2) *, /, %
         // 3) +, -
         // 4) =

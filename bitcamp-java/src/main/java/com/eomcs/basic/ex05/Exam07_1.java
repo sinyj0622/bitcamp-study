@@ -12,5 +12,8 @@ public class Exam07_1 {
         i = 2;
         i *= 5;
         System.out.println(i);
+        
+        //boolean b = true;
+        //b != true; 할당연산자 아님
     }
 }
