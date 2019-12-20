@@ -1,10 +1,14 @@
 package com.eomcs.basic.ex06.assignment;
 
+import java.util.Scanner;
+
 public class Test03 {
 
   public static void main(String[] args) {
+    Scanner keyScan = new Scanner(System.in);
     
-    int width = Console.inputInt();
+    System.out.print("밑변 길이? ");
+    int width = keyScan.nextInt();
     
     if (width % 2 == 0)
       width--;
@@ -16,11 +20,20 @@ public class Test03 {
         continue;
       }
       
-      Graphic.drawLine(spaceSize, ' ');
+      int count = 0;
+      while (count++ < spaceSize) {
+        System.out.print(" ");
+      }
       spaceSize--;
       
-      Graphic.drawLine(line, '$');
+      int x = 0;
+      while (x++ < line) {
+        System.out.print("*");
+      }
       System.out.println();
     }
+    
+    keyScan.close();
   }
+
 }

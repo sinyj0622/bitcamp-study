@@ -7,7 +7,7 @@ public class Exam3 {
     
     
   }
-  @Override // 컴파일러에게 기능을 재정의함을 알리는 명령이다
+  @Override // @컴파일러에게 기능을 재정의함을 알리는 명령이다 @Deprecated : ex)전에 기능을 사용하지말고 새로 사용해
   public String toString() {
     return "okok";
   }
