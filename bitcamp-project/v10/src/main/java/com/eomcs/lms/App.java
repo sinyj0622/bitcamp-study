@@ -6,14 +6,14 @@ public class App {
 
   static Scanner keyboard = new Scanner(System.in);
 
-
   public static void main(String[] args) {
 
-    
-    LessonHandler.keyboard = keyboard;
-    BoardHandler.keyboard = keyboard;
+    //lessonhandler의 메서드를 사용하기전에 그 메서드가 작업할때 사용할 키보드 객체를 설정해줘야한다.
+    LessonHandler.keyboard = keyboard; //메인이 실행하는 키보드 값을 넣어준다
     MemberHandler.keyboard = keyboard;
-    
+    BoardHandler.keyboard = keyboard;
+
+
     String command;
 
     do {
@@ -22,29 +22,24 @@ public class App {
 
       switch (command) {
         case "/lesson/add":
+          // 다른 클래스로 분리한 메서드를 호출할때는 클레스 이름을 지정해야한다
           LessonHandler.addLesson();
-
           break;
         case "/lesson/list":
           LessonHandler.listLesson();
-
           break;
         case "/member/add":
           MemberHandler.addMember();
-
           break;
         case "/member/list":
           MemberHandler.listMember();
-
           break;
         case "/board/add":
           BoardHandler.addBoard();
-
           break;
         case "/board/list":
           BoardHandler.listBoard();
-
-
+          break;
         default:
           if (!command.equalsIgnoreCase("quit")) {
             System.out.println("실행할 수 없는 명령입니다.");
@@ -58,9 +53,14 @@ public class App {
     keyboard.close();
   }
 
-  
 
-  
-  
+
+
 
 }
+
+
+
+
+
+
