@@ -7,11 +7,12 @@ public class Exam0430 {
   static class MyObject {
     int a;
     int b;
-  }
+  }  //클래스안에 있다고 하더라도 따로 .class만들어짐, 각각 따로 loading됨
+  //(중첩클래스 -nested class(static이 붙음),inner class(static 안붙음))
   
   static MyObject getMyObject() {
     // Exam03_3.java 에 정의된 MyObject 클래스 사용
-    MyObject ref = new MyObject();
+    MyObject ref = new MyObject();  //heap에 메모리를 만들어라
     ref.a = 100;
     ref.b = 200;
 
@@ -20,14 +21,14 @@ public class Exam0430 {
 
   public static void main(String[] args) {
     MyObject ref;
-    ref = getMyObject();
+    ref = getMyObject();  //ref(주소2740)
     System.out.println(ref.a);
     System.out.println(ref.b);
   }
 }
 
 // 1) main() 호출
-//    => JVM Stack: args, ref 변수 생성
+//    => JVM Stack: args, ref 변수 생성 (로컬변수 메모리 준비)
 // 2) getMyObject() 호출
 //    => JVM Stack: ref 변수 생성
 //    => Method Area: MyObject 클래스를 로딩
