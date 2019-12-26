@@ -21,7 +21,7 @@ public class Test03 {
       values[endPos] = temp;
       
     }
-    System.out.println();
+   System.out.println();
   }
   
   static void printValues(int[] values) {
@@ -30,5 +30,7 @@ public class Test03 {
     }
     System.out.println();
   }
+
+
+  }
   
-}
