@@ -24,7 +24,7 @@ public class Exam0420 {
             this.compute();
         }
         
-        
+        //인스턴스가 먼저 만들어지고 생성자가 호출된다
         public void compute() {
             this.sum = this.kor + this.eng + this.math;
             this.average = this.sum / 3f;
@@ -34,7 +34,7 @@ public class Exam0420 {
     public static void main(String[] args) {
         // Score 클래스에는 기본 생성자가 없기 때문에
         // 다음 문장은 컴파일 오류이다!
-        //Score s0 = new Score();
+        // Score s0 = new Score();
         
         // Score 인스턴스를 만든 후에는 
         // 생성자를 호출할 때 그 생성자의 파라미터 값을 주어야 한다.
@@ -54,7 +54,8 @@ public class Exam0420 {
 }
 
 // 생성자?
-// => 인스턴스(객체)를 생성한 후에 사용하기 전에 유효한 값으로 초기화시키 작업을 수행한다.
+// => 인스턴스(객체)를 생성한 후에 사용하기 전에(제대로 쓰일수 있도록)
+//    유효한(적당한) 값으로 초기화시키는 작업을 수행한다.
 // 
 
 
