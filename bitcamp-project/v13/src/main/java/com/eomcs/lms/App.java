@@ -9,23 +9,25 @@ public class App {
 
   static Scanner keyboard = new Scanner(System.in);
 
+
   public static void main(String[] args) {
 
 
-    
-    
+    LessonHandler.keyboard = keyboard;
+    BoardHandler.keyboard = keyboard;
+    MemberHandler.keyboard = keyboard;
 
     // boardhandler의 매서드가 사용할 메모리만 게시판 마다 따로 생성한다
     // 데이터는 개별관리하고 메서드는 공유한다
-    BoardHandler 게시판1 = new BoardHandler(keyboard);  //필수객체..생성자..
-    BoardHandler 게시판2 = new BoardHandler(keyboard, 200); 
-    BoardHandler 게시판3 = new BoardHandler(keyboard, 1000);
-    BoardHandler 게시판4 = new BoardHandler(keyboard);
-    BoardHandler 게시판5 = new BoardHandler(keyboard, 9000);
-    BoardHandler 게시판6 = new BoardHandler(keyboard, 20000);
+    BoardHandler 게시판1 = new BoardHandler();
+    BoardHandler 게시판2 = new BoardHandler(); 
+    BoardHandler 게시판3 = new BoardHandler();
+    BoardHandler 게시판4 = new BoardHandler();
+    BoardHandler 게시판5 = new BoardHandler();
+    BoardHandler 게시판6 = new BoardHandler();
 
-    LessonHandler 정규수업 = new LessonHandler(keyboard);
-    MemberHandler 일반회원 = new MemberHandler(keyboard);
+    LessonHandler 정규수업 = new LessonHandler();
+    MemberHandler 일반회원 = new MemberHandler();
 
     String command;
 

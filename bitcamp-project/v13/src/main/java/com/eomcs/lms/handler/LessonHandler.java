@@ -8,46 +8,40 @@ public class LessonHandler {
 
   // 인스턴스 필드
   // 각 수업 목록을 개별적으로 관리
-  Lesson[] lessons;
+  Lesson[] lessons = new Lesson[LESSON_SIZE];
   int lessonCount = 0;
-  public Scanner input;
 
   // 클래스 필드
   // =공유할 변수
   static final int LESSON_SIZE = 100;
-  
-  public LessonHandler(Scanner input) {
-    this.input = input;
-    this.lessons = new Lesson[LESSON_SIZE];
-  }
-  
+  public static Scanner keyboard;
 
   public void addLesson() {
     Lesson lesson = new Lesson();
 
     System.out.print("번호? ");
-    lesson.no = input.nextInt();
+    lesson.no = keyboard.nextInt();
 
-    input.nextLine(); 
+    keyboard.nextLine(); 
 
     System.out.print("수업명? ");
-    lesson.title = input.nextLine();
+    lesson.title = keyboard.nextLine();
 
     System.out.print("설명? ");
-    lesson.description = input.nextLine();
+    lesson.description = keyboard.nextLine();
 
     System.out.print("시작일? ");
-    lesson.startDate = Date.valueOf(input.next());
+    lesson.startDate = Date.valueOf(keyboard.next());
 
     System.out.print("종료일? ");
-    lesson.endDate = Date.valueOf(input.next());
+    lesson.endDate = Date.valueOf(keyboard.next());
 
     System.out.print("총수업시간? ");
-    lesson.totalHours = input.nextInt();
+    lesson.totalHours = keyboard.nextInt();
 
     System.out.print("일수업시간? ");
-    lesson.dayHours = input.nextInt();
-    input.nextLine(); 
+    lesson.dayHours = keyboard.nextInt();
+    keyboard.nextLine(); 
 
     this.lessons[this.lessonCount++] = lesson;
     System.out.println("저장하였습니다.");
