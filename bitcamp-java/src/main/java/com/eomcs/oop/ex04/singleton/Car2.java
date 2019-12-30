@@ -10,10 +10,12 @@ public class Car2 {
         System.out.println("Car2()");
     }
     
+    
     public static Car2 getInstance() {
-        if (instance == null)
-            instance = new Car2();
-        return instance;
+      if (Car2.instance == null) {
+        Car2.instance = new Car2();
+      }
+        return Car2.instance; // 주소를 가르킨다
     }
 }
 
