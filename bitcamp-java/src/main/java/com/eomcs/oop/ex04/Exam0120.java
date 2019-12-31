@@ -10,8 +10,8 @@ public class Exam0120 {
         // => 이 클래스에는 날짜 데이터를 다룰 수 있는 다양한 메서드가 들어 있다.
         
         // Date() 기본 생성자는 메모리를 오늘 날짜 값으로 초기화시킨다.
-        Date d1 = new Date();
-        System.out.println(d1);
+       Date d1 = new Date();
+       System.out.println(d1);
         
         // 년, 월, 일 값으로 날짜 인스턴스를 초기화시킨다.
         Date d2 = new Date(118, 2, 20); //1900년을 기본으로

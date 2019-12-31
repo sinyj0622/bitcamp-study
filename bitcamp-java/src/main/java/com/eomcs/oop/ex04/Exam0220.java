@@ -1,4 +1,4 @@
-// 인스턴스 메서드와 클래스 메서드의 활용 - wrapper 클래스 
+// 인스턴스 메서드와 클래스 메서드의 활용 - wrapper 클래스  (java.lang 패키지에 정의)
 package com.eomcs.oop.ex04;
 
 public class Exam0220 {
@@ -19,11 +19,11 @@ public class Exam0220 {
     System.out.println(i2.compareTo(i1));
     System.out.println(i2.compareTo(i3));
 
-    int v1 = i2.intValue();
+    int v1 = i2.intValue(); //integer 객체에서 int형 값을 뽑아내는 메소드
     System.out.println(v1);
 
     // 스태틱 메서드 = 클래스 메서드 사용
-    int v2 = Integer.parseInt("1280");
+    int v2 = Integer.parseInt("1280"); //String 객체에서 int형 값을 뽑아내는 메소드
     String s1 = Integer.toBinaryString(77);
     String s2 = Integer.toOctalString(77);
     String s3 = Integer.toHexString(77);

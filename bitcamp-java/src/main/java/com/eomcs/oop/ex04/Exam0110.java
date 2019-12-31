@@ -24,7 +24,8 @@ public class Exam0110 {
         
         // 바이트 배열을 가지고 스트링 만들기
         // => '가각똘똥' 문자를 EUC-KR 코드 값으로 바이트 배열을 만든다.
-        byte[] bytes = {(byte)0xb0, (byte)0xa1, (byte)0xb0, (byte)0xa2, 
+        byte[] bytes = 
+          {(byte)0xb0, (byte)0xa1, (byte)0xb0, (byte)0xa2, 
                 (byte)0xb6, (byte)0xca, (byte)0xb6, (byte)0xcb};
         
         // => EUC-KR 코드 값이 들어 있는 바이트 배열을 가지고 스트링 인스턴스를 초기화시킨다.

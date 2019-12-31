@@ -30,12 +30,12 @@ public class Exam0240 {
         // 인스턴스 메서드 활용 
         String str = today.toString(); //util
         System.out.println(str);
+        // println()에 문자열을 주지 않고 그냥 객체(의 주소)를 넘기면
+        // println() 내부에서 해당 객체의 toString() 호출한 후에 그 리턴값을 출력한다
         
         // 스태틱 메서드 활용
         java.sql.Date d = java.sql.Date.valueOf("2019-12-30");
         System.out.println(d);
-        // println()에 문자열을 주지 않고 그냥 객체(의 주소)를 넘기면
-        // println() 내부에서 해당 객체의 toString() 호출한 후에 그 리턴값을 출력한다
     }
 }
 

@@ -10,7 +10,7 @@ public class Exam0210 {
         char c = s1.charAt(1);  //s1이라는 인스턴스주소를 사용하기 때문에 인스턴스 메서드다..
         System.out.println(c);
         
-        System.out.println(s1.compareTo("Helli")); //양수
+        System.out.println(s1.compareTo("Helli")); //양수 s1을 helli와 비교할때
         System.out.println(s1.compareTo("Hello")); //같다
         System.out.println(s1.compareTo("Hellu")); //음수
         
@@ -58,12 +58,18 @@ public class Exam0210 {
         System.out.println(s5);
         
         // => primitive 값을 문자열로 만든다.
-        String s6 = String.valueOf(true);
-        String s7 = String.valueOf(3.14f);
+        String s6 = String.valueOf(true);  //valueOf();
+        String s7 = String.valueOf(3.14f); //문자열에 대한 원시데이터형(primitive value)을 리턴
         String s8 = String.valueOf(100);
         System.out.println(s6);
         System.out.println(s7);
         System.out.println(s8);
+        
+
+        
+        
+        
+
         
         
     }

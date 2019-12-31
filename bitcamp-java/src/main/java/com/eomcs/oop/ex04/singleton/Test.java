@@ -24,7 +24,7 @@ public class Test {
         Car2 x3 = Car2.getInstance();
          System.out.println(x1 == x2);
          System.out.println(x2 == x3);
-         System.out.println(x1 == x3);
+         System.out.println(x3 == x1);
     }
 
 }
