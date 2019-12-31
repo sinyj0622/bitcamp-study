@@ -6,16 +6,17 @@ import com.eomcs.lms.domain.Member;
 
 public class MemberHandler {
 
- 
+  Member[] members;
+  int memberCount = 0;
   public Scanner input;
   
-  MemberList memberList;
 
 
+  static final int MEMBER_SIZE = 100; 
 
   public MemberHandler(Scanner input){
     this.input = input;
-    memberList = new MemberList();
+    this.members = new Member[MEMBER_SIZE];
   }
   
   
@@ -44,14 +45,14 @@ public class MemberHandler {
 
     member.setRegisteredDate(new Date(System.currentTimeMillis()));
 
-    memberList.add(member);
+    this.members[this.memberCount++] = member;
     System.out.println("저장하였습니다.");
 
   }
   public void listMember() {
-   Member[] member = memberList.toArray();
-   for (Member m : member) {
-      System.out.printf("%d, %s, %s, %s, %s\n", 
+    for (int i = 0; i < this.memberCount; i++) {  
+      Member m = this.members[i];
+      System.out.printf("%d, %s, %s,  %s, %s\n", 
           m.getNo(), m.getName(), m.getEmail(), m.getTel(), m.getRegisteredDate());
     }
   } 
