@@ -50,7 +50,7 @@ public class LessonHandler {
   public void listLesson() {
     Object[] arr = this.lessonList.toArray();
     for (Object obj : arr) {
-      Lesson l = (Lesson) obj;
+      Lesson l = (Lesson)obj;
       System.out.printf("%d, %s, %s ~ %s, %d\n",
           l.getNo(), l.getTitle(), 
           l.getStartDate(), l.getEndDate(), l.getTotalHours());

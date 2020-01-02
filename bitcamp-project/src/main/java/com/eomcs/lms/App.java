@@ -12,6 +12,9 @@ public class App {
   public static void main(String[] args) {
 
 
+    
+    
+
     // boardhandler의 매서드가 사용할 메모리만 게시판 마다 따로 생성한다
     // 데이터는 개별관리하고 메서드는 공유한다
     BoardHandler 게시판1 = new BoardHandler(keyboard);  //필수객체..생성자..

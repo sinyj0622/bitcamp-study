@@ -49,14 +49,14 @@ public class BoardHandler {
   }
   
   public void detailBoard() {
-    System.out.print("게시물 인덱스? ");
+    System.out.print("게시물 번호? ");
     int index = input.nextInt();
     input.nextLine(); // 숫자 뒤의 남은 공백 제거
     
     Board board = (Board) this.boardList.get(index);
     
     if (board == null) {
-      System.out.println("게시물 인덱스가 유효하지 않습니다.");
+      System.out.println("게시물 번호가 유효하지 않습니다.");
       return;
     }
     
