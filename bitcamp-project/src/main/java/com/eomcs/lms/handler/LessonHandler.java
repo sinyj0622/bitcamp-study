@@ -42,7 +42,7 @@ public class LessonHandler {
     lesson.setDayHours(input.nextInt());
     input.nextLine(); 
     
-    lessonList.add(lesson);
+    this.lessonList.add(lesson);
     
     System.out.println("저장하였습니다.");
   }
