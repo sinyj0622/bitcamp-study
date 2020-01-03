@@ -13,7 +13,7 @@ package com.eomcs.oop.ex05.e;
 public class B extends A {
     int v2;
     
-    static {
+    static {  //스태틱 블록
         System.out.println("B클래스의 static{} 실행!");
     }
 }
