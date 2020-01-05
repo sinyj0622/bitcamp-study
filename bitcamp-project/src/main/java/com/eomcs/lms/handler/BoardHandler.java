@@ -21,13 +21,10 @@ public class BoardHandler {
     this.boardList = new ArrayList(capacity);
   }
   
-  
-  
-  
   public void listBoard() {
     Object[] arr = this.boardList.toArray();
     for (Object obj : arr) {
-      Board b = (Board)obj;
+    	Board b = (Board)obj;
       System.out.printf("%d, %s, %s, %d\n", 
           b.getNo(), b.getTitle(), b.getDate(), b.getViewCount());
     }
@@ -52,21 +49,21 @@ public class BoardHandler {
   }
   
   public void detailBoard() {
-    System.out.print("게시물 번호? ");
+    System.out.print("게시물 인덱스? ");
     int index = input.nextInt();
     input.nextLine(); // 숫자 뒤의 남은 공백 제거
     
-    Board b = (Board) this.boardList.get(index);
+    Board board = (Board) this.boardList.get(index);
     
-    if (b == null) {
-      System.out.println("게시물 번호가 유효하지 않습니다.");
+    if (board == null) {
+      System.out.println("게시물 인덱스 유효하지 않습니다.");
       return;
     }
     
-    System.out.printf("번호: %d\n", b.getNo());
-    System.out.printf("제목: %s\n", b.getTitle());
-    System.out.printf("등록일: %s\n", b.getDate());
-    System.out.printf("조회수: %d\n", b.getViewCount());
+    System.out.printf("번호: %d\n", board.getNo());
+    System.out.printf("제목: %s\n", board.getTitle());
+    System.out.printf("등록일: %s\n", board.getDate());
+    System.out.printf("조회수: %d\n", board.getViewCount());
   }
 
 }

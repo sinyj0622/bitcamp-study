@@ -8,7 +8,7 @@ public class Exam0411 {
     // 다형적 변수가 없다면?
     // Sedan의 모델명과 cc를 출력하는 메서드와 
     // Truck의 모델명과 cc를 출력하는 메서드를 모두 만들어야 하는 번거로움이 있다.
-    public static void printSedan(Sedan sedan) { //하위클래스까지 넘길수있다
+    public static void printSedan(Sedan sedan) { 
         System.out.printf("모델명: %s\n", sedan.model);
         System.out.printf("cc: %d\n", sedan.cc);
         System.out.println("-------------------------");
