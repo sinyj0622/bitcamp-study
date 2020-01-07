@@ -3,7 +3,7 @@ package com.eomcs.oop.ex08.c;
 
 // Car 클래스는 Sedan과 Truck의 공통 기능을 관리하기 위해 만든 클래스이다.
 // 즉 Car 클래스는 직접 인스턴스를 만들어 사용하기 위해서 정의한 클래스가 아니라,
-// Sedan과 Truck에서 겹치는 코드를 공통 관리하기 위해 만든 클래스이다.
+// Sedan과 Truck에서 '겹치는 코드를 공통 관리하기 위해 만든 클래스'이다.
 // 가능한 직접 Car 클래스를 사용하는 것을 피해야 한다.
 public class Exam01 {
 
@@ -19,6 +19,8 @@ public class Exam01 {
         
         // generalization 과정에서 정의한 수퍼 클래스에 대해 
         // 직접 사용하지 못하도록 보통 추상클래스로 선언한다.
+        
+        
     }
 
 }

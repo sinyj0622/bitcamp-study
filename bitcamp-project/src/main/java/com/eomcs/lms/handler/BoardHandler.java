@@ -24,7 +24,7 @@ public class BoardHandler {
   public void listBoard() {
     Object[] arr = this.boardList.toArray();
     for (Object obj : arr) {
-    	Board b = (Board)obj;
+      Board b = (Board)obj;
       System.out.printf("%d, %s, %s, %d\n", 
           b.getNo(), b.getTitle(), b.getDate(), b.getViewCount());
     }
@@ -56,7 +56,7 @@ public class BoardHandler {
     Board board = (Board) this.boardList.get(index);
     
     if (board == null) {
-      System.out.println("게시물 인덱스 유효하지 않습니다.");
+      System.out.println("게시물 인덱스가 유효하지 않습니다.");
       return;
     }
     

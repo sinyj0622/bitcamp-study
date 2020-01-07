@@ -42,7 +42,7 @@ public class LessonHandler {
     lesson.setDayHours(input.nextInt());
     input.nextLine(); 
     
-    this.lessonList.add(lesson);
+    lessonList.add(lesson);
     
     System.out.println("저장하였습니다.");
   }
@@ -50,7 +50,7 @@ public class LessonHandler {
   public void listLesson() {
     Object[] arr = this.lessonList.toArray();
     for (Object obj : arr) {
-    	Lesson l = (Lesson)obj;
+      Lesson l = (Lesson) obj;
       System.out.printf("%d, %s, %s ~ %s, %d\n",
           l.getNo(), l.getTitle(), 
           l.getStartDate(), l.getEndDate(), l.getTotalHours());

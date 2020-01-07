@@ -18,7 +18,7 @@ public class MemberHandler {
   public void listMember() {
     Object[] arr = this.memberList.toArray();
     for (Object obj : arr) {
-    	Member m = (Member)obj;
+      Member m = (Member) obj;
       System.out.printf("%d, %s, %s, %s, %s\n", 
           m.getNo(), m.getName(), m.getEmail(), 
           m.getTel(), m.getRegisteredDate());

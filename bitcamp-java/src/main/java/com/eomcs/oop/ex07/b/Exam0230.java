@@ -19,6 +19,7 @@ public class Exam0230 extends C {
         // => 그럼 이 클래스를 개발자가 사용하지 말라는 것인가?
         //    개발자들이 이 클래스의 인스턴스를 만들 수 있도록 스태틱 메서드를 제공한다.
         //    당연히 그 메서드는 외부에서 호출할 수 있도록 public으로 공개되었다.
+        // 인스턴스 생성과정이 복잡하기 때문에~
         Calendar cal1 = Calendar.getInstance();
         Calendar cal2 = Calendar.getInstance();
         System.out.println(cal1 == cal2);

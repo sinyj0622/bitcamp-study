@@ -1,6 +1,7 @@
 // 캡슐화(encapsulation) - 응용
 package com.eomcs.oop.ex07.b;
 
+import java.util.Calendar;
 import com.eomcs.oop.ex07.b.sub.C;
 
 public class Exam0220 extends C {
@@ -11,17 +12,21 @@ public class Exam0220 extends C {
         // 따라서 인스턴스를 생성할 수 없다.
         // 
         // 그럼 왜 생성자를 private으로 만들었는가?
-        // => 개발자가 직접 인스턴스를 생성하면 너무 복잡하니,
-        //    다른 메서드를 통해 인스턴스를 생성하라는 의미다!
-        Car c2 = Car.create("티코");
+        // => ***개발자가 직접 인스턴스를 생성하면 너무 복잡하니,
+        //    다른 메서드를 통해 인스턴스를 생성하라는 의미다!***
+        Car c2 = Car.create("티코"); //메소드를 사용해서 만드는이유?
         System.out.printf("%s,%s,%d,%d\n", 
                 c2.model, c2.maker, c2.cc, c2.valve);
         
+        Calendar obj = Calendar.getInstance();
     }
 }
 
-
-
+//메소드를 사용해서 만드는이유?
+// => 다음의 경우처럼 인스턴스 생성과정이 복잡할 경우에 
+//    직접 인스턴스를 생성하기 보다는 
+//    인스턴스를 생성해주는 메서드를 사용하여 
+//    인스턴스를 만든다.
 
 
 
