@@ -28,12 +28,30 @@ public class App {
           break;
         case "/lesson/list":
           lessonHandler.listLesson();
+          break;        
+        case "/lesson/detail":
+          lessonHandler.detailLesson();
+          break;
+        case "/lesson/update":
+          lessonHandler.updateLesson();
+          break;
+        case "/lesson/delete":
+          lessonHandler.deleteLesson();
           break;
         case "/member/add":
           memberHandler.addMember();
           break;
         case "/member/list":
           memberHandler.listMember();
+          break;
+        case "/member/detail":
+          memberHandler.detailMember();
+          break;
+        case "/member/update":
+          memberHandler.updateMember();
+          break;
+        case "/member/delete":
+          memberHandler.deleteMember();
           break;
         case "/board/add":
           boardHandler.addBoard();
@@ -46,6 +64,9 @@ public class App {
           break;
         case "/board/update":
           boardHandler.updateBoard();
+          break;
+        case "/board/delete":
+          boardHandler.deleteBoard();
           break;
         default:
           if (!command.equalsIgnoreCase("quit")) {

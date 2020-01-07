@@ -59,4 +59,78 @@ public class LessonHandler {
     }
   }
   
+  public void detailLesson(){
+    System.out.print("게시글 인덱스? ");
+    int index = input.nextInt();
+    input.nextLine(); // 숫자 뒤의 남은 공백 제거
+
+    Lesson lesson = this.lessonList.get(index);
+
+    if (lesson == null) {
+      System.out.println("게시글 인덱스가 유효하지 않습니다.");
+      return;
+    }
+
+    System.out.printf("번호: %d\n", lesson.getNo());
+    System.out.printf("수업명: %s\n", lesson.getTitle());
+    System.out.printf("수업내용: %s\n", lesson.getDescription());
+    System.out.printf("기간: %s ~ %s\n", lesson.getStartDate(), lesson.getEndDate() );
+    System.out.printf("총수업시간: %d\n", lesson.getTotalHours());
+    System.out.printf("일수업시간: %d\n", lesson.getDayHours());
+  }
+  
+  
+  public void updateLesson() {
+    System.out.print("번호? ");
+    int index = input.nextInt();
+    input.nextLine(); // 숫자 뒤의 남은 공백 제거
+
+    Lesson oldlesson = this.lessonList.get(index);
+
+    if (oldlesson == null) {
+      System.out.println("해당 수업을 찾을 수 없습니다.");
+      return;
+    }
+
+
+    System.out.printf("수업내용(%s)? ", oldlesson.getDescription());
+    String description = input.nextLine();
+
+    if (description.length() == 0) {
+      System.out.println("수업내용 변경을 취소했습니다.");
+      return;
+    }
+    
+    Lesson newlesson = new Lesson();
+    newlesson.setNo(oldlesson.getNo());
+    newlesson.setTitle(oldlesson.getTitle());
+    newlesson.setDescription(description);
+    newlesson.setStartDate(oldlesson.getStartDate());
+    newlesson.setEndDate(oldlesson.getEndDate());
+    newlesson.setTotalHours(oldlesson.getTotalHours());
+    newlesson.setDayHours(oldlesson.getDayHours());
+    
+
+    this.lessonList.set(index, newlesson); //지정된 위치에 새 게시글로 바꿈
+    
+    System.out.println("수업을 변경했습니다.");
+  }
+  
+  public void deleteLesson() {
+    System.out.print("번호? ");
+    int index = input.nextInt();
+    input.nextLine(); // 숫자 뒤의 남은 공백 제거
+
+    Lesson lesson = this.lessonList.get(index);
+
+    if (lesson == null) {
+      System.out.println("해당 수업을 찾을 수 없습니다.");
+      return;
+    }
+
+  this.lessonList.remove(index);
+  System.out.println("수업을 삭제했습니다.");
+    
+  }     
+    
 }

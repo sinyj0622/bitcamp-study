@@ -56,14 +56,14 @@ public class BoardHandler {
   }
 
   public void detailBoard() {
-    System.out.print("게시물 인덱스? ");
+    System.out.print("게시글 인덱스? ");
     int index = input.nextInt();
     input.nextLine(); // 숫자 뒤의 남은 공백 제거
 
     Board board = this.boardList.get(index);
 
     if (board == null) {
-      System.out.println("게시물 인덱스가 유효하지 않습니다.");
+      System.out.println("게시글 인덱스가 유효하지 않습니다.");
       return;
     }
 
@@ -75,14 +75,14 @@ public class BoardHandler {
 
 
   public void updateBoard() {
-    System.out.print("게시물 인덱스? ");
+    System.out.print("게시글 인덱스? ");
     int index = input.nextInt();
     input.nextLine(); // 숫자 뒤의 남은 공백 제거
 
     Board oldBoard = this.boardList.get(index);
 
     if (oldBoard == null) {
-      System.out.println("게시물 인덱스가 유효하지 않습니다.");
+      System.out.println("게시글 인덱스가 유효하지 않습니다.");
       return;
     }
 
@@ -105,6 +105,25 @@ public class BoardHandler {
     
     System.out.println("게시글을 변경했습니다");
   }
+  
+  public void deleteBoard() {
+    System.out.print("게시글 인덱스? ");
+    int index = input.nextInt();
+    input.nextLine(); // 숫자 뒤의 남은 공백 제거
+
+    Board board = this.boardList.get(index);
+
+    if (board == null) {
+      System.out.println("게시글 인덱스가 유효하지 않습니다.");
+      return;
+    }
+
+  this.boardList.remove(index);
+  System.out.println("게시글을 삭제했습니다.");
+    
+    
+  }
+  
 
 }
 

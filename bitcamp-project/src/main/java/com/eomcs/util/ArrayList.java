@@ -77,6 +77,8 @@ public class ArrayList<E> {
     return old;
   }
 
+  
+  
   public E remove(int index) {
     if (index < 0 || index >= this.size) 
       return null;
@@ -97,6 +99,8 @@ public class ArrayList<E> {
     return old;
   }
 
+  
+  
   public static void main(String[] args) {
     ArrayList<String> list = new ArrayList<>();
     list.add("aaa");

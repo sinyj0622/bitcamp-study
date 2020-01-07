@@ -56,4 +56,76 @@ public class MemberHandler {
 
     System.out.println("저장하였습니다.");
   }
+  
+  public void detailMember() {
+    System.out.print("번호? ");
+    int index = input.nextInt();
+    input.nextLine(); // 숫자 뒤의 남은 공백 제거
+
+    Member member = this.memberList.get(index);
+
+    if (member == null) {
+      System.out.println("해당 학생을 찾을 수 없습니다.");
+      return;
+    }
+
+    System.out.printf("번호: %d\n", member.getNo());
+    System.out.printf("이름: %s\n", member.getName());
+    System.out.printf("이메일: %s\n", member.getEmail());
+    System.out.printf("암호: %s\n", member.getPassword());
+    System.out.printf("사진: %s\n", member.getPhoto());
+    System.out.printf("전화: %s\n", member.getTel());
+  }
+  
+  public void updateMember() {
+    System.out.print("번호? ");
+    int index = input.nextInt();
+    input.nextLine(); // 숫자 뒤의 남은 공백 제거
+
+    Member oldmember = this.memberList.get(index);
+
+    if (oldmember == null) {
+      System.out.println("해당 수업을 찾을 수 없습니다.");
+      return;
+    }
+
+
+    System.out.printf("이름(%s)? ", oldmember.getName());
+    String Name = input.nextLine();
+
+    if (Name.length() == 0) {
+      System.out.println("해당 회원을 찾을 수 없습니다.");
+      return;
+    }
+    
+    Member newMember = new Member();
+    newMember.setNo(oldmember.getNo());
+    newMember.setName(Name);
+    newMember.setEmail(oldmember.getEmail());
+    newMember.setPassword(oldmember.getPassword());
+    newMember.setPhoto(oldmember.getPhoto());
+    newMember.setTel(oldmember.getTel());
+    
+
+    this.memberList.set(index, newMember); //지정된 위치에 새 게시글로 바꿈
+    
+    System.out.println("회원을 변경했습니다.");
+  }
+  
+  public void deleteMember() {
+    System.out.print("번호? ");
+    int index = input.nextInt();
+    input.nextLine(); // 숫자 뒤의 남은 공백 제거
+
+    Member member = this.memberList.get(index);
+
+    if (member == null) {
+      System.out.println("해당 회원을 찾을 수 없습니다.");
+      return;
+    }
+
+  this.memberList.remove(index);
+  System.out.println("회원을 삭제했습니다.");
+    
+  }
 }
