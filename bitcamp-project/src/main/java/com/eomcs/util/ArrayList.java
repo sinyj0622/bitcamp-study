@@ -66,6 +66,60 @@ public class ArrayList<E> {
     }
   }
 
+  @SuppressWarnings("unchecked")
+  public E set(int index, E obj) {
+    if (index < 0 || index >= this.size) 
+      return null;
+
+    E old = (E) this.list[index];
+    this.list[index] = obj; //obj 값으로 넣겠다..는말
+
+    return old;
+  }
+
+  public E remove(int index) {
+    if (index < 0 || index >= this.size) 
+      return null;
+
+    // 삭제할 항목을 따로 보관해둔다
+    E old = (E) this.list[index];
+
+
+    for (int i = index + 1; i < this.size; i++) {
+      this.list[i - 1] = this.list[i];
+    }
+
+    this.size--;
+
+    this.list[this.size] = null;
+
+    // 삭제한 항목을 리턴한다.
+    return old;
+  }
+
+  public static void main(String[] args) {
+    ArrayList<String> list = new ArrayList<>();
+    list.add("aaa");
+    list.add("bbb");
+    list.add("ccc");
+    list.add("ddd");
+    list.add("eee");
+    list.add("fff");
+
+    list.remove(6);
+    /*
+    list.set(0, "0000");
+    list.set(3, "3333");
+    list.set(5, "5555");
+    list.set(-1, "ㅋㅋㅋ");
+    list.set(6, "^^^");
+*/
+    String[] arr = list.toArray(new String[] {});
+    for (String s : arr) {
+      System.out.println(s);
+    }
+  }
+
   public int size() {
     return this.size;
   }
