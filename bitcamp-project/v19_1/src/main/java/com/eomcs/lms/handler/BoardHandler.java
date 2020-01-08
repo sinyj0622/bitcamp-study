@@ -3,23 +3,23 @@ package com.eomcs.lms.handler;
 import java.sql.Date;
 import java.util.Scanner;
 import com.eomcs.lms.domain.Board;
-import com.eomcs.util.ArrayList03;
+import com.eomcs.util.ArrayList;
 
 public class BoardHandler {
 
-  ArrayList03<Board> boardList;
+  ArrayList<Board> boardList;
 
   Scanner input;
 
 
   public BoardHandler(Scanner input) {
     this.input = input;
-    this.boardList = new ArrayList03<Board>();  //Board 생략가능
+    this.boardList = new ArrayList<Board>();  //Board 생략가능
   }
 
   public BoardHandler(Scanner input, int capacity) {
     this.input = input;
-    this.boardList = new ArrayList03<>(capacity);
+    this.boardList = new ArrayList<>(capacity);
   }
 
   public void listBoard() {

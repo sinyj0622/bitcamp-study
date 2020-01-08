@@ -3,17 +3,17 @@ package com.eomcs.lms.handler;
 import java.sql.Date;
 import java.util.Scanner;
 import com.eomcs.lms.domain.Member;
-import com.eomcs.util.ArrayList03;
+import com.eomcs.util.ArrayList;
 
 public class MemberHandler {
 
-  ArrayList03<Member> memberList;  //멤버객체만 넣고뺀다
+  ArrayList<Member> memberList;  //멤버객체만 넣고뺀다
 
   public Scanner input;
 
   public MemberHandler(Scanner input) {
     this.input = input;
-    this.memberList = new ArrayList03<>();
+    this.memberList = new ArrayList<>();
   }
 
   public void listMember() {
