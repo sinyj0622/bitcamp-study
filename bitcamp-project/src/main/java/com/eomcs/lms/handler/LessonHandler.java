@@ -1,47 +1,31 @@
+// 사용자 입력을 받는 코드를 별도의 메소드로 분리한다.
 package com.eomcs.lms.handler;
 
-import java.sql.Date;
-import java.util.Scanner;
 import com.eomcs.lms.domain.Lesson;
-import com.eomcs.util.ArrayList03;
+import com.eomcs.util.ArrayList;
+import com.eomcs.util.Prompt;
 
 public class LessonHandler {
 
-  ArrayList03<Lesson> lessonList;
+  ArrayList<Lesson> lessonList;
 
-  public Scanner input;
+  public Prompt prompt;
 
-  public LessonHandler(Scanner input) {
-    this.input = input;
-    this.lessonList = new ArrayList03<>();
+  public LessonHandler(Prompt prompt) {
+    this.prompt = prompt;
+    this.lessonList = new ArrayList<>();
   }
 
   public void addLesson() {
     Lesson lesson = new Lesson();
 
-    System.out.print("번호? ");
-    lesson.setNo(input.nextInt());
-
-    input.nextLine(); 
-
-    System.out.print("수업명? ");
-    lesson.setTitle(input.nextLine());
-
-    System.out.print("설명? ");
-    lesson.setDescription(input.nextLine());
-
-    System.out.print("시작일? ");
-    lesson.setStartDate(Date.valueOf(input.next()));
-
-    System.out.print("종료일? ");
-    lesson.setEndDate(Date.valueOf(input.next()));
-
-    System.out.print("총수업시간? ");
-    lesson.setTotalHours(input.nextInt());
-
-    System.out.print("일수업시간? ");
-    lesson.setDayHours(input.nextInt());
-    input.nextLine(); 
+    lesson.setNo(prompt.inputInt("번호? "));
+    lesson.setTitle(prompt.inputString("수업명? "));
+    lesson.setDescription(prompt.inputString("설명? "));
+    lesson.setStartDate(prompt.inputDate("시작일? "));
+    lesson.setEndDate(prompt.inputDate("종료일? "));
+    lesson.setTotalHours(prompt.inputInt("총수업시간? "));
+    lesson.setDayHours(prompt.inputInt("일수업시간? "));
 
     lessonList.add(lesson);
 
@@ -60,16 +44,14 @@ public class LessonHandler {
   }
 
   public void detailLesson() {
-    System.out.print("수업 인덱스? ");
-    int index = input.nextInt();
-    input.nextLine(); // 숫자 뒤의 남은 공백 제거
+    int index = indexOfLesson(prompt.inputInt("번호? "));
 
-    Lesson lesson = this.lessonList.get(index);
-
-    if (lesson == null) {
-      System.out.println("수업 인덱스가 유효하지 않습니다.");
+    if (index == -1) {
+      System.out.println("해당 번호의 수업이 없습니다.");
       return;
     }
+
+    Lesson lesson = this.lessonList.get(index);
 
     System.out.printf("번호: %d\n", lesson.getNo());
     System.out.printf("수업명: %s\n", lesson.getTitle());
@@ -81,16 +63,14 @@ public class LessonHandler {
   }
 
   public void updateLesson() {
-    System.out.print("수업 인덱스? ");
-    int index = input.nextInt();
-    input.nextLine(); // 숫자 뒤의 남은 공백 제거
+    int index = indexOfLesson(prompt.inputInt("번호? ")); //레슨객체의 번호를 찾아리턴
 
-    Lesson oldLesson = this.lessonList.get(index);
-
-    if (oldLesson == null) {
-      System.out.println("수업 인덱스가 유효하지 않습니다.");
+    if (index == -1) {
+      System.out.println("해당 번호의 수업이 없습니다.");
       return;
     }
+
+    Lesson oldLesson = this.lessonList.get(index);
 
     boolean changed = false;
     String inputStr = null;
@@ -98,84 +78,60 @@ public class LessonHandler {
 
     newLesson.setNo(oldLesson.getNo());
 
-    System.out.printf("수업명?(%s) ", oldLesson.getTitle());
-    inputStr = input.nextLine();
-    if (inputStr.length() == 0) {
-      newLesson.setTitle(oldLesson.getTitle()); //이전수업명
-    } else {
-      newLesson.setTitle(inputStr);
-      changed = true;
-    }
+    newLesson.setTitle(prompt.inputString(
+        String.format("수업명(%s)? ", oldLesson.getTitle())
+        , oldLesson.getTitle()));
 
-    System.out.print("설명? ");
-    inputStr = input.nextLine();
-    if (inputStr.length() == 0) {
-      newLesson.setDescription(oldLesson.getDescription()); //이전수업명
-    } else {
-      newLesson.setDescription(inputStr);
-      changed = true;
-    }
+    newLesson.setDescription(prompt.inputString("설명? ", oldLesson.getTitle()));
 
-    System.out.printf("시작일(%s)? ", oldLesson.getStartDate());
-    inputStr = input.nextLine();
-    if (inputStr.length() == 0) {
-      newLesson.setStartDate(oldLesson.getStartDate()); //이전수업명
-    } else {
-      newLesson.setStartDate(Date.valueOf(inputStr));
-      changed = true;
-    }
+    newLesson.setStartDate(prompt.inputDate(
+        String.format("시작일(%s)? ", oldLesson.getStartDate())
+        , oldLesson.getStartDate()));
 
-    System.out.printf("종료일(%s)? ", oldLesson.getEndDate());
-    inputStr = input.nextLine();
-    if (inputStr.length() == 0) {
-      newLesson.setEndDate(oldLesson.getEndDate()); //이전수업명
-    } else {
-      newLesson.setEndDate(Date.valueOf(inputStr));
-      changed = true;
-    }
+    newLesson.setEndDate(prompt.inputDate(
+        String.format("종료일(%s)? ", oldLesson.getEndDate())
+        , oldLesson.getEndDate()));
 
-    System.out.printf("총수업시간(%d)? ",oldLesson.getTotalHours());
-    inputStr = input.nextLine();
-    if (inputStr.length() == 0) {
-      newLesson.setTotalHours(oldLesson.getTotalHours()); //이전수업명
-    } else {
-      newLesson.setTotalHours(Integer.parseInt(inputStr));
-      changed = true;
-    }
+    newLesson.setTotalHours(prompt.inputInt(
+        String.format("총수업시간(%d)? ", oldLesson.getTotalHours())
+        , oldLesson.getTotalHours()));
 
-    System.out.printf("일수업시간(%d)? ",oldLesson.getDayHours());
-    inputStr = input.nextLine();
-    if (inputStr.length() == 0) {
-      newLesson.setDayHours(oldLesson.getDayHours()); //이전수업명
-    } else {
-      newLesson.setDayHours(Integer.parseInt(inputStr));
-      changed = true;
-    }
+    newLesson.setDayHours(prompt.inputInt(
+        String.format("일수업시간(%d)? ", oldLesson.getDayHours())
+        , oldLesson.getDayHours()));
 
-    if (changed) {
-      this.lessonList.set(index, newLesson);
-      System.out.println("수업을 변경했습니다.");
-    } else {
+
+    if (oldLesson.equals(newLesson)) {
       System.out.println("수업 변경을 취소하였습니다.");
+      return;
     }
+    
+    this.lessonList.set(index, newLesson);
+    System.out.println("수업을 변경했습니다.");
   }
 
-
   public void deleteLesson() {
-    System.out.print("수업 인덱스? ");
-    int index = input.nextInt();
-    input.nextLine(); // 숫자 뒤의 남은 공백 제거
+    int index = indexOfLesson(prompt.inputInt("번호? "));
 
-    Lesson lesson = this.lessonList.get(index);
-
-    if (lesson == null) {
-      System.out.println("수업 인덱스가 유효하지 않습니다.");
+    if (index == -1) {
+      System.out.println("해당 번호의 수업이 없습니다.");
       return;
     }
 
     this.lessonList.remove(index);
+
     System.out.println("수업을 삭제했습니다.");
   }
 
-}
+  private int indexOfLesson(int no) {
+    for (int i = 0; i < this.lessonList.size(); i++) {
+      if (this.lessonList.get(i).getNo() == no) {
+        return i;
+      }
+    }
+    return -1;
+  }
 
+  
+
+}

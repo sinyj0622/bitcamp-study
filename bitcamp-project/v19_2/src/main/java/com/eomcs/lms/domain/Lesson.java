@@ -3,46 +3,14 @@ package com.eomcs.lms.domain;
 import java.sql.Date;
 
 public class Lesson {
-  private int no;
-  private String title;
-  private String description;
-  private Date startDate;
-  private Date endDate;
-  private int totalHours;
-  private int dayHours;
-
-  @Override
-  public boolean equals(Object obj) {
-    if (obj.getClass() != Lesson.class)
-      return false;
-
-    Lesson other = (Lesson) obj;
-
-    if (this.no != other.no)
-      return false;
-
-    if (!this.title.equals(other.title))
-      return false;
-
-    if (!this.description.equals(other.description))
-      return false;
-
-    if (this.startDate.compareTo(other.startDate) != 0)
-    return false;
-
-    if (this.endDate.compareTo(other.endDate) != 0)
-    return false;
-    
-    if (this.totalHours != other.totalHours)
-      return false;
-    
-    if (this.dayHours != other.dayHours)
-      return false;
-    
-    return true;
-
-  }
-
+	private int no;
+	private String title;
+	private String description;
+	private Date startDate;
+	private Date endDate;
+	private int totalHours;
+	private int dayHours;
+	
   public int getNo() {
     return no;
   }
@@ -85,6 +53,6 @@ public class Lesson {
   public void setDayHours(int dayHours) {
     this.dayHours = dayHours;
   }
-
+	
 
 }

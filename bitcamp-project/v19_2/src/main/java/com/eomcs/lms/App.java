@@ -4,7 +4,6 @@ import java.util.Scanner;
 import com.eomcs.lms.handler.BoardHandler;
 import com.eomcs.lms.handler.LessonHandler;
 import com.eomcs.lms.handler.MemberHandler;
-import com.eomcs.util.Prompt;
 
 public class App {
 
@@ -12,13 +11,10 @@ public class App {
 
   public static void main(String[] args) {
 
-    
-    Prompt prompt = new Prompt(keyboard);
-    
 
-    BoardHandler boardHandler = new BoardHandler(prompt);
-    LessonHandler lessonHandler = new LessonHandler(prompt);
-    MemberHandler memberHandler = new MemberHandler(prompt);
+    BoardHandler boardHandler = new BoardHandler(keyboard);
+    LessonHandler lessonHandler = new LessonHandler(keyboard);
+    MemberHandler memberHandler = new MemberHandler(keyboard);
 
     String command;
 
