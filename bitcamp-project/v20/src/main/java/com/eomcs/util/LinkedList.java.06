@@ -31,7 +31,7 @@ public class LinkedList {
 
     Node cursor = first;
     for (int i = 0; i < index; i++) {
-      cursor = cursor.next;
+      cursor = cursor.next; //first.next 주소값을 이용해서 움직인다, cursor는 이동후 그 노드주소
     }
 
     return cursor.value;
@@ -51,12 +51,12 @@ public class LinkedList {
       cursor = cursor.next;
     }
 
-    if (index == 0) {
+    if (index == 0) { //first의 주소는 노트넥스트주소가 된다,밀린다
       newNode.next = first;
-      first = newNode;
+      first = newNode; //뉴노드의 주소가 펄스트 주소가된다
 
     } else {
-      newNode.next = cursor.next;
+      newNode.next = cursor.next; //연결이 끊어지기 때문에 커서 넥스트주소란에 뉴노트값을 받는다
       cursor.next = newNode;
     }
 

@@ -5,21 +5,25 @@ package com.eomcs.lms.handler;
 
 import java.sql.Date;
 import com.eomcs.lms.domain.Board;
-import com.eomcs.util.LinkedList;
+import com.eomcs.util.ArrayList;
 import com.eomcs.util.Prompt;
 
 public class BoardHandler {
   
-  LinkedList<Board> boardList;
+  ArrayList<Board> boardList;
   
   Prompt prompt;
   
   public BoardHandler(Prompt prompt) {
     this.prompt = prompt;
-    this.boardList = new LinkedList<>();
+    this.boardList = new ArrayList<>();
   }
   
-
+  public BoardHandler(Prompt prompt, int capacity) {
+    this.prompt = prompt;
+    this.boardList = new ArrayList<>(capacity);
+  }
+  
   public void listBoard() {
     // BoardList의 보관된 값을 받을 배열을 준비한다. 
     Board[] arr = new Board[this.boardList.size()];
