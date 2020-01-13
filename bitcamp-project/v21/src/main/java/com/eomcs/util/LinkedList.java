@@ -4,6 +4,8 @@ import java.lang.reflect.Array;
 
 public class LinkedList<E> {
 
+  private LinkedList linkedList;
+
   Node<E> first; 
 
   Node<E> last;
