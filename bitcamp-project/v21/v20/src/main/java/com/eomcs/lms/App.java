@@ -5,18 +5,16 @@ import com.eomcs.lms.handler.BoardHandler;
 import com.eomcs.lms.handler.LessonHandler;
 import com.eomcs.lms.handler.MemberHandler;
 import com.eomcs.util.Prompt;
-import com.eomcs.util.Stack;
 
 public class App {
 
   static Scanner keyboard = new Scanner(System.in);
-  static Stack commandstack = new Stack();
 
   public static void main(String[] args) {
 
-
+    
     Prompt prompt = new Prompt(keyboard);
-
+    
 
     BoardHandler boardHandler = new BoardHandler(prompt);
     LessonHandler lessonHandler = new LessonHandler(prompt);
@@ -27,11 +25,6 @@ public class App {
     do {
       System.out.print("\n명령> ");
       command = keyboard.nextLine();
-
-      if (command.length() == 0)
-        continue;
-
-      commandstack.push(command);
 
       switch (command) {
         case "/lesson/add":
@@ -79,9 +72,6 @@ public class App {
         case "/board/delete":
           boardHandler.deleteBoard();
           break;
-        case "history":
-          printCommadHistoty();
-          break;
         default:
           if (!command.equalsIgnoreCase("quit")) {
             System.out.println("실행할 수 없는 명령입니다.");
@@ -95,24 +85,7 @@ public class App {
     keyboard.close();
   }
 
-  private static void printCommadHistoty() {
-    Stack historyStack = commandstack.clone();  //인스턴스 변수만복제 .(객체)다른 주소
-    int count = 0;
-    while (!historyStack.empty()) {
-      System.out.println(historyStack.pop());
-      count++;
 
-      if ((count % 5) == 0) {
-        System.out.print(":");
-        String str = keyboard.nextLine();
-        if (str.equalsIgnoreCase("q")) {
-          break;
-        }
-      }
-    }
-  }
+
+
 }
-
-
-
-
