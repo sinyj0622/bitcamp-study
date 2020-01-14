@@ -1,17 +1,16 @@
 package com.eomcs.util;
 
-public class LinkedList {
+import java.lang.reflect.Array;
 
-  private LinkedList linkedList;
+public class LinkedList<E> extends List<E>{
 
-  Node first; 
+  Node<E> first; 
 
-  Node last;
+  Node<E> last;
 
-  int size;
-
-  public void add(Object value) {
-    Node newNode = new Node();
+  @Override
+  public void add(E value) {
+    Node<E> newNode = new Node<E>();
     newNode.value = value;
 
     if (first == null) {
@@ -24,12 +23,12 @@ public class LinkedList {
     this.size++;
   }
 
-
-  public Object get(int index) {
+  @Override
+  public E get(int index) {
     if (index < 0 || index >= size)
       return null;
 
-    Node cursor = first;
+    Node<E> cursor = first;
     for (int i = 0; i < index; i++) {
       cursor = cursor.next;
     }
@@ -38,15 +37,15 @@ public class LinkedList {
 
   }
 
-
-  public void add(int index, Object value) { //insert인 경우
+  @Override
+  public void add(int index, E value) { //insert인 경우
     if (index < 0 || index >= size)
       return;
 
-    Node newNode = new Node();
+    Node<E> newNode = new Node<>();
     newNode.value = value;
 
-    Node cursor = first;
+    Node<E> cursor = first;
     for (int i = 0; i < index - 1; i++) {
       cursor = cursor.next;
     }
@@ -64,17 +63,17 @@ public class LinkedList {
     this.size++;
   }
 
-  
-  public Object remove(int index) {
+  @Override 
+  public E remove(int index) {
     if (index < 0 || index >= size)
       return null;
     
-    Node cursor = first;
+    Node<E> cursor = first;
     for (int i = 0; i < index - 1; i++) {
       cursor = cursor.next;
     }
     
-    Node deletedNode = null;
+    Node<E> deletedNode = null;
     if (index == 0) {
       deletedNode = first;
       first = deletedNode.next;
@@ -88,28 +87,43 @@ public class LinkedList {
     return deletedNode.value; 
   }
   
-  public Object set(int index, Object value) {
+  @Override  
+  public E set(int index, E value) {
     if (index < 0 || index >= size)
       return null;
 
-    Node cursor = first;
+    Node<E> cursor = first;
     for (int i = 0; i < index; i++) {
       cursor = cursor.next;
     }
 
-    Object oldValue = cursor.value;
+    E oldValue = cursor.value;
     cursor.value = value;
     
     return oldValue;
 
   }
   
-  public Object[] toArray() {
+  @Override    
+  public Object[] toArray() { // 목록의 값을 배열로 가져옴
     Object[] arr = new Object[size];
+    Node<E> cursor = first;
     
+    for (int i = 0; i < size; i++) {
+      arr[i] = cursor.value;
+      cursor = cursor.next; //다음칸으로 이동
+    }
+    return arr;
+  }
+  
+  @Override     
+  @SuppressWarnings("unchecked")
+  public E[] toArray(E[] arr) { // 목록의 값을 배열로 가져옴
     
-    Node cursor = first;
-    
+    if (arr.length < this.size) {
+      arr = (E[]) Array.newInstance(arr.getClass().getComponentType(), size);
+    }
+    Node<E> cursor = first;
     for (int i = 0; i < size; i++) {
       arr[i] = cursor.value;
       cursor = cursor.next; //다음칸으로 이동
@@ -118,8 +132,10 @@ public class LinkedList {
     return arr;
   }
   
-  static class Node {
-    Object value;
-    Node next;
+  static class Node<T> {
+    T value;
+    Node<T> next;
   }
+  
+
 }

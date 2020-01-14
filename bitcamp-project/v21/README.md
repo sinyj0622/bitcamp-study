@@ -1,16 +1,54 @@
-# Stack 만들기
+# 21 - 스택 자료구조 구현과 활용
 
-- 1) 최소 클래스를 작성한다.
-- 2) 데이터를 저장할 레퍼런스 배열과 상수 필드를 준비한다.
-- 3) 레퍼런스 배열을 초기화시키는 생성자를 만든다. 
-- 4) push() 추가
-- 5) push() 변경: 배열이 꽉찼을 때 배열의 크기를 증가시키는 코드를 추가한다.
-- 6) push() 변경: 배열 크기를 늘리는 코드를 별도의 메서드(grow())로 분리한다.(리팩토링)
-- 7) grow() 변경: 새 배열 크기를 계산하는 코드를 별도의 메서드(newCapacity())로 분리한다.(리팩토링)
-- 8) pop() 추가
-- 9) empty() 추가 
-- 10) Object의 clone() 메서드 재정의 : shallow copy 
-- 11) Object의 clone() 메서드 변경 : deep copy
-- 12) 제네릭 적용
+## 학습 목표
+
+- 스택(stack) 자료구조를 구현할 수 있다.
+- 스택의 구동 원리를 이해하고 활용할 수 있다.
+- 인스턴스를 복제할 수 있다.
+
+## 실습 소스 및 결과
+
+- src/main/java/com/eomcs/util/Stack.java 추가
+- src/main/java/com/eomcs/lms/App.java 변경
+
+## 실습
+
+### 훈련1. 스택 자료구조를 구현하라.
+
+- Stack.java
+    - 제네릭을 적용한다.
+    - 객체 복제가 가능하도록 Cloneable 인터페이스를 구현한다.
 
 
+### 훈련2. 사용자가 입력한 명령어를 스택에 보관하라.
+
+- App.java
+    - 사용자가 입력한 명령어를 Stack에 보관한다.
+
+
+### 훈련3. 사용자가 입력한 명령을 최신순으로 출력하는 `history` 명령을 추가하라.
+
+- App.java
+    - 명령어 내역을 출력하는 printCommandHistory()를 정의한다.
+    - `history` 명령을 처리하는 분기문을 추가한다.
+
+#### 실행 결과
+
+
+```
+명령> history
+history
+/board/detail
+/member/list
+/lesson/add
+/lesson/list
+:  <== 키보드에서 ‘q’가 아닌 다른 문자키를 누른다.
+/board/add
+/member/list
+/member/list
+/board/add
+/board/add
+:q  <== 키보드에서 ‘q’ 키를 누른다.
+명령>
+
+```

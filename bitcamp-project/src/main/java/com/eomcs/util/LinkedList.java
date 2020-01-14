@@ -2,14 +2,13 @@ package com.eomcs.util;
 
 import java.lang.reflect.Array;
 
-public class LinkedList<E> {
+public class LinkedList<E> extends List<E>{
 
   Node<E> first; 
 
   Node<E> last;
 
-  int size;
-
+  @Override
   public void add(E value) {
     Node<E> newNode = new Node<E>();
     newNode.value = value;
@@ -24,7 +23,7 @@ public class LinkedList<E> {
     this.size++;
   }
 
-
+  @Override
   public E get(int index) {
     if (index < 0 || index >= size)
       return null;
@@ -38,7 +37,7 @@ public class LinkedList<E> {
 
   }
 
-
+  @Override
   public void add(int index, E value) { //insert인 경우
     if (index < 0 || index >= size)
       return;
@@ -64,7 +63,7 @@ public class LinkedList<E> {
     this.size++;
   }
 
-  
+  @Override 
   public E remove(int index) {
     if (index < 0 || index >= size)
       return null;
@@ -88,6 +87,7 @@ public class LinkedList<E> {
     return deletedNode.value; 
   }
   
+  @Override  
   public E set(int index, E value) {
     if (index < 0 || index >= size)
       return null;
@@ -104,6 +104,7 @@ public class LinkedList<E> {
 
   }
   
+  @Override    
   public Object[] toArray() { // 목록의 값을 배열로 가져옴
     Object[] arr = new Object[size];
     Node<E> cursor = first;
@@ -112,10 +113,10 @@ public class LinkedList<E> {
       arr[i] = cursor.value;
       cursor = cursor.next; //다음칸으로 이동
     }
-    
     return arr;
   }
   
+  @Override     
   @SuppressWarnings("unchecked")
   public E[] toArray(E[] arr) { // 목록의 값을 배열로 가져옴
     
@@ -136,7 +137,5 @@ public class LinkedList<E> {
     Node<T> next;
   }
   
-  public int size() {
-    return this.size;
-  }
+
 }

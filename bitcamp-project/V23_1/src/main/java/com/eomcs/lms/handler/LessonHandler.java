@@ -2,18 +2,32 @@
 package com.eomcs.lms.handler;
 
 import com.eomcs.lms.domain.Lesson;
-import com.eomcs.util.LinkedList;
+import com.eomcs.util.List;
 import com.eomcs.util.Prompt;
 
 public class LessonHandler {
 
-  LinkedList<Lesson> lessonList;
+  // ArrayList나 LinkedList를 마음대로 사용할 수 있도록
+  // 객체 목록을 관리하는 필드를 선언할 때
+  // 이들 클래스의 수퍼 클래스로 선언한다
+  // => 대신 이 필드에 들어갈 객체는 생성자에서 파라미터로 받는다.
+  // => 이렇게 하면 ArrayList도 사용할 수 있고, LinkedList도 사용할 수 있어
+  //    유지 보수에 좋다. 즉 선택의 폭이 넓어진다.
+  List<Lesson> lessonList;
 
   public Prompt prompt;
 
-  public LessonHandler(Prompt prompt) {
+  public LessonHandler(Prompt prompt, List<Lesson> list) {
     this.prompt = prompt;
-    this.lessonList = new LinkedList<>();
+    this.lessonList = list;
+    // 이렇게 Handler가 사용할 List 객체(의존객체: dependency)를 생성자에서 직접 만들지 않고
+    // 이렇게 생성자가 호출될 때 파라미터로 받으면,
+    // 필요에 따라 List 객체를 다른 객체로 대체하기가 쉽다.
+    // ArrayList> LinkedList> 다른객체 바꾸기가 쉽다.
+    // 즉 다형적 변수에 법칙에 따라 List의 하위 객체라면 어느객체던지 가능하다.
+    // 이런식으로 의존 객체를 외부에서 주입받는 것을
+    // DI(Dependency injection) 의존성 주입이라 부른다
+    // => 즉 의존객체를 부품화하여 교체하기 쉽도록 만드는 방식이다.
   }
 
   public void addLesson() {

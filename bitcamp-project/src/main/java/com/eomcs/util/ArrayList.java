@@ -2,12 +2,12 @@ package com.eomcs.util;
 
 import java.util.Arrays;
 
-public class ArrayList<E> {
+public class ArrayList<E> extends List<E> {
   
   private static final int DEFAULT_CAPACITY = 2;
   
   Object[] elementData;
-  int size;
+
   
   public ArrayList() {
     this.elementData = new Object[DEFAULT_CAPACITY];
@@ -21,6 +21,7 @@ public class ArrayList<E> {
     }
   }
   
+  @Override
   public void add(E e) {
     if (this.size == this.elementData.length) {
       grow();
@@ -28,6 +29,7 @@ public class ArrayList<E> {
     this.elementData[this.size++] = e;
   }
   
+  @Override
   @SuppressWarnings("unchecked")
   public E get(int index) {
     if (index < 0 || index >= this.size) {
@@ -36,6 +38,7 @@ public class ArrayList<E> {
     return (E) this.elementData[index];
   }
   
+  @Override  
   @SuppressWarnings("unchecked")
   public E set(int index, E e) {
     if (index < 0 || index >= this.size) {
@@ -46,6 +49,7 @@ public class ArrayList<E> {
     return oldValue;
   }
   
+  @Override
   @SuppressWarnings("unchecked")
   public E remove(int index) {
     if (index < 0 || index >= this.size) {
@@ -64,10 +68,7 @@ public class ArrayList<E> {
     return oldValue;
   }
   
-  public int size() {
-    return this.size;
-  }
-  
+  @Override  
   public Object[] toArray() {
     return Arrays.copyOf(this.elementData, this.size);
     /*
@@ -78,7 +79,7 @@ public class ArrayList<E> {
     return arr;
     */
   }
-  
+  @Override      
   @SuppressWarnings("unchecked")
   public E[] toArray(E[] arr) {
     if (arr.length < this.size) {
@@ -89,6 +90,7 @@ public class ArrayList<E> {
     return arr; // 넉넉할 때는 파라미터로 받은 배열을 그대로 리턴. 
   }
   
+  @Override
   public void add(int index, E value) {
     if (index < 0 || index >= this.size)
       return;

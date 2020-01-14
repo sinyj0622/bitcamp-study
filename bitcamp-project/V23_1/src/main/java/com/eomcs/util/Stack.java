@@ -49,7 +49,7 @@ public class Stack<E> implements Cloneable{
   // 문제점?
   //=> 따라서 인스턴스 변수인 elementData가 가리키는 배열을 복제하지 않는다
   //=> 그래서 배열의 값을 바꾸면 원본 스택에도 영향을 끼친다.
-  
+  /* 
    * 
  @Override
  public Stack clone() {
@@ -67,8 +67,8 @@ public class Stack<E> implements Cloneable{
      return null;
    }
 }
-   
-/*
+   */
+
   // deep copy를 이용하여 객체 복사하기
   // => 데이터가 들어있는 배열도 그대로 복제한다.
   // => 따라서 배열의 값을 바꾸더라도 원본 객체에 영향을 끼치지 않는다.
@@ -98,5 +98,5 @@ public class Stack<E> implements Cloneable{
       return null;
     }
   }
-*/
+
 }
