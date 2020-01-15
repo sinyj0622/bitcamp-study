@@ -117,6 +117,8 @@ public class ArrayList<E> extends AbstractList<E> {
     int oldSize = this.elementData.length;
     return oldSize + (oldSize >> 1);
   }
+  
+ 
 }
 
 

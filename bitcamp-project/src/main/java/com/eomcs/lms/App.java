@@ -8,6 +8,7 @@ import com.eomcs.lms.handler.BoardHandler;
 import com.eomcs.lms.handler.LessonHandler;
 import com.eomcs.lms.handler.MemberHandler;
 import com.eomcs.util.ArrayList;
+import com.eomcs.util.Iterator;
 import com.eomcs.util.LinkedList;
 import com.eomcs.util.Prompt;
 import com.eomcs.util.Queue;
@@ -16,7 +17,7 @@ import com.eomcs.util.Stack;
 public class App {
 
   static Scanner keyboard = new Scanner(System.in);
-  static Stack<String> commandstack = new Stack<>();
+  static Stack<String> commandStack = new Stack<>();
   static Queue<String> commandQueue = new Queue<>();
 
   public static void main(String[] args) {
@@ -65,7 +66,7 @@ public class App {
       if (command.length() == 0)
         continue;
 
-      commandstack.push(command);
+      commandStack.push(command);
       commandQueue.offer(command);
 
       switch (command) {
@@ -115,10 +116,10 @@ public class App {
           boardHandler.deleteBoard();
           break;
         case "history":
-          printCommadHistory();
+          printCommadHistory(commandStack.iterator());
           break; 
         case "history2":
-          printCommadHistory2();
+          printCommadHistory(commandQueue.iterator());
           break;
         default:
           if (!command.equalsIgnoreCase("quit")) {
@@ -133,11 +134,10 @@ public class App {
     keyboard.close();
   }
 
-  private static void printCommadHistory() {
-    Stack<String> historyStack = (Stack<String>) commandstack.clone();  //인스턴스 변수만복제 .(객체)다른 주소
+  private static void printCommadHistory(Iterator<String> iterator) {
     int count = 0;
-    while (!historyStack.empty()) {
-      System.out.println(historyStack.pop());
+    while (iterator.hasNext()) {
+      System.out.println(iterator.next());
       count++;
 
       if ((count % 5) == 0) {
@@ -151,21 +151,6 @@ public class App {
   }
 
 
-  private static void printCommadHistory2() {
-    Queue<String> historyQueue = commandQueue.clone();
-    int count = 0;
-    while (historyQueue.size() > 0) {
-      System.out.println(historyQueue.poll());
-
-      if ((++count % 5) == 0) {
-        System.out.print(":");
-        String str = keyboard.nextLine();
-        if (str.equalsIgnoreCase("q")) {
-          break;
-        }
-      }
-    }
-  }
 
 }
 

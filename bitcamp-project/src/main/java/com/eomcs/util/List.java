@@ -15,13 +15,13 @@ public interface List<E> {
   // -abstract를 생략할 수 있다.
   //  -리턴타입 메서드명(파라미터,...);
   //
-  public abstract void add(E e); 
+  void add(E e); 
   
-  public /*abstract*/ void add(int index, E value);
+  void add(int index, E value);
   
-  /*public*/ abstract E get(int index);
+  E get(int index);
 
-  /*public abstract*/ E set(int index, E e);
+  E set(int index, E e);
   
   E remove(int index);
   
@@ -30,4 +30,6 @@ public interface List<E> {
   E[] toArray(E[] arr);
   
   int size();
+  
+  Iterator<E> iterator(); //사용규칙을 추가함
 }

@@ -5,6 +5,7 @@ package com.eomcs.lms.handler;
 
 import java.sql.Date;
 import com.eomcs.lms.domain.Board;
+import com.eomcs.util.Iterator;
 import com.eomcs.util.List;
 import com.eomcs.util.Prompt;
 
@@ -29,15 +30,14 @@ public class BoardHandler {
   
 
   public void listBoard() {
-    // BoardList의 보관된 값을 받을 배열을 준비한다. 
-    Board[] arr = new Board[this.boardList.size()];
-
-    // toArray()에게 빈 배열을 넘겨서 복사 받는다.
-    this.boardList.toArray(arr);
+    Iterator<Board> iterator = boardList.iterator();
     
-    for (Board b : arr) {
-      System.out.printf("%d, %s, %s, %d\n", 
-          b.getNo(), b.getTitle(), b.getDate(), b.getViewCount());
+    while (iterator.hasNext()) {
+       Board b = iterator.next();
+       
+       System.out.printf("%d, %s, %s, %d\n", 
+           b.getNo(), b.getTitle(), b.getDate(), b.getViewCount());
+
     }
   }
 

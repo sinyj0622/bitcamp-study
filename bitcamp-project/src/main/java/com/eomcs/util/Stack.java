@@ -99,4 +99,8 @@ public class Stack<E> implements Cloneable{
     }
   }
 
+  public Iterator<E> iterator(){
+    return new StackIterator<>(this);
+  }
+ 
 }

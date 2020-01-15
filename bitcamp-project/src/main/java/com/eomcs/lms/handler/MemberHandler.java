@@ -3,6 +3,7 @@ package com.eomcs.lms.handler;
 import java.sql.Date;
 import com.eomcs.lms.domain.Member;
 import com.eomcs.util.List;
+import com.eomcs.util.ListIterator;
 import com.eomcs.util.Prompt;
 
 public class MemberHandler {
@@ -24,10 +25,9 @@ public class MemberHandler {
   }
   
   public void listMember() {
-    // Member 객체의 목록을 저장할 배열을 넘기는데 크기가 0인 배열을 넘긴다.
-    // toArray()는 내부에서 새 배열을 만들고, 값을 복사한 후 리턴한다.
-    Member[] arr = this.memberList.toArray(new Member[] {});
-    for (Member m : arr) {
+   ListIterator<Member> iterator = new ListIterator<>(memberList);
+   while (iterator.hasNext()) {
+     Member m = iterator.next();
       System.out.printf("%d, %s, %s, %s, %s\n", 
           m.getNo(), m.getName(), m.getEmail(), 
           m.getTel(), m.getRegisteredDate());
