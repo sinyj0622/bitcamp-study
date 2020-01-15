@@ -2,16 +2,11 @@ package com.eomcs.lms.handler;
 
 import java.sql.Date;
 import com.eomcs.lms.domain.Member;
+import com.eomcs.util.Iterator;
 import com.eomcs.util.List;
 import com.eomcs.util.Prompt;
 
 public class MemberHandler {
-  // 목록을 다루는 객체를 지정할 때,
-  // => 특정 클래스(예:AbstractList, LinkedList, ArrayList)를 지정하는 대신에,
-  // => 사용 규칙(예: List)을 따르는 객체를 지정함으로써
-  // 더 다양한 타입의 객체의 교체를 더 폭넓게 가져갈 수 있도록 한다.
-  // => List 사용 규칙을 구현한 객체라면 어떤 클래스의 객체든지 사용 할 수 있다.
-  // 결국 유지보수를 더 유연하게 하기 위함이다.
   
   List<Member> memberList;
 
@@ -24,10 +19,11 @@ public class MemberHandler {
   }
   
   public void listMember() {
-    // Member 객체의 목록을 저장할 배열을 넘기는데 크기가 0인 배열을 넘긴다.
-    // toArray()는 내부에서 새 배열을 만들고, 값을 복사한 후 리턴한다.
-    Member[] arr = this.memberList.toArray(new Member[] {});
-    for (Member m : arr) {
+    
+    Iterator<Member> iterator = memberList.iterator();
+    
+    while (iterator.hasNext()) {
+      Member m = iterator.next();
       System.out.printf("%d, %s, %s, %s, %s\n", 
           m.getNo(), m.getName(), m.getEmail(), 
           m.getTel(), m.getRegisteredDate());

@@ -7,12 +7,7 @@ import com.eomcs.util.Prompt;
 
 public class LessonHandler {
 
-  // 목록을 다루는 객체를 지정할 때,
-  // => 특정 클래스(예:AbstractList, LinkedList, ArrayList)를 지정하는 대신에,
-  // => 사용 규칙(예: List)을 따르는 객체를 지정함으로써
-  // 더 다양한 타입의 객체의 교체를 더 폭넓게 가져갈 수 있도록 한다.
-  // => List 사용 규칙을 구현한 객체라면 어떤 클래스의 객체든지 사용 할 수 있다.
-  // 결국 유지보수를 더 유연하게 하기 위함이다.
+
   List<Lesson> lessonList;
 
   public Prompt prompt;
@@ -40,10 +35,8 @@ public class LessonHandler {
   }
 
   public void listLesson() {
-    // 수업 객체 목록을 복사 받을 배열을 준비하고, toArray()를 실행한다.
-    // toArray()의 리턴 값은 파라미터로 넘겨준 배열의 주소이다.
-    Lesson[] arr = this.lessonList.toArray(new Lesson[this.lessonList.size()]);
-    for (Lesson l : arr) {
+    for(int i = 0; i < lessonList.size(); i++) {
+      Lesson l = lessonList.get(i);
       System.out.printf("%d, %s, %s ~ %s, %d\n",
           l.getNo(), l.getTitle(), 
           l.getStartDate(), l.getEndDate(), l.getTotalHours());
