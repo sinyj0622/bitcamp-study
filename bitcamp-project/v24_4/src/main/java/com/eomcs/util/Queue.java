@@ -38,7 +38,7 @@ public class Queue<E> extends LinkedList<E> implements Cloneable {
     // => 스택의 경우 배열을 복사하면 되기 때문에 기존의 'shallow copy'를 수행한후
     //    배열을 따로 복사하였다.
     // => Linked LIST의 경우 노드와 노드사이를 연결해야 하기 때문에
-    //    단순히 Shallow copy를 수행해서는 안된다
+    //    단순히 Shallo copy를 수행해서는 안된다
     // =>  그냥 다음과 같이 새 Queue를 만들어 기존 Queue에 저장한 값을 꺼내서 새 Queue에 저장 해야한다.
     //
     Queue<E> temp = new Queue<E>();
@@ -52,11 +52,16 @@ public class Queue<E> extends LinkedList<E> implements Cloneable {
   public Iterator<E> iterator(){
     // this = 인스턴스 주소;
     
-    // anonymous class : 인스턴스를 한 개만 생성할 경우 로컬 클래스를 익명 클래스로 정의하라.
-    return  new Iterator<E>() {
-     
-      // 인스턴스 블록 대신 변수 초기화 문법으로 필드 값을 설정한다.
-      Queue<E> queue = (Queue<E>) Queue.this.clone();  
+    // local class : 특정 메서드 안에서만 사용되는 중첩 클래스라면 로컬 클래스로 정의하라.
+     class QueueIterator<T> implements Iterator<T> {
+      
+      
+      Queue<T> queue;  
+      
+      @SuppressWarnings("unchecked")
+      public QueueIterator() {
+        this.queue = (Queue<T>) Queue.this.clone();
+      }
       
       @Override
       public boolean hasNext() {
@@ -64,10 +69,14 @@ public class Queue<E> extends LinkedList<E> implements Cloneable {
       }
       
       @Override
-      public E next() {
+      public T next() {
         return queue.poll();
       }
-    };
+    }
+     
+    // 로컬 클래스는 인스턴스 멤버가 아니다.
+    // 따라서 로컬 클래스의 생성자를 호출할 떄 앞쪽에 this를 지정해서는 안된다.
+    return new QueueIterator<>();
   }
   
   

@@ -102,29 +102,37 @@ public class Stack<E> implements Cloneable{
   
   //non-static 메서드안에 로컬 클래스는 인스턴스 주소를 가질수 있기 때문에 this사용가능..
   public Iterator<E> iterator() {
+    // this = 인스턴스 주소;
     
-  // anonymous class : 인스턴스를 한 개만 생성한다면 로컬 클래스를 익명 클래스를 정의하라.
-    return new Iterator<E>() { //Iterator의 규칙을 따른 인스턴스클래스의 주소를 리턴한다
-      
-    Stack<E> stack = (Stack<E>) Stack.this.clone();
- 
+  // local class : 특정 메서드안에서만 사용되는 클래스라면 그 메서드 안에 로컬 클래스로 정의하라.
+    class StackIterator<T> implements Iterator<T> {
+    Stack<T> stack;  
+    
+    @SuppressWarnings("unchecked")
+    public StackIterator() {
+      this.stack = (Stack<T>) Stack.this.clone();
+    }
+    
     @Override
     public boolean hasNext() {
       return !stack.empty();
     }
     
     @Override
-    public E next() {
+    public T next() {
       return stack.pop();
     }
-  };
+  }
+    // 로컬 클래스의 인스턴스를 생성할때 바깥 클래스(Stack)의 인스턴스 주소를 줘서는 안된다.
+    // 즉 생성자를 호출하는 앞쪽에 this를 붙여서는 안된다.
+    return new StackIterator<E>();
   }
   
   
   
   
- /* 스태틱 메서드안에 로컬클래스는 인스턴스 주소가 없기 때문에 this 주소가 없다......
-     static void m1() {
+ /*   스태틱 메서드안에 로컬클래스는 인스턴스 주소가 없기 때문에 this 주소가 없다......
+  static void m1() {
     // 스태틱 메서드는 클래스 이름으로 바로 호출할 수 있기 때문에 this 변수가 없다
     // 예 Stack.m1();
     
