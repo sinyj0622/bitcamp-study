@@ -16,7 +16,7 @@ public class BoardHandler {
   Prompt prompt;
   
   public BoardHandler(Prompt prompt, List<Board> list) {
-    // **list 파라미터는 List 인터페이스를 구현한 객체를 받는다.***
+    // list 파라미터는 List 인터페이스를 구현한 객체를 받는다.
     this.prompt = prompt;
     this.boardList = list;
   }

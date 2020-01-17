@@ -20,10 +20,6 @@ import com.eomcs.util.Prompt;
 public class App {
 
   static Scanner keyboard = new Scanner(System.in);
-  
-  // java.util.Stack에서 제공하는 iterator 객체는 FIFO 방식으로 값을 꺼내준다.
-  // LIFO 방식으로 꺼내는 Iterator가 필요하다면,
-  // java.util.Deque 구현체를 사용하라~~!!!!!
   static Deque<String> commandStack = new ArrayDeque<>();
   static Queue<String> commandQueue = new LinkedList<>();
 
@@ -46,7 +42,7 @@ public class App {
     //    용도로 사용된다.
     // => 이런 류의 클래스는 직접 인스턴스를 생성하지 못하도록 해서 직접 사용하는 것을 막아야한다.
     // => 이런 용도로 사용하는 문법이 "추상클래스(Abstract Class)"이다
-    // List 클래스(AbstractList로 이름 변경함)를 추상 클래스로 만들면,
+    // List 클래스(AbstractList로a 이름 변경함)를 추상 클래스로 만들면,
     // 다음과 같이 인스턴스를 생성 할 수 없다.
     // 아예 인스턴스 생성을 원천적으로 차단하는 효과가 있다.
     //
