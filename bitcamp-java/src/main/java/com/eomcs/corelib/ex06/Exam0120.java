@@ -3,7 +3,7 @@ package com.eomcs.corelib.ex06;
 
 import java.util.concurrent.ArrayBlockingQueue;
 
-public class Exam0120 {
+public class Exam0120 { // 큐는 인터페이스다~~구현한 클래스를 써라~~!!!
 
   public static void main(String[] args) {
     String s1 = new String("aaa");
@@ -14,7 +14,7 @@ public class Exam0120 {
 
     ArrayBlockingQueue queue = new ArrayBlockingQueue(100);
     queue.offer(s1); // aaa,
-    print(queue); 
+    print(queue);
     queue.offer(s2); // aaa, bbb,
     print(queue);
     queue.offer(s3); // aaa, bbb, ccc,
@@ -42,26 +42,7 @@ public class Exam0120 {
       System.out.print(value + ", ");
     }
     System.out.println();
-  }    
+  }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

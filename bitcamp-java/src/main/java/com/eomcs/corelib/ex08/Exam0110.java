@@ -1,4 +1,4 @@
-// java.util.HashMap - 값을 저장할 때 key을 사용하여 저장한다.
+// java.util.HashMap - 값을 저장할 때 key을 사용하여 저장한다.(라벨을 붙여서 저장,꺼냄(key))
 package com.eomcs.corelib.ex08;
 
 import java.util.HashMap;
@@ -29,15 +29,10 @@ public class Exam0110 {
     System.out.println(map.get("s03"));
     System.out.println(map.get("s04"));
 
-    // 존재하지 않는 key를 지정하면 null을 리턴한다. 
+    // **존재하지 않는 key를 지정하면 null을 리턴한다.**
     System.out.println(map.get("s05"));
   }
 
 }
-
-
-
-
-
 
 

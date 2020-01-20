@@ -46,7 +46,7 @@ public class Exam0174 {
       //    개발자가 직접 하위 객체를 복제하는 코드를 작성해야 한다.
       // 
       Car copy = (Car) super.clone();
-      copy.engine    = this.engine.clone();
+      copy.engine = this.engine.clone();
       return copy;
     }
   }
