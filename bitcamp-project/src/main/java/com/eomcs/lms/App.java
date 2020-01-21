@@ -1,9 +1,9 @@
 package com.eomcs.lms;
 
-
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -17,6 +17,8 @@ import com.eomcs.lms.handler.BoardDetailCommand;
 import com.eomcs.lms.handler.BoardListCommand;
 import com.eomcs.lms.handler.BoardUpdateCommand;
 import com.eomcs.lms.handler.Command;
+import com.eomcs.lms.handler.ComputeCommand;
+import com.eomcs.lms.handler.HelloCommand;
 import com.eomcs.lms.handler.LessonAddCommand;
 import com.eomcs.lms.handler.LessonDeleteCommand;
 import com.eomcs.lms.handler.LessonDetailCommand;
@@ -29,7 +31,6 @@ import com.eomcs.lms.handler.MemberListCommand;
 import com.eomcs.lms.handler.MemberUpdateCommand;
 import com.eomcs.util.Prompt;
 
-
 public class App {
 
   static Scanner keyboard = new Scanner(System.in);
@@ -40,110 +41,76 @@ public class App {
   public static void main(String[] args) {
 
     Prompt prompt = new Prompt(keyboard);
+    HashMap<String, Command> commandMap = new HashMap<>();
 
     LinkedList<Board> boardList = new LinkedList<>();
-    Command boardAddCommand = new BoardAddCommand(prompt, boardList);
-    Command boardListCommand = new BoardListCommand(boardList);
-    Command boardDetailCommand = new BoardDetailCommand(prompt, boardList);
-    Command boardUpdateCommand = new BoardUpdateCommand(prompt, boardList);
-    Command boardDeleteCommand = new BoardDeleteCommand(prompt, boardList);
+    commandMap.put("/board/add", new BoardAddCommand(prompt, boardList));
+    commandMap.put("/board/list", new BoardListCommand(boardList));
+    commandMap.put("/board/detail", new BoardDetailCommand(prompt, boardList));
+    commandMap.put("/board/update", new BoardUpdateCommand(prompt, boardList));
+    commandMap.put("/board/delete", new BoardDeleteCommand(prompt, boardList));
 
     ArrayList<Lesson> lessonList = new ArrayList<>();
-    Command lessonAddCommand = new LessonAddCommand(prompt, lessonList);
-    Command lessonListCommand = new LessonListCommand(lessonList);
-    Command lessonDetailCommand = new LessonDetailCommand(prompt, lessonList);
-    Command lessonUpdateCommand = new LessonUpdateCommand(prompt, lessonList);
-    Command lessonDeleteCommand = new LessonDeleteCommand(prompt, lessonList);
+    commandMap.put("/lesson/add", new LessonAddCommand(prompt, lessonList));
+    commandMap.put("/lesson/list", new LessonListCommand(lessonList));
+    commandMap.put("/lesson/detail", new LessonDetailCommand(prompt, lessonList));
+    commandMap.put("/lesson/update", new LessonUpdateCommand(prompt, lessonList));
+    commandMap.put("/lesson/delete", new LessonDeleteCommand(prompt, lessonList));
 
     LinkedList<Member> memberList = new LinkedList<>();
-    Command memberAddCommand = new MemberAddCommand(prompt, memberList);
-    Command memberListCommand = new MemberListCommand(memberList);
-    Command memberDetailCommand = new MemberDetailCommand(prompt, memberList);
-    Command memberUpdateCommand = new MemberUpdateCommand(prompt, memberList);
-    Command memberDeleteCommand = new MemberDeleteCommand(prompt, memberList);
+    commandMap.put("/member/add", new MemberAddCommand(prompt, memberList));
+    commandMap.put("/member/list", new MemberListCommand(memberList));
+    commandMap.put("/member/detail", new MemberDetailCommand(prompt, memberList));
+    commandMap.put("/member/update", new MemberUpdateCommand(prompt, memberList));
+    commandMap.put("/member/delete", new MemberDeleteCommand(prompt, memberList));
+
+    commandMap.put("/hello", new HelloCommand(prompt));
+    commandMap.put("/compute/plus", new ComputeCommand(prompt));
 
     String command;
 
-    do {
+    while (true) {
       System.out.print("\n명령> ");
       command = keyboard.nextLine();
-
 
       if (command.length() == 0)
         continue;
 
-      commandStack.push(command);
-      commandQueue.offer(command);
-
-      switch (command) {
-        case "/lesson/add":
-          lessonAddCommand.execute();
-          break;
-        case "/lesson/list":
-          lessonListCommand.execute();
-          break;
-        case "/lesson/detail":
-          lessonDetailCommand.execute();
-          break;
-        case "/lesson/update":
-          lessonUpdateCommand.execute();
-          break;
-        case "/lesson/delete":
-          lessonDeleteCommand.execute();
-          break;
-        case "/member/add":
-          memberAddCommand.execute();
-          break;
-        case "/member/list":
-          memberListCommand.execute();
-          break;
-        case "/member/detail":
-          memberDetailCommand.execute();
-          break;
-        case "/member/update":
-          memberUpdateCommand.execute();
-          break;
-        case "/member/delete":
-          memberDeleteCommand.execute();
-          break;
-        case "/board/add":
-          boardAddCommand.execute();
-          break;
-        case "/board/list":
-          boardListCommand.execute();
-          break;
-        case "/board/detail":
-          boardDetailCommand.execute();
-          break;
-        case "/board/update":
-          boardUpdateCommand.execute();
-          break;
-        case "/board/delete":
-          boardDeleteCommand.execute();
-          break;
-        case "history":
-          printCommadHistory(commandStack.iterator());
-          break;
-        case "history2":
-          printCommadHistory(commandQueue.iterator());
-          break;
-        default:
-          if (!command.equalsIgnoreCase("quit")) {
-            System.out.println("실행할 수 없는 명령입니다.");
-          }
+      if (command.equals("quit")) {
+        System.out.println("안녕!");
+        break;
+      } else if (command.equals("history")) {
+        printCommandHistory(commandStack.iterator());
+        continue;
+      } else if (command.equals("history2")) {
+        printCommandHistory(commandQueue.iterator());
+        continue;
       }
 
-    } while (!command.equalsIgnoreCase("quit"));
+      commandStack.push(command);
 
-    System.out.println("안녕!");
+      commandQueue.offer(command);
+
+      Command commandHandler = commandMap.get(command);
+
+      if (commandHandler != null) {
+        commandHandler.execute();
+      } else {
+        System.out.println("실행할 수 없는 명령입니다.");
+      }
+    }
 
     keyboard.close();
   }
 
-
-  private static void printCommadHistory(Iterator<String> iterator) {
+  // 이전에는 Stack에서 값을 꺼내는 방법과 Queue에서 값을 꺼내는 방법이 다르기 때문에
+  // printCommandHistory()와 printCommandHistory2() 메서드를 따로 정의했다.
+  // 이제 Stack과 Queue는 일관된 방식으로 값을 꺼내주는 Iterator가 있기 때문에
+  // 두 메서드를 하나로 합칠 수 있다.
+  // 파라미터로 Iterator를 받아서 처리하기만 하면 된다.
+  //
+  private static void printCommandHistory(Iterator<String> iterator) {
     int count = 0;
-
     while (iterator.hasNext()) {
       System.out.println(iterator.next());
       count++;
@@ -157,8 +124,6 @@ public class App {
       }
     }
   }
-
-
 
 }
 
