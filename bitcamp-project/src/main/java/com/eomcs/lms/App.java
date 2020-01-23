@@ -44,9 +44,9 @@ public class App {
 
   static Deque<String> commandStack = new ArrayDeque<>();
   static Queue<String> commandQueue = new LinkedList<>();
-  static List<Lesson> lessonList;
-  static List<Board> boardList;
-  static List<Member> memberList;
+  static List<Lesson> lessonList = new ArrayList<>();
+  static List<Board> boardList = new ArrayList<>();
+  static List<Member> memberList = new ArrayList<>();
 
   public static void main(String[] args) {
 
@@ -147,7 +147,8 @@ public class App {
     File file = new File("./lesson.json");
 
     try (FileReader in = new FileReader(file)) {
-      lessonList = new ArrayList<>(Arrays.asList(new Gson().fromJson(in, Lesson[].class)));
+      lessonList.addAll((Arrays.asList(new Gson().fromJson(in, Lesson[].class))));
+
       System.out.printf("총 %d 개의 수업 데이터를 로딩했습니다.\n", lessonList.size());
 
     } catch (IOException e) {
@@ -176,7 +177,7 @@ public class App {
     File file = new File("./board.json");
 
     try (FileReader in = new FileReader(file)) {
-      boardList = new ArrayList<>(Arrays.asList(new Gson().fromJson(in, Board[].class)));
+      boardList.addAll((Arrays.asList(new Gson().fromJson(in, Board[].class))));
       System.out.printf("총 %d 개의 게시글 데이터를 로딩했습니다.\n", boardList.size());
 
     } catch (IOException e) {
@@ -204,7 +205,7 @@ public class App {
     File file = new File("./member.json");
 
     try (FileReader in = new FileReader(file)) {
-      memberList = new ArrayList<>(Arrays.asList(new Gson().fromJson(in, Member[].class)));
+      memberList.addAll(new ArrayList<>(Arrays.asList(new Gson().fromJson(in, Member[].class))));
       System.out.printf("총 %d 개의 회원 데이터를 로딩했습니다.\n", memberList.size());
 
     } catch (IOException e) {
