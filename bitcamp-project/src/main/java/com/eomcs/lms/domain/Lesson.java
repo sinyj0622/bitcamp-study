@@ -12,23 +12,23 @@ public class Lesson {
   private int dayHours;
 
 
-  public static Lesson valueOf(String cvs) {
-    String[] data = cvs.split(",");
+  public static Lesson valueOf(String csv) {
+    String[] data = csv.split(",");
 
     Lesson lesson = new Lesson();
-    lesson.setNo(Integer.parseInt(data[0]));
+    lesson.setNo(Integer.valueOf(data[0]));
     lesson.setTitle(data[1]);
     lesson.setDescription(data[2]);
     lesson.setStartDate(Date.valueOf(data[3]));
     lesson.setEndDate(Date.valueOf(data[4]));
-    lesson.setTotalHours(Integer.parseInt(data[5]));
-    lesson.setDayHours(Integer.parseInt(data[6]));
+    lesson.setTotalHours(Integer.valueOf(data[5]));
+    lesson.setDayHours(Integer.valueOf(6));
 
     return lesson;
   }
 
   public String toCvsString() {
-    return String.format("%d,%s,%s,%s,%s,%d,%d", this.getNo(), this.getTitle(),
+    return String.format("%d,%s,%s,%s,%s,%d,%d\n", this.getNo(), this.getTitle(),
         this.getDescription(), this.getStartDate(), this.getEndDate(), this.getTotalHours(),
         this.getDayHours());
   }

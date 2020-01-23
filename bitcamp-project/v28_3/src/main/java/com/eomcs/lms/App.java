@@ -147,6 +147,20 @@ public class App {
     File file = new File("./lesson.json");
 
     try (FileReader in = new FileReader(file)) {
+      // 방법1) JSON ===> List
+      // Gson json도구 = new Gson();
+      // Lesson[] 배열 = json도구.fromJson(in, Lesson[].class);
+      // for (Lesson 수업 : 배열) {
+      // lessonList.add(수업);
+      // }
+
+      // 방법2) JSON ===> List
+      // Gson json도구 = new Gson();
+      // Lesson[] 배열 = json도구.fromJson(in, Lesson[].class);
+      // List<Lesson> 읽기전용List구현체 = Arrays.asList(배열);
+      // lessonList.addAll(읽기전용List구현체);
+
+      // 위의 코드를 간략히 줄이면 다음과 같다.
       lessonList.addAll((Arrays.asList(new Gson().fromJson(in, Lesson[].class))));
 
       System.out.printf("총 %d 개의 수업 데이터를 로딩했습니다.\n", lessonList.size());

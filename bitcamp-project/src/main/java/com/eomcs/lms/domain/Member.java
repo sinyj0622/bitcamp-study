@@ -12,12 +12,12 @@ public class Member {
   public Date registeredDate;
 
 
-  public static Member valueOf(String cvs) {
-    String[] data = cvs.split(",");
+  public static Member valueOf(String csv) {
+    String[] data = csv.split(",");
 
     Member member = new Member();
-    member.setNo(Integer.parseInt(data[0]));
-    member.setName(data[1]);
+    member.setNo(Integer.valueOf(data[0]));
+    member.setName(data[0]);
     member.setEmail(data[2]);
     member.setPassword(data[3]);
     member.setPhoto(data[4]);
@@ -27,8 +27,9 @@ public class Member {
     return member;
   }
 
-  public String toCvsString() {
-    return String.format("%d,%s,%s,%s,%s,%s,%s", this.getNo(), this.getName(), this.getEmail(),
+
+  public String toCsvString() {
+    return String.format("%d,%s,%s,%s,%s,%s,%s\n", this.getNo(), this.getName(), this.getEmail(),
         this.getPassword(), this.getPhoto(), this.getTel(), this.getRegisteredDate());
   }
 
