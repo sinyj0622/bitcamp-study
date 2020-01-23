@@ -91,10 +91,10 @@ public class App {
         System.out.println("안녕!");
         break;
       } else if (command.equals("history")) {
-        printCommandHistory(commandStack.iterator());
+        printCommandHistory(commandStack.iterator()); // 최근 저장한 명령어 순으로 출력한다
         continue;
       } else if (command.equals("history2")) {
-        printCommandHistory(commandQueue.iterator());
+        printCommandHistory(commandQueue.iterator()); // 처음 입력한 명령어 순으로 출력한다
         continue;
       }
 
