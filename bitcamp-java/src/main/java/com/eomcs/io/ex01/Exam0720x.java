@@ -8,25 +8,27 @@ public class Exam0720x {
 
   public static void main(String[] args) throws Exception {
 
+
     File dir = new File("temp");
 
-    deleteFile(dir);
-
+    System.out.println(dir.getCanonicalPath());
 
   }
+
 
   static void deleteFile(File dir) {
 
-    if (dir.isDirectory()) {
-      File[] files = dir.listFiles();
-      for (File file : files) {
+    File[] files = dir.listFiles();
+
+    for (File file : files) {
+      if (file.isDirectory()) {
         deleteFile(file);
+      } else {
+        file.delete();
       }
     }
     dir.delete();
-
   }
-
 }
 
 

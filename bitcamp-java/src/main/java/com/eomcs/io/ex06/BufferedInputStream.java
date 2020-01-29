@@ -4,7 +4,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 public class BufferedInputStream extends FileInputStream {
-  byte[] buf = new byte[8196];
+  byte[] buf = new byte[8192];
   int size; // 배열에 저장되어 있는 바이트의 수
   int cursor; // 바이트 읽은 배열의 위치
 
@@ -20,7 +20,7 @@ public class BufferedInputStream extends FileInputStream {
       }
       cursor = 0;
     }
-    return buf[cursor++] & 0x000000ff;
+    return buf[cursor++] & 0x000000ff; // 앞의 3바이트 날리기..
   }
 }
 
