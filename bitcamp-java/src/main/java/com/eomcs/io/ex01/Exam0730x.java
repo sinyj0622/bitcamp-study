@@ -2,6 +2,7 @@
 package com.eomcs.io.ex01;
 
 import java.io.File;
+import java.io.FileFilter;
 
 public class Exam0730x {
 
@@ -19,7 +20,27 @@ public class Exam0730x {
   static void printList(File dir) {
 
     // 현재 디렉토리의 하위 파일 및 디렉토리 목록을 알아낸다
-    File[] files = dir.listFiles();
+
+
+    class FileFilter2 implements FileFilter {
+
+      @Override
+      public boolean accept(File pathname) {
+        if (pathname.isHidden()) {
+          return false;
+        }
+        if (pathname.getName().contains("$")) {
+          return false;
+        }
+        if (pathname.isDirectory() | (pathname.isFile() && pathname.getName().endsWith(".class"))) {
+          return true;
+        }
+
+        return false;
+      }
+
+      File[] files = dir.listFiles(new FileFilter2());
+    }
 
 
     // 리턴 받은 파일 배열에서 이름을 꺼내 출력한다
