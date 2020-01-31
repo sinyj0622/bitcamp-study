@@ -224,7 +224,7 @@ public class App {
     try (ObjectInputStream in =
         new ObjectInputStream(new BufferedInputStream(new FileInputStream(file)))) {
 
-      lessonList = (List<Lesson>) in.readObject();
+      lessonList = (List<Lesson>) in.readObject(); //클래스정보 + 인스턴스변수 + 인스턴스값
 
       System.out.printf("총 % d개의 수업 데이터를 로딩 하였습니다\n", lessonList.size());
 
