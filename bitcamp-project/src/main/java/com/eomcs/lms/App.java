@@ -42,44 +42,26 @@ public class App {
   Deque<String> commandStack = new ArrayDeque<>();
   Queue<String> commandQueue = new LinkedList<>();
 
-
-
-  // 옵저버 목록을 관리할 객체 준비
-  // - 같은 인스턴스를 중복해서 등록하지 않도록 한다.
-  // - Set은 등록 순서를 따지지 않는다.
-  //
   Set<ApplicationContextListener> listeners = new HashSet<>();
 
-  // 옵저버와 공유할 값을 보관할 객체를 준비한다/
   Map<String, Object> context = new HashMap<>();
 
-  // 옵저버를 등록하는 메서드이다
-  public void addApplicatonContextListener(ApplicationContextListener listener) {
+  public void addApplicationContextListener(ApplicationContextListener listener) {
     listeners.add(listener);
   }
 
-  public void removeApplicatonContextListener(ApplicationContextListener listener) {
+  public void removerApplicationContextListener(ApplicationContextListener listener) {
     listeners.remove(listener);
   }
 
-  // 애플리케이션이 시작되면, 등록된 리스터에게 알린다.
   private void notifyApplicationInitialized() {
     for (ApplicationContextListener listener : listeners) {
-      // 옵저버를 실행할 때 작업 결과를 리턴 받을 수 있도록 바구니를 넘긴다.
-      // 물론 옵저버에게 전달할 값이 있으면 넘기기 전에 바구니에 담도록 한다.
-      // 파라미터로 Map과 같은 객체를 사용하면 이런 점에서 편하다.
-      // 즉 파라미터로 값을 전달하고(In) 리턴(Out) 받을수 있다
-      listener.contextInitialized(context);
+      listener.contextInitionalize(context);
     }
   }
 
-  // 애플리케이션이 종료되면, 등록된 리스터에게 알린다.
   private void notifyApplicationDestroyed() {
     for (ApplicationContextListener listener : listeners) {
-      // 옵저버를 실행할 때 작업 결과를 리턴 받을 수 있도록 바구니를 넘긴다.
-      // 물론 옵저버에게 전달할 값이 있으면 넘기기 전에 바구니에 담도록 한다.
-      // 파라미터로 Map과 같은 객체를 사용하면 이런 점에서 편하다.
-      // 즉 파라미터로 값을 전달하고(In) 리턴(Out) 받을수 있다
       listener.contextDestroyed(context);
     }
   }
@@ -87,14 +69,11 @@ public class App {
   @SuppressWarnings("unchecked")
   public void service() {
 
-
-    // 애플리케이션의 서비스가 시작되었음을 옵저버에게 알린다.
     notifyApplicationInitialized();
 
-    // 옵저버의 실행이 끝났으면 데이터로더리스터 옵저버가 준비한 List 객체를 꺼내보자!
     List<Board> boardList = (List<Board>) context.get("boardList");
-    List<Lesson> lessonList = (List<Lesson>) context.get("lessonList");
     List<Member> memberList = (List<Member>) context.get("memberList");
+    List<Lesson> lessonList = (List<Lesson>) context.get("lessonList");
 
 
     Prompt prompt = new Prompt(keyboard);
@@ -163,7 +142,8 @@ public class App {
 
     notifyApplicationDestroyed();
 
-  } // service()
+  }
+
 
   private void printCommandHistory(Iterator<String> iterator) {
     int count = 0;
@@ -186,9 +166,11 @@ public class App {
   public static void main(String[] args) {
     App app = new App();
 
-    // 애플리케이션의 상태 정보를 받을 옵저버를 등록한다.
-    app.addApplicatonContextListener(new DataLoaderListener());
+    app.addApplicationContextListener(new DataLoaderListener());
+
     app.service();
+
+
   }
 }
 
