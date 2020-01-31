@@ -1,14 +1,8 @@
 package com.eomcs.lms.domain;
 
-import java.io.Serializable;
 import java.sql.Date;
 
-// 객체를 serializa 하려면 이 기능을 활성화시켜야 한다.
-// - java.io.serializable 을 구현하라!
-// - serializa 데이터를 구분하기 위해 버젼 번호를 명시하라.
-//
-public class Lesson implements Serializable {
-  private static final long serialVersionUID = 1L;
+public class Lesson {
   private int no;
   private String title;
   private String description;
