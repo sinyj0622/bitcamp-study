@@ -12,7 +12,6 @@ import java.util.Map;
 import java.util.Set;
 import com.eomcs.lms.context.ApplicationContextListener;
 import com.eomcs.lms.domain.Board;
-import com.eomcs.lms.domain.Lesson;
 
 public class ServerApp {
 
@@ -97,7 +96,6 @@ public class ServerApp {
         }
 
         List<Board> boards = (List<Board>) context.get("boardList");
-        List<Lesson> lessons = (List<Lesson>) context.get("lessonList");
 
         if (request.equals("/board/list")) {
           out.writeUTF("OK");
@@ -202,120 +200,6 @@ public class ServerApp {
             if (index != -1) { // 삭제하려는 번호의 게시물을 찾았다면
 
               boards.remove(index);
-              out.writeUTF("OK");
-
-            } else {
-              out.writeUTF("FAIL");
-              out.writeUTF("해당 번호의 게시물이 없습니다.");
-            }
-
-          } catch (Exception e) {
-            out.writeUTF("FAIL");
-            out.writeUTF(e.getMessage());
-          }
-        } else if (request.equals("/lesson/list")) {
-          out.writeUTF("OK");
-
-          out.reset();
-          // => 기존에 출력했던 List<Board> 객체의 직렬화 데이터를 무시하고
-          // 새로 직렬화를 수행한다.
-
-          out.writeObject(lessons);
-
-        } else if (request.equals("/lesson/add")) {
-          try {
-            Lesson lesson = (Lesson) in.readObject();
-
-            int i = 0;
-            for (; i < lessons.size(); i++) {
-              if (lessons.get(i).getNo() == lesson.getNo()) {
-                break;
-              }
-            }
-
-            if (i == lessons.size()) { // 같은 번호의 게시물이 없다면,
-              lessons.add(lesson); // 새 게시물을 등록한다.
-              out.writeUTF("OK");
-
-            } else {
-              out.writeUTF("FAIL");
-              out.writeUTF("같은 번호의 게시물이 있습니다.");
-
-            }
-
-          } catch (Exception e) {
-            out.writeUTF("FAIL");
-            out.writeUTF(e.getMessage());
-          }
-        } else if (request.equals("/lesson/detail")) {
-          try {
-            int no = in.readInt();
-
-            Lesson lesson = null;
-            for (Lesson l : lessons) {
-              if (l.getNo() == no) {
-                lesson = l;
-                break;
-              }
-            }
-
-            if (lesson != null) {
-              out.writeUTF("OK");
-              out.writeObject(lesson);
-
-            } else {
-              out.writeUTF("FAIL");
-              out.writeUTF("해당 번호의 게시물이 없습니다.");
-            }
-
-          } catch (Exception e) {
-            out.writeUTF("FAIL");
-            out.writeUTF(e.getMessage());
-          }
-        } else if (request.equals("/lesson/update")) {
-          try {
-            Lesson lesson = (Lesson) in.readObject();
-
-            int index = -1;
-            for (int i = 0; i < lessons.size(); i++) {
-              if (lessons.get(i).getNo() == lesson.getNo()) {
-                index = i;
-                break;
-              }
-            }
-
-            if (index != -1) {
-              lessons.set(index, lesson);
-              out.writeUTF("OK");
-            } else {
-              out.writeUTF("FAIL");
-              out.writeUTF("해당 번호의 게시물이 없습니다.");
-            }
-
-            lessons.add(lesson);
-            System.out.println("게시물을 저장하였습니다.");
-
-            out.writeUTF("OK");
-
-          } catch (Exception e) {
-            out.writeUTF("FAIL");
-            out.writeUTF(e.getMessage());
-          }
-        } else if (request.equals("/lesson/delete")) {
-          try {
-            int no = in.readInt();
-
-            int index = -1;
-            for (int i = 0; i < lessons.size(); i++) {
-              if (lessons.get(i).getNo() == no) {
-                index = i;
-                break;
-              }
-            }
-
-            if (index != -1) { // 삭제하려는 번호의 게시물을 찾았다면
-
-              lessons.remove(index);
               out.writeUTF("OK");
 
             } else {
