@@ -22,6 +22,11 @@ import com.eomcs.lms.handler.LessonDeleteCommand;
 import com.eomcs.lms.handler.LessonDetailCommand;
 import com.eomcs.lms.handler.LessonListCommand;
 import com.eomcs.lms.handler.LessonUpdateCommand;
+import com.eomcs.lms.handler.MemberAddCommand;
+import com.eomcs.lms.handler.MemberDeleteCommand;
+import com.eomcs.lms.handler.MemberDetailCommand;
+import com.eomcs.lms.handler.MemberListCommand;
+import com.eomcs.lms.handler.MemberUpdateCommand;
 import com.eomcs.util.Prompt;
 
 public class ClientApp {
@@ -73,11 +78,18 @@ public class ClientApp {
     commandMap.put("/board/detail", new BoardDetailCommand(out, in, prompt));
     commandMap.put("/board/update", new BoardUpdateCommand(out, in, prompt));
     commandMap.put("/board/delete", new BoardDeleteCommand(out, in, prompt));
+
     commandMap.put("/lesson/list", new LessonListCommand(out, in));
     commandMap.put("/lesson/add", new LessonAddCommand(out, in, prompt));
     commandMap.put("/lesson/detail", new LessonDetailCommand(out, in, prompt));
     commandMap.put("/lesson/update", new LessonUpdateCommand(out, in, prompt));
     commandMap.put("/lesson/delete", new LessonDeleteCommand(out, in, prompt));
+
+    commandMap.put("/member/list", new MemberListCommand(out, in));
+    commandMap.put("/member/add", new MemberAddCommand(out, in, prompt));
+    commandMap.put("/member/detail", new MemberDetailCommand(out, in, prompt));
+    commandMap.put("/member/update", new MemberUpdateCommand(out, in, prompt));
+    commandMap.put("/member/delete", new MemberDeleteCommand(out, in, prompt));
 
     try {
       while (true) {
