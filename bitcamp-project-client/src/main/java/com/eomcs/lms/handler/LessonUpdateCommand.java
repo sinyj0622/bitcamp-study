@@ -1,4 +1,3 @@
-// 사용자 입력을 받는 코드를 별도의 메소드로 분리한다.
 package com.eomcs.lms.handler;
 
 import java.io.ObjectInputStream;
@@ -7,7 +6,6 @@ import com.eomcs.lms.domain.Lesson;
 import com.eomcs.util.Prompt;
 
 public class LessonUpdateCommand implements Command {
-
 
   ObjectOutputStream out;
   ObjectInputStream in;
@@ -20,15 +18,13 @@ public class LessonUpdateCommand implements Command {
     this.prompt = prompt;
   }
 
-
   @Override
   public void execute() {
     try {
-      int no = prompt.inputInt("번호? "); // 레슨객체의 번호를 찾아리턴
-
+      int no = prompt.inputInt("번호? ");
 
       out.writeUTF("/lesson/detail");
-      out.write(no);
+      out.writeInt(no);
       out.flush();
 
       String response = in.readUTF();
@@ -36,7 +32,6 @@ public class LessonUpdateCommand implements Command {
         System.out.println(in.readUTF());
         return;
       }
-
 
       Lesson oldLesson = (Lesson) in.readObject();
       Lesson newLesson = new Lesson();
@@ -60,8 +55,7 @@ public class LessonUpdateCommand implements Command {
       newLesson.setDayHours(prompt.inputInt(String.format("일수업시간(%d)? ", oldLesson.getDayHours()),
           oldLesson.getDayHours()));
 
-
-      if (newLesson.equals(oldLesson)) {
+      if (oldLesson.equals(newLesson)) {
         System.out.println("수업 변경을 취소하였습니다.");
         return;
       }
@@ -71,15 +65,17 @@ public class LessonUpdateCommand implements Command {
       out.flush();
 
       response = in.readUTF();
-      if (response.equals("OK")) {
+      if (response.equals("FAIL")) {
         System.out.println(in.readUTF());
         return;
       }
+
       System.out.println("수업을 변경했습니다.");
 
     } catch (Exception e) {
-      System.out.println("명령 실행 중 오류 발생");
+      System.out.println("명령 실행 중 오류 발생!");
     }
   }
-
 }
+
+

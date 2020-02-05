@@ -32,7 +32,6 @@ public class LessonDetailCommand implements Command {
       out.flush();
 
       String response = in.readUTF();
-
       if (response.contentEquals("FAIL")) {
         System.out.println(in.readUTF());
         return;
