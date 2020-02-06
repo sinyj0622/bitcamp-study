@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Scanner;
 import com.eomcs.lms.domain.Board;
 
-public class ServerAppTest {
+public class ServerAppTest2 {
   public static void main(String[] args) {
     String serverAddr = null;
     int port = 0;
