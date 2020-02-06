@@ -12,12 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 import com.eomcs.lms.domain.Lesson;
 
-public class LessonFileDao {
+public class LessonObjectDao {
 
   String filename;
   List<Lesson> list;
 
-  public LessonFileDao(String filename) {
+  public LessonObjectDao(String filename) {
     this.filename = filename;
     list = new ArrayList<>();
     loadData(); // 객체 생성시 로딩

@@ -2,13 +2,13 @@ package com.eomcs.lms.servlet;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import com.eomcs.lms.dao.LessonFileDao;
+import com.eomcs.lms.dao.LessonObjectDao;
 
 public class LessonListServlet implements Servlet {
 
-  LessonFileDao lessonDao;
+  LessonObjectDao lessonDao;
 
-  public LessonListServlet(LessonFileDao lessonDao) {
+  public LessonListServlet(LessonObjectDao lessonDao) {
     this.lessonDao = lessonDao;
   }
 
