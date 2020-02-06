@@ -3,10 +3,10 @@ package com.eomcs.lms.dao;
 import java.util.List;
 import com.eomcs.lms.domain.Board;
 
-public class BoardFObjectFileDao extends AbstractObjectFileDao<Board> {
+public class BoardObjectFileDao extends AbstractObjectFileDao<Board> {
 
 
-  public BoardFObjectFileDao(String filename) {
+  public BoardObjectFileDao(String filename) {
     super(filename);
   }
 
