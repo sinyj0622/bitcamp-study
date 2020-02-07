@@ -60,7 +60,7 @@ public class BoardUpdateCommand implements Command {
       out.flush();
 
       response = in.readUTF();
-      if (response.equals("OK")) {
+      if (response.equals("FAIL")) {
         System.out.println(in.readUTF());
         return;
       }
