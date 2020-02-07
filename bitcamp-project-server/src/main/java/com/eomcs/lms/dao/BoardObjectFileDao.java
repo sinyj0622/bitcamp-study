@@ -15,13 +15,15 @@ public class BoardObjectFileDao extends AbstractObjectFileDao<Board> implements 
   @Override
   public int insert(Board board) throws Exception {
 
+
     if (indexOf(board.getNo()) > -1) { // 같은 번호의 게시물이 있다면,
       return 0;
     }
-
     list.add(board); // 새 게시물을 등록한다.
     saveData();
     return 1;
+
+
   }
 
   @Override
