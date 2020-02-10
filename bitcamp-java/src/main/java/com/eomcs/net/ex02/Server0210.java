@@ -20,7 +20,7 @@ public class Server0210 {
     // 예외를 던지고 연결 요청을 취소한다.
     // => new ServerSocket(포트번호, 대기열크기);
     //
-    ServerSocket ss = new ServerSocket(8888);
+    ServerSocket ss = new ServerSocket(8888); // 서버소켓 생성하면 큐방식의 대기열을 만든다
     System.out.println("서버 소켓 생성 완료!");
     System.out.println("클라이언트 연결을 기다리는 중...");
 
