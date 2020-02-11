@@ -1,5 +1,5 @@
 // connection-oriented 서버 - 연결 후 데이터 송수신
-package com.eomcs.net.ex06;
+package com.eomcs.net.ex05;
 
 import java.io.PrintStream;
 import java.net.ServerSocket;
@@ -7,11 +7,12 @@ import java.net.Socket;
 import java.util.Scanner;
 
 // 연결지향(connection oriented)
-// => 연결 후에 데이터를 송수신 하기 때문에 데이터 송수신에 대한 신뢰를 보장한다.
+// => 연결 후에 데이터를 송수신 하기 때문에 (중간에 없어지면 데이터 다시 요청)
+// 데이터 송수신에 대한 '신뢰를 보장'한다.
 // => TCP 통신 방법이 전형적인 예이다.
-//    예) FTP, Telnet, SMTP, POP3, HTTP 등 
-// 
-public class ConnectionOrientedServer {
+// 예) FTP, Telnet, SMTP, POP3, HTTP 등
+// 오프라인 예) 전화
+public class Server0110 {
   public static void main(String[] args) throws Exception {
     System.out.println("서버 실행 중...");
 
@@ -37,8 +38,5 @@ public class ConnectionOrientedServer {
     ss.close();
   }
 }
-
-
-
 
 
