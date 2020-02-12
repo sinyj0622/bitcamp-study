@@ -27,8 +27,9 @@ public class BoardAddCommand implements Command {
     board.setViewCount(0);
 
     try {
-      boardDao.insert(board);
-      System.out.println("저장하였습니다.");
+      if (boardDao.insert(board) == 1) {
+        System.out.println("저장하였습니다.");
+      }
 
     } catch (Exception e) {
       System.out.println("저장 실패!");
