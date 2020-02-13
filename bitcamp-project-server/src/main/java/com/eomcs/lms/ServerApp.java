@@ -65,6 +65,7 @@ public class ServerApp {
   @SuppressWarnings("unchecked")
   public void service() {
 
+
     notifyApplicationInitialized();
 
     // DataLoaderListener가 준비한 Dao 객체를 꺼내 변수에 저장한다.
@@ -106,10 +107,17 @@ public class ServerApp {
         // main스레드에서 분리하여 별도의 스레드로 실행한다.
         // 따라서 어떤 스레드의 응답 지연에 다른 스레드가 영향을 받지 않는다.
         // 다중 클라이언트.. 무조건 stateless통신방법과 스레드를 적용해야한다!!!
+
+       /* new Thread() {
+          @Override
+          public void run() {
+            processRequest(socket);
+          }
+        }.start(); */  // 스레드를 상속 받아서 구현한 익명클래스
+
         new Thread(() -> {
           processRequest(socket);
-          System.out.println("--------------------------------------");
-        }).start();
+        }); // runnable 인터페이스를 구현한 익명클래스
 
       }
     } catch (Exception e) {
