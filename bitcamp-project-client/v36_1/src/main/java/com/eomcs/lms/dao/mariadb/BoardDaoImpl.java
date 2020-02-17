@@ -40,11 +40,9 @@ public class BoardDaoImpl implements BoardDao {
         Connection con =
             DriverManager.getConnection("jdbc:mariadb://localhost/studydb", "study", "1111");
         // MariaDB에 명령을 전달할 객체 준비
-        Statement stmt = con.createStatement();
-
-        // MariaDB의 lms_board 테이블에 있는 데이터를 가져올 도구를 *준비*
-        ResultSet rs = stmt.executeQuery("select board_id, conts, cdt, vw_cnt from lms_board")) {
-
+        Statement stmt = con.createStatement()) {
+       // MariaDB의 lms_board 테이블에 있는 데이터를 가져올 도구를 *준비*
+          ResultSet rs = stmt.executeQuery("select board_id, conts, cdt, vw_cnt from lms_board") 
 
       ArrayList<Board> list = new ArrayList<>();
 
