@@ -1,6 +1,7 @@
 package com.eomcs.lms.dao.mariadb;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -10,15 +11,14 @@ import com.eomcs.lms.domain.Lesson;
 
 public class LessonDaoImpl implements LessonDao {
 
-  Connection con;
-
-  public LessonDaoImpl(Connection con) {
-    this.con = con;
-  }
-
   @Override
   public int insert(Lesson lesson) throws Exception {
-    try (Statement stmt = con.createStatement()) {
+    Class.forName("org.mariadb.jdbc.Driver");
+
+    try (
+        Connection con =
+            DriverManager.getConnection("jdbc:mariadb://localhost/studydb", "study", "1111");
+        Statement stmt = con.createStatement()) {
 
       // DBMS에게 데이터 입력하라는 명령을 보낸다.
       // SQL 문법:
@@ -35,7 +35,13 @@ public class LessonDaoImpl implements LessonDao {
 
   @Override
   public List<Lesson> findAll() throws Exception {
+    // JDBC Driver(MariaDB 프록시) 로딩
+    Class.forName("org.mariadb.jdbc.Driver");
+
     try (
+        // JDBC Driver를 이용하여 MariaDB 에 접속한다.
+        Connection con =
+            DriverManager.getConnection("jdbc:mariadb://localhost/studydb", "study", "1111");
         // MariaDB에 명령을 전달할 객체 준비
         Statement stmt = con.createStatement();
 
@@ -64,7 +70,12 @@ public class LessonDaoImpl implements LessonDao {
 
   @Override
   public Lesson findByNo(int no) throws Exception {
-    try (Statement stmt = con.createStatement();
+    Class.forName("org.mariadb.jdbc.Driver");
+
+    try (
+        Connection con =
+            DriverManager.getConnection("jdbc:mariadb://localhost/studydb", "study", "1111");
+        Statement stmt = con.createStatement();
 
         ResultSet rs = stmt.executeQuery("select lesson_id, titl, conts, sdt, edt, tot_hr, day_hr"
             + " from lms_lesson" + " where lesson_id=" + no)) {
@@ -89,7 +100,12 @@ public class LessonDaoImpl implements LessonDao {
 
   @Override
   public int update(Lesson lesson) throws Exception {
-    try (Statement stmt = con.createStatement()) {
+    Class.forName("org.mariadb.jdbc.Driver");
+
+    try (
+        Connection con =
+            DriverManager.getConnection("jdbc:mariadb://localhost/studydb", "study", "1111");
+        Statement stmt = con.createStatement()) {
 
       // DBMS에게 데이터를 변경하라는 명령을 보낸다
       // SQL 문법
@@ -105,7 +121,12 @@ public class LessonDaoImpl implements LessonDao {
 
   @Override
   public int delete(int no) throws Exception {
-    try (Statement stmt = con.createStatement()) {
+    Class.forName("org.mariadb.jdbc.Driver");
+
+    try (
+        Connection con =
+            DriverManager.getConnection("jdbc:mariadb://localhost/studydb", "study", "1111");
+        Statement stmt = con.createStatement()) {
 
       // DBMS에게 데이터를 변경하라는 명령을 보낸다
       // SQL 문법

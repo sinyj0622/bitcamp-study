@@ -1,6 +1,7 @@
 package com.eomcs.lms.dao.mariadb;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -10,15 +11,14 @@ import com.eomcs.lms.domain.Member;
 
 public class MemberDaoImpl implements MemberDao {
 
-  Connection con;
-
-  public MemberDaoImpl(Connection con) {
-    this.con = con;
-  }
-
   @Override
   public int insert(Member member) throws Exception {
-    try (Statement stmt = con.createStatement()) {
+    Class.forName("org.mariadb.jdbc.Driver");
+
+    try (
+        Connection con =
+            DriverManager.getConnection("jdbc:mariadb://localhost/studydb", "study", "1111");
+        Statement stmt = con.createStatement()) {
 
       // DBMS에게 데이터 입력하라는 명령을 보낸다.
       // SQL 문법:
@@ -35,7 +35,15 @@ public class MemberDaoImpl implements MemberDao {
 
   @Override
   public List<Member> findAll() throws Exception {
-    try (Statement stmt = con.createStatement();
+    // JDBC Driver(MariaDB 프록시) 로딩
+    Class.forName("org.mariadb.jdbc.Driver");
+
+    try (
+        // JDBC Driver를 이용하여 MariaDB 에 접속한다.
+        Connection con =
+            DriverManager.getConnection("jdbc:mariadb://localhost/studydb", "study", "1111");
+        // MariaDB에 명령을 전달할 객체 준비
+        Statement stmt = con.createStatement();
 
         // MariaDB의 lms_board 테이블에 있는 데이터를 가져올 도구를 *준비*
         ResultSet rs = stmt
@@ -65,7 +73,15 @@ public class MemberDaoImpl implements MemberDao {
 
   @Override
   public Member findByNo(int no) throws Exception {
-    try (Statement stmt = con.createStatement();
+    // JDBC Driver(MariaDB 프록시) 로딩
+    Class.forName("org.mariadb.jdbc.Driver");
+
+    try (
+        // JDBC Driver를 이용하여 MariaDB 에 접속한다.
+        Connection con =
+            DriverManager.getConnection("jdbc:mariadb://localhost/studydb", "study", "1111");
+        // MariaDB에 명령을 전달할 객체 준비
+        Statement stmt = con.createStatement();
 
         // MariaDB의 lms_board 테이블에 있는 데이터를 가져올 도구를 *준비*
         ResultSet rs = stmt.executeQuery("select member_id, name, email, pwd, cdt, tel, photo "
@@ -93,7 +109,12 @@ public class MemberDaoImpl implements MemberDao {
 
   @Override
   public int update(Member member) throws Exception {
-    try (Statement stmt = con.createStatement()) {
+    Class.forName("org.mariadb.jdbc.Driver");
+
+    try (
+        Connection con =
+            DriverManager.getConnection("jdbc:mariadb://localhost/studydb", "study", "1111");
+        Statement stmt = con.createStatement()) {
 
       // DBMS에게 데이터를 변경하라는 명령을 보낸다
       // SQL 문법
@@ -109,7 +130,12 @@ public class MemberDaoImpl implements MemberDao {
 
   @Override
   public int delete(int no) throws Exception {
-    try (Statement stmt = con.createStatement()) {
+    Class.forName("org.mariadb.jdbc.Driver");
+
+    try (
+        Connection con =
+            DriverManager.getConnection("jdbc:mariadb://localhost/studydb", "study", "1111");
+        Statement stmt = con.createStatement()) {
 
       // DBMS에게 데이터를 변경하라는 명령을 보낸다
       // SQL 문법

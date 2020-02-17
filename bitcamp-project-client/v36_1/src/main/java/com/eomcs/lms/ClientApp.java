@@ -1,8 +1,9 @@
 // LMS 클라이언트
 package com.eomcs.lms;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.HashMap;
@@ -42,11 +43,9 @@ public class ClientApp {
   Deque<String> commandStack; // 생성자에 자동으로 들어감!
   Queue<String> commandQueue;
 
-  Connection con;
-
   HashMap<String, Command> commandMap = new HashMap<>();
 
-  public ClientApp() throws Exception {
+  public ClientApp() {
     // 생성자?
     // => 객체가 작업할 때 사용할 자원들을 준비시키는 일을 한다.
 
@@ -54,14 +53,10 @@ public class ClientApp {
     commandStack = new ArrayDeque<>();
     commandQueue = new LinkedList<>();
 
-    // DB 연결객체 준비
-    Class.forName("org.mariadb.jdbc.Driver");
-    con = DriverManager.getConnection("jdbc:mariadb://localhost/studydb", "study", "1111");
-
     // Mariadb와 연동하여 데이터를 처리하는 DAO 객체 준비
-    BoardDao boardDao = new BoardDaoImpl(con);
-    MemberDao memberDao = new MemberDaoImpl(con);
-    LessonDao lessonDao = new LessonDaoImpl(con);
+    BoardDao boardDao = new BoardDaoImpl();
+    MemberDao memberDao = new MemberDaoImpl();
+    LessonDao lessonDao = new LessonDaoImpl();
 
     // 사용자 명령을 Command 객체 준비
     commandMap.put("/board/list", new BoardListCommand(boardDao));
@@ -110,12 +105,6 @@ public class ClientApp {
 
     }
     keyboard.close();
-
-    try {
-      con.close();
-    } catch (Exception e) {
-
-    }
   }
 
   private void processCommand(String command) {
