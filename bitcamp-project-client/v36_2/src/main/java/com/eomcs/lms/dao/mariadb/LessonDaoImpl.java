@@ -26,7 +26,7 @@ public class LessonDaoImpl implements LessonDao {
       // => executeUpdate()의 리턴 값은 서버에 입력된 데이터의 개수이다.
       int result =
           stmt.executeUpdate("insert into lms_lesson(sdt, edt, tot_hr, day_hr, titl, conts) "
-              + "values ('" + lesson.getStartDate() + "', '" + lesson.getEndDate() + "', "
+              + "values ('" + lesson.getStartDate().toString() + "', '" + lesson.getEndDate().toString() + "', "
               + lesson.getTotalHours() + ", " + lesson.getDayHours() + ", '" + lesson.getTitle()
               + "','" + lesson.getDescription() + "')");
       return result;

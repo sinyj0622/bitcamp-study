@@ -96,9 +96,9 @@ public class LessonDaoImpl implements LessonDao {
       // update 테이블명 set 컬럼명1=값1,컬럼명2=값2, ...where 조건
       // =>executeUpdate()의 리턴 값은 SQL 명령에 따라 변경된 데이터의 개수이다.
       int result = stmt.executeUpdate("update lms_lesson set" + " titl='" + lesson.getTitle()
-          + "', conts='" + lesson.getDescription() + "', sdt='" + lesson.getStartDate() + "', edt='"
-          + lesson.getEndDate() + "', tot_hr=" + lesson.getTotalHours() + ", day_hr="
-          + lesson.getDayHours() + " where lesson_id=" + lesson.getNo());
+          + "', conts='" + lesson.getDescription() + "', sdt='" + lesson.getStartDate().toString()
+          + "', edt='" + lesson.getEndDate().toString() + "', tot_hr=" + lesson.getTotalHours()
+          + ", day_hr=" + lesson.getDayHours() + " where lesson_id=" + lesson.getNo());
       return result;
     }
   }

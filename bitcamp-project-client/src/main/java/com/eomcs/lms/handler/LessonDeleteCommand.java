@@ -22,7 +22,7 @@ public class LessonDeleteCommand implements Command {
       int no = prompt.inputInt("번호? ");
 
       if (lessonDao.delete(no) > 0) {
-        System.out.println("게시글을 삭제했습니다.");
+        System.out.println("수업을 삭제했습니다.");
       } else {
         System.out.println("해당 번호의 수업이 없습니다.");
       }
