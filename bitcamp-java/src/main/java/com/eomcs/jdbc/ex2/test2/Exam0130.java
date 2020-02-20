@@ -29,11 +29,11 @@ public class Exam0130 {
 
     try (Connection con = DriverManager.getConnection( //
         "jdbc:mysql://localhost:3306/studydb?user=study&password=1111");
-        PreparedStatement stmt = con.prepareStatement("select * from x_board where board_id=?");
-        ResultSet rs = stmt.executeQuery()) {
+        PreparedStatement stmt = con.prepareStatement("select * from x_board where board_id=?");) {
 
-      rs.getString();
+      stmt.setString(1, no);
 
+      ResultSet rs = stmt.executeQuery();
       if (rs.next()) {
         // 레코드에서 컬럼 값을 꺼낼 때 컬럼 번호를 지정하는 것 보다
         // 컬럼의 이름을 지정하는 것이 유지보수에 더 좋다.

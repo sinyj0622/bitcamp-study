@@ -3,7 +3,7 @@ package com.eomcs.jdbc.ex2.test2;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.Statement;
+import java.sql.PreparedStatement;
 import java.util.Scanner;
 
 // 다음과 같이 게시물을 삭제하는 프로그램을 작성하라!
@@ -25,11 +25,11 @@ public class Exam0150 {
 
     try (Connection con = DriverManager.getConnection( //
         "jdbc:mysql://localhost:3306/studydb?user=study&password=1111");
-        Statement stmt = con.createStatement()) {
+        PreparedStatement stmt = con.prepareStatement("delete from x_board where board_id=?")) {
 
-      // delete 문장은 executeUpdate()를 사용하여 서버에 전달한다.
-      int count = stmt.executeUpdate( //
-          "delete from x_board where board_id = " + no);
+      stmt.setString(1, no);
+
+      int count = stmt.executeUpdate();
 
       if (count == 0) {
         System.out.println("해당 번호의 게시물이 존재하지 않습니다.");
