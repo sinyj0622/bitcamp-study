@@ -101,9 +101,8 @@ public class ClientApp {
       out.println(servletPath);
       out.flush();
 
-      // 서버의 응답을 읽어서 출력한다.
       while (true) {
-        String response = in.nextLine();
+        String response = in.nextLine(); // 사용자로부터 한줄 읽는다.
         if (response.equals("!end!")) {
           break;
         } else if (response.equals("!{}!")) {
