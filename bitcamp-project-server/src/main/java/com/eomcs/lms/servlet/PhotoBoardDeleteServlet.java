@@ -3,13 +3,16 @@ package com.eomcs.lms.servlet;
 import java.io.PrintStream;
 import java.util.Scanner;
 import com.eomcs.lms.dao.PhotoBoardDao;
+import com.eomcs.lms.dao.PhotoFileDao;
 
 public class PhotoBoardDeleteServlet implements Servlet {
 
   PhotoBoardDao photoBoardDao;
+  PhotoFileDao photoFileDao;
 
-  public PhotoBoardDeleteServlet(PhotoBoardDao photoBoardDao) {
+  public PhotoBoardDeleteServlet(PhotoBoardDao photoBoardDao, PhotoFileDao photoFileDao) {
     this.photoBoardDao = photoBoardDao;
+    this.photoFileDao = photoFileDao;
   }
 
 
@@ -21,6 +24,9 @@ public class PhotoBoardDeleteServlet implements Servlet {
     out.flush();
 
     int no = Integer.parseInt(in.nextLine());
+
+    // 사진 게시글을 삭제전 먼저 자식테이블에 있는 첨부파일 데이터를 삭제한다.
+    photoFileDao.deleteAll(no);
 
     if (photoBoardDao.delete(no) > 0) {
       out.println("사진 게시글을 삭제했습니다.");
