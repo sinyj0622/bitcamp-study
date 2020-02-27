@@ -1,13 +1,13 @@
 package com.eomcs.lms.dao.mariadb;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import com.eomcs.lms.dao.PhotoFileDao;
 import com.eomcs.lms.domain.PhotoFile;
-import com.eomcs.util.DataSource;
+import com.eomcs.sql.DataSource;
 
 public class PhotoFileDaoImpl implements PhotoFileDao {
 
@@ -19,12 +19,12 @@ public class PhotoFileDaoImpl implements PhotoFileDao {
 
   @Override
   public int insert(PhotoFile photoFile) throws Exception {
-    try (Connection con = dataSource.getConnection(); Statement stmt = con.createStatement()) {
-
-      int result = stmt.executeUpdate("insert into lms_photo_file(photo_id, file_path) values("
-          + photoFile.getBoardNo() + ", '" + photoFile.getFilepath() + "')");
-
-      return result;
+    try (Connection con = dataSource.getConnection();
+        PreparedStatement stmt = con
+            .prepareStatement("insert into lms_photo_file(photo_id, file_path)" + " values(?,?)")) {
+      stmt.setInt(1, photoFile.getBoardNo());
+      stmt.setString(2, photoFile.getFilepath());
+      return stmt.executeUpdate();
     }
   }
 
@@ -32,41 +32,34 @@ public class PhotoFileDaoImpl implements PhotoFileDao {
   @Override
   public List<PhotoFile> findAll(int boardNo) throws Exception {
     try (Connection con = dataSource.getConnection();
-        Statement stmt = con.createStatement();
-        ResultSet rs = stmt.executeQuery("select photo_file_id, photo_id, file_path" //
+        PreparedStatement stmt = con.prepareStatement("select photo_file_id, photo_id, file_path" //
             + " from lms_photo_file" //
-            + " where photo_id=" + boardNo //
-            + " order by photo_file_id asc")) {
+            + " where photo_id=? order by photo_file_id asc");) {
+      stmt.setInt(1, boardNo);
+      try (ResultSet rs = stmt.executeQuery()) {
 
-      ArrayList<PhotoFile> list = new ArrayList<>();
+        ArrayList<PhotoFile> list = new ArrayList<>();
 
-      while (rs.next()) {
+        while (rs.next()) {
+          list.add(new PhotoFile().setNo(rs.getInt("photo_file_id")) //
+              .setFilepath(rs.getString("file_path")) //
+              .setBoardNo(rs.getInt("photo_id"))); //
+        }
 
-        // 1) 생성자
-        // list.add(new PhotoFile(rs.getInt("photo_file_id"), //
-        // rs.getString("file_path"), //
-        // rs.getInt("photo_id"))); //
-
-
-        // 2) 셋터를 통해 체인 방식으로 값을 설정
-        list.add(new PhotoFile().setNo(rs.getInt("photo_file_id")) //
-            .setFilepath(rs.getString("file_path")) //
-            .setBoardNo(rs.getInt("photo_id"))); //
+        return list;
       }
-
-      return list;
-
     }
   }
 
 
   @Override
   public int deleteAll(int boardNo) throws Exception {
-    try (Connection con = dataSource.getConnection(); Statement stmt = con.createStatement()) {
-      int result = stmt.executeUpdate( //
-          "delete from lms_photo_file" //
-              + " where photo_id=" + boardNo);
-      return result;
+    try (Connection con = dataSource.getConnection();
+        PreparedStatement stmt = con.prepareStatement( //
+            "delete from lms_photo_file" //
+                + " where photo_id=?")) {
+      stmt.setInt(1, boardNo);
+      return stmt.executeUpdate();
     }
   }
 

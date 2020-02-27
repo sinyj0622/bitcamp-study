@@ -19,4 +19,10 @@ public interface MemberDao {
     return null;
   }
 
+
+
+  default Member findByEmailAndPassWord(String email, String password) throws Exception {
+    return null;
+  }
+
 }

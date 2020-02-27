@@ -1,9 +1,8 @@
-package com.eomcs.util;
+package com.eomcs.sql;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.ArrayList;
-import com.eomcs.sql.ConnectionProxy;
 
 public class DataSource {
 
@@ -14,7 +13,9 @@ public class DataSource {
   // 스레드에 값을 보관하는 일을 할 도구 준비
   ThreadLocal<Connection> connectionLocal = new ThreadLocal<>();
 
+  // 반납받은 커넥션을 보관할 저장소를 준비한다.
   ArrayList<Connection> conList = new ArrayList<>();
+
 
   public DataSource(String jdbcUrl, String username, String password) {
     this.jdbcUrl = jdbcUrl;
@@ -31,36 +32,48 @@ public class DataSource {
       return con; // 보관된 Connection 객체를 리턴한다.
     }
 
-    // 없다면 새로 Connection을 만들어 리턴한다.
-    con = new ConnectionProxy(DriverManager.getConnection(jdbcUrl, username, password));
-    System.out.println("새 커넥션 프록시 객체 생성");
-    // 물론 리턴하기 전에 스레드에 생성된 Connection 객체의 주소를 기록한다.
+    // 스레드에 보관된 Connection 객체가 없다면
+    if (conList.size() > 0) {
+      // 1) 기존에 반납한 Connection 객체가 있는지 검사하여 있다면 리턴한다.
+      con = conList.remove(0); // 삭제하면 삭제한 객체를 리턴해줌
+      System.out.println("기존에 반납 받은 객체 재사용");
+
+    } else {
+      // 2) 기존에 반납한 Connection 객체가 없다면
+      // 새로 Connection 객체를 만들어 리턴한다
+      con = new ConnectionProxy(DriverManager.getConnection(jdbcUrl, username, password));
+      System.out.println("새 Connection 객체 생성");
+    }
+    // 물론 리턴하기 전에 스레드에 생성된 Connection 객체를 보관한다.
     connectionLocal.set(con);
 
+    System.out.printf("DataSource: 현재 보관중인 객체 %d개\n", conList.size());
     return con;
 
   }
 
   public Connection removeConnection() {
     // 스레드에 보관된 Connection 객체를 제거한다.
-    // => 다음 문장을 실행하는 스레드에서 제거한다.
-    // => 어느 스레드인지 구분하니까 걱정하지 말라!!
     Connection con = connectionLocal.get(); // 현재스레드 얻기
     if (con != null) {
       connectionLocal.remove(); // 현재스레드 제거
+      System.out.println("스레드에 보관된 Connection 객체 제거함");
+
+      // Connection 객체는 다시 사용할 수 있게 반납한다.
       conList.add(con);
     }
+    System.out.printf("DataSource: 현재 보관중인 객체 %d개\n", conList.size());
     return con;
   }
 
   public void clean() {
+    // 보관소에 저장된 모든 커넥션을 닫는다.
     while (conList.size() > 0) {
       try {
         ((ConnectionProxy) conList.remove(0)).realClose();
       } catch (Exception e) {
-
+        // 커넥션을 닫다가 발생한 오류는 무시한다.
       }
-
     }
   }
 }

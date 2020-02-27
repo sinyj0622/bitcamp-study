@@ -25,11 +25,17 @@ public class PhotoBoardAddServlet implements Servlet {
 
 
   public PhotoBoardAddServlet(PhotoBoardDao photoBoardDao, LessonDao lessonDao,
-      PhotoFileDao photoFileDao, PlatformTransactionManager tkManager) {
+      PhotoFileDao photoFileDao, PlatformTransactionManager txManager) {
+
     this.photoBoardDao = photoBoardDao;
     this.lessonDao = lessonDao;
     this.photoFileDao = photoFileDao;
-    this.transactionTemplate = new TransactionTemplate(tkManager);
+
+    // 우리를 대신해서 트랜잭션 관리자를 사용하여
+    // 트랜잭션을 처리할 도우미 객체를 준비한다.
+    // 따라서 트랜잭션 관리자는 TransactionTemplate이 사용할 것이기 때문에
+    // 생성자에 넘겨준다.
+    this.transactionTemplate = new TransactionTemplate(txManager);
   }
 
 
@@ -48,14 +54,20 @@ public class PhotoBoardAddServlet implements Servlet {
     }
 
     photoBoard.setLesson(lesson);
+    // 사용자로부터 사진 게시글에 첨부할 파일을 입력 받는다.
+    List<PhotoFile> photoFiles = inputPhotoFiles(in, out);
+
+    // 도우미 객체를 이용하여 트랜잭션 작업을 처리해보자.
+    // => 트랜잭션으로 묶어서 처리할 작업은 TransactionCallback 규칙에 따라
+    // 객체를 만들어 파라미터로 넘겨주면된다.
 
     transactionTemplate.execute(new TransactionCallback() {
+
       @Override
       public Object doInTransaction() throws Exception {
         if (photoBoardDao.insert(photoBoard) == 0) {
           throw new Exception("사진 게시글 등록에 실패하였습니다.");
         }
-        List<PhotoFile> photoFiles = inputPhotoFiles(in, out);
         for (PhotoFile photoFile : photoFiles) {
           photoFile.setBoardNo(photoBoard.getNo());
           photoFileDao.insert(photoFile);
