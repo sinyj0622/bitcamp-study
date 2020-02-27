@@ -28,7 +28,6 @@ import com.eomcs.lms.servlet.LessonDeleteServlet;
 import com.eomcs.lms.servlet.LessonDetailServlet;
 import com.eomcs.lms.servlet.LessonListServlet;
 import com.eomcs.lms.servlet.LessonUpdateServlet;
-import com.eomcs.lms.servlet.LoginServlet;
 import com.eomcs.lms.servlet.MemberAddServlet;
 import com.eomcs.lms.servlet.MemberDeleteServlet;
 import com.eomcs.lms.servlet.MemberDetailServlet;
@@ -41,8 +40,8 @@ import com.eomcs.lms.servlet.PhotoBoardDetailServlet;
 import com.eomcs.lms.servlet.PhotoBoardListServlet;
 import com.eomcs.lms.servlet.PhotoBoardUpdateServlet;
 import com.eomcs.lms.servlet.Servlet;
-import com.eomcs.sql.DataSource;
 import com.eomcs.sql.PlatformTransactionManager;
+import com.eomcs.util.DataSource;
 
 public class ServerApp {
 
@@ -86,11 +85,9 @@ public class ServerApp {
 
     notifyApplicationInitialized();
 
-    // 커넥션풀을 꺼낸다.
-    DataSource dataSource = (DataSource) context.get("dataSource");
-
-    // 트랜젝션 관리자를 꺼내 변수에 저장한다.
-    PlatformTransactionManager txManager = (PlatformTransactionManager) context.get("txManager");
+    // ConnectionFactory 꺼낸다
+    DataSource dataSource = (DataSource) context.get("conFactory");
+    PlatformTransactionManager tkManager = (PlatformTransactionManager) context.get("tkManager");
 
     // DataLoaderListener가 준비한 Dao 객체를 꺼내 변수에 저장한다.
     BoardDao boardDao = (BoardDao) context.get("boardDao");
@@ -120,16 +117,14 @@ public class ServerApp {
     servletMap.put("/member/delete", new MemberDeleteServlet(memberDao));
     servletMap.put("/member/search", new MemberSearchServlet(memberDao));
 
-    servletMap.put("/auth/login", new LoginServlet(memberDao));
-
     servletMap.put("/photoboard/list", new PhotoBoardListServlet(photoBoardDao, lessonDao));
     servletMap.put("/photoboard/detail", new PhotoBoardDetailServlet(photoBoardDao, photoFileDao));
     servletMap.put("/photoboard/add",
-        new PhotoBoardAddServlet(photoBoardDao, lessonDao, photoFileDao, txManager)); // 의존객체(DI)
+        new PhotoBoardAddServlet(photoBoardDao, lessonDao, photoFileDao, tkManager)); // 의존객체(DI)
     servletMap.put("/photoboard/update",
-        new PhotoBoardUpdateServlet(photoBoardDao, photoFileDao, txManager));
+        new PhotoBoardUpdateServlet(photoBoardDao, photoFileDao, tkManager));
     servletMap.put("/photoboard/delete",
-        new PhotoBoardDeleteServlet(photoBoardDao, photoFileDao, txManager));
+        new PhotoBoardDeleteServlet(photoBoardDao, photoFileDao, tkManager));
 
 
     try (ServerSocket serverSocket = new ServerSocket(9999)) {
@@ -143,11 +138,9 @@ public class ServerApp {
         executorService.submit(() -> {
           processRequest(socket);
 
-          // 스레드에 보관된 커넥션 객체를 제거한다.
-          // => 스레드에서 제거한 Connection 객체는 다시 사용할 수 있도록
-          // DataSource에 반납된다.
-          //
           dataSource.removeConnection();
+
+
           System.out.println("--------------------------------------");
         });
 
@@ -159,7 +152,9 @@ public class ServerApp {
 
       }
 
-    } catch (Exception e) {
+    } catch (
+
+    Exception e) {
       System.out.println("서버 준비 중 오류 발생!");
     }
 
@@ -185,6 +180,7 @@ public class ServerApp {
         e.printStackTrace();
       }
     }
+
     // 클라이언트 요청을 처리하는 스레드가 모두 종료된 후에
     // DB 커넥션을 닫도록 한다.
     notifyApplicationDestroyed();

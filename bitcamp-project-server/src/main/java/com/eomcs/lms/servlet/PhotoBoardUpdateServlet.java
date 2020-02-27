@@ -18,11 +18,12 @@ public class PhotoBoardUpdateServlet implements Servlet {
   PhotoFileDao photoFileDao;
   TransactionTemplate transactionTemplate;
 
+
   public PhotoBoardUpdateServlet(PhotoBoardDao photoBoardDao, PhotoFileDao photoFileDao,
-      PlatformTransactionManager txManager) {
+      PlatformTransactionManager tkManager) {
     this.photoBoardDao = photoBoardDao;
     this.photoFileDao = photoFileDao;
-    this.transactionTemplate = new TransactionTemplate(txManager);
+    this.transactionTemplate = new TransactionTemplate(tkManager);
   }
 
 
@@ -42,7 +43,6 @@ public class PhotoBoardUpdateServlet implements Servlet {
     photoBoard.setTitle(
         Prompt.getString(in, out, String.format("제목(%s)?, ", old.getTitle()), old.getTitle()));
     photoBoard.setNo(no);
-
 
     transactionTemplate.execute(() -> {
       if (photoBoardDao.update(photoBoard) == 0) {
@@ -71,6 +71,7 @@ public class PhotoBoardUpdateServlet implements Servlet {
       out.println("사진 게시글을 변경했습니다!");
       return null;
     });
+
 
   }
 

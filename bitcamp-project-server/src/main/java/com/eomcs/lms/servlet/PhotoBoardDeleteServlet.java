@@ -14,11 +14,12 @@ public class PhotoBoardDeleteServlet implements Servlet {
   PhotoFileDao photoFileDao;
   TransactionTemplate transactionTemplate;
 
+
   public PhotoBoardDeleteServlet(PhotoBoardDao photoBoardDao, PhotoFileDao photoFileDao,
-      PlatformTransactionManager txManager) {
+      PlatformTransactionManager tkManager) {
     this.photoBoardDao = photoBoardDao;
     this.photoFileDao = photoFileDao;
-    this.transactionTemplate = new TransactionTemplate(txManager);
+    this.transactionTemplate = new TransactionTemplate(tkManager);
   }
 
 
@@ -37,6 +38,7 @@ public class PhotoBoardDeleteServlet implements Servlet {
       }
       return null;
     });
+
 
   }
 }

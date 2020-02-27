@@ -1,13 +1,13 @@
 package com.eomcs.lms.dao.mariadb;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import com.eomcs.lms.dao.BoardDao;
 import com.eomcs.lms.domain.Board;
-import com.eomcs.sql.DataSource;
+import com.eomcs.util.DataSource;
 
 public class BoardDaoImpl implements BoardDao {
 
@@ -19,22 +19,21 @@ public class BoardDaoImpl implements BoardDao {
 
   @Override
   public int insert(Board board) throws Exception {
-    try (Connection con = dataSource.getConnection();
-        PreparedStatement stmt = con.prepareStatement("insert into lms_board(conts) values(?)")) {
 
-      stmt.setString(1, board.getTitle());
+    try (Connection con = dataSource.getConnection(); Statement stmt = con.createStatement()) {
 
-      return stmt.executeUpdate();
+      int result =
+          stmt.executeUpdate("insert into lms_board(conts) values('" + board.getTitle() + "')");
+      return result;
     }
   }
 
   @Override
   public List<Board> findAll() throws Exception {
     try (Connection con = dataSource.getConnection();
-        PreparedStatement stmt = con.prepareStatement("select board_id, conts, cdt, vw_cnt"//
-            + " from lms_board"//
-            + " order by board_id desc");
-        ResultSet rs = stmt.executeQuery()) {
+        Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery(
+            "select board_id, conts, cdt, vw_cnt from lms_board order by board_id desc")) {
 
 
       ArrayList<Board> list = new ArrayList<>();
@@ -56,51 +55,45 @@ public class BoardDaoImpl implements BoardDao {
 
   @Override
   public Board findByNo(int no) throws Exception {
+
     try (Connection con = dataSource.getConnection();
-        PreparedStatement stmt = con.prepareStatement("select board_id, conts, cdt, vw_cnt"//
-            + " from lms_board"//
-            + " where board_id=?")) {
+        Statement stmt = con.createStatement();
 
-      stmt.setInt(1, no);
+        ResultSet rs = stmt.executeQuery(
+            "select board_id, conts, cdt, vw_cnt from lms_board where board_id=" + no)) {
 
-      try (ResultSet rs = stmt.executeQuery()) {
-        if (rs.next()) { // 데이터를 한 개 가져왔으면 true를 리턴한다.
-          Board board = new Board();
-          board.setNo(rs.getInt("board_id"));
-          board.setTitle(rs.getString("conts"));
-          board.setDate(rs.getDate("cdt"));
-          board.setViewCount(rs.getInt("vw_cnt"));
-          return board;
+      // ResultSet 도구를 사용하여 *데이터를 하나씩 가져온다.*
+      if (rs.next()) { // 데이터를 한 개 가져왔으면 true를 리턴한다.
+        Board board = new Board();
+        board.setNo(rs.getInt("board_id"));
+        board.setTitle(rs.getString("conts"));
+        board.setDate(rs.getDate("cdt"));
+        board.setViewCount(rs.getInt("vw_cnt"));
+        return board;
 
-        } else {
-          return null;
-        }
+      } else {
+        return null;
       }
     }
   }
 
   @Override
   public int update(Board board) throws Exception {
-    try (Connection con = dataSource.getConnection();
-        PreparedStatement stmt = con.prepareStatement("update lms_board set"//
-            + " conts=?"//
-            + " where board_id=?")) {
 
-      stmt.setString(1, board.getTitle());
-      stmt.setInt(2, board.getNo());
+    try (Connection con = dataSource.getConnection(); Statement stmt = con.createStatement()) {
 
-      return stmt.executeUpdate();
+      int result = stmt.executeUpdate(
+          "update lms_board set conts='" + board.getTitle() + "' where board_id=" + board.getNo());
+      return result;
     }
   }
 
   @Override
   public int delete(int no) throws Exception {
-    try (Connection con = dataSource.getConnection();
-        PreparedStatement stmt = con.prepareStatement("delete from lms_board"//
-            + " where board_id=?")) {
+    try (Connection con = dataSource.getConnection(); Statement stmt = con.createStatement()) {
 
-      stmt.setInt(1, no);
-      return stmt.executeUpdate();
+      int result = stmt.executeUpdate("delete from lms_board where board_id=" + no);
+      return result;
     }
   }
 
