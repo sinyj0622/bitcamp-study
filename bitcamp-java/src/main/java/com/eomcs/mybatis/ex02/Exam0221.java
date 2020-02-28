@@ -1,4 +1,4 @@
-// Mybatis - SQL에 파라미터 지정하기 : 값 한개를 넘길 때
+// Mybatis - SQL에 파라미터 지정하기 : ${} 의 쓰임새
 package com.eomcs.mybatis.ex02;
 
 import java.io.InputStream;
@@ -8,23 +8,21 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-public class Exam0210 {
+public class Exam0221 {
 
   public static void main(String[] args) throws Exception {
     InputStream inputStream = Resources.getResourceAsStream(//
-        "com/eomcs/mybatis/ex02/mybatis-config04.xml");
+        "com/eomcs/mybatis/ex02/mybatis-config05.xml");
     SqlSessionFactory factory = //
         new SqlSessionFactoryBuilder().build(inputStream);
 
     SqlSession sqlSession = factory.openSession();
 
-    // SQL을 실행할 때 파라미터 값을 전달하려면
-    // 두 번째 파라미터로 전달해야 한다.
-    // 여러 개의 값을 전달해야 한다면,
-    // Map 객체에 담아 전달하라!
+    // 예) 파라미터로 컬럼이름을 넘겨주면
+    // 해당 컬럼의 값을 오름차순으로 정렬한다.
 
-    // 예) 3번 이상 게시물을 가져온다.
-    List<Board> list = sqlSession.selectList("BoardMapper.selectBoard1", 5);
+    List<Board> list = sqlSession.selectList("BoardMapper.selectBoard2", "title");
+
 
     for (Board board : list) {
       System.out.printf("%d, %s, %s, %s\n", board.getNo(), board.getTitle(), board.getContent(),
