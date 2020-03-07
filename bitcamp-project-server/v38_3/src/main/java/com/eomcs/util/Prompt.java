@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.util.Scanner;
 
 public class Prompt {
+	
   public static int getInt(Scanner in, PrintStream out, String title) {
     return Integer.parseInt(getString(in, out, title));
   }
