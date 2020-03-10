@@ -1,4 +1,4 @@
-// 다이나믹 SQL 다루기 - <where> 사용 후
+// dynamic sql 다루기 - <where> 사용 후
 package com.eomcs.mybatis.ex03;
 
 import java.io.InputStream;
@@ -20,11 +20,8 @@ public class Exam0160 {
 
     SqlSession sqlSession = factory.openSession();
 
-
     // 실행 예:
-    // => 복합 검색하기
-
-    // SQL 매퍼에 해쉬맵으로 여러개의 값을 넘긴다
+    // => 여러 개의 조건을 합쳐서 검색하기
     HashMap<String, Object> params = new HashMap<>();
 
     Scanner keyScan = new Scanner(System.in);
@@ -50,15 +47,20 @@ public class Exam0160 {
     keyScan.close();
 
 
-    List<Board> list = sqlSession.selectList("BoardMapper.select7", params);
+    List<Board> list = sqlSession.selectList("BoardMapper.select7", //
+        params);
 
-    // select7의 이점
+    // select7의 이점:
     // => or/and 앞에 조건이 없을 때 or/and를 자동으로 제거한다.
     // => where 조건이 없을 때는 where을 생성하지 않는다.
 
     for (Board board : list) {
-      System.out.printf("%d,  %s, %s, %s, %d\n", board.getNo(), board.getTitle(),
-          board.getContent(), board.getRegisteredDate(), board.getViewCount());
+      System.out.printf("%d, %s, %s, %s, %d\n", //
+          board.getNo(), //
+          board.getTitle(), //
+          board.getContent(), //
+          board.getRegisteredDate(), //
+          board.getViewCount());
     }
 
     sqlSession.close();

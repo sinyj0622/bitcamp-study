@@ -1,4 +1,4 @@
-// 다이나믹 SQL 다루기 - <foreach> 사용 전
+// dynamic sql 다루기 - <foreach> 사용 전
 package com.eomcs.mybatis.ex03;
 
 import java.io.InputStream;
@@ -21,6 +21,8 @@ public class Exam0240 {
     SqlSession sqlSession = factory.openSession();
 
     // 실행 예:
+    // => 게시물 번호를 여러 개 지정하여 조회하기
+    //
 
     HashMap<String, Object> params = new HashMap<>();
 
@@ -32,18 +34,21 @@ public class Exam0240 {
     int index = 0;
     for (String value : values) {
       params.put("no" + index++, value);
+      // {"no0":1, "no1":6, "no2":8, "no3":10}
     }
 
     keyScan.close();
 
-    List<Board> boards = sqlSession.selectList("BoardMapper.select22", params);
+    List<Board> list = sqlSession.selectList("BoardMapper.select22", params);
 
-    for (Board board : boards) {
-      System.out.printf("%d,  %s, %s, %s, %d\n", board.getNo(), board.getTitle(),
-          board.getContent(), board.getRegisteredDate(), board.getViewCount());
+    for (Board board : list) {
+      System.out.printf("%d, %s, %s, %s, %d\n", //
+          board.getNo(), //
+          board.getTitle(), //
+          board.getContent(), //
+          board.getRegisteredDate(), //
+          board.getViewCount());
     }
-
-
     sqlSession.close();
   }
 

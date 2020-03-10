@@ -1,4 +1,4 @@
-// 다이나믹 SQL 다루기 - <where> 사용 전: 조건이 빠졌을때 문제 발생하는 경우
+// dynamic sql 다루기 - <where> 사용 전: 조건이 빠졌을 때 문제 발생하는 경우
 package com.eomcs.mybatis.ex03;
 
 import java.io.InputStream;
@@ -20,11 +20,8 @@ public class Exam0140 {
 
     SqlSession sqlSession = factory.openSession();
 
-
     // 실행 예:
-    // => 복합 검색하기
-
-    // SQL 매퍼에 해쉬맵으로 여러개의 값을 넘긴다
+    // => 여러 개의 조건을 합쳐서 검색하기
     HashMap<String, Object> params = new HashMap<>();
 
     Scanner keyScan = new Scanner(System.in);
@@ -50,14 +47,25 @@ public class Exam0140 {
     keyScan.close();
 
 
-    List<Board> list = sqlSession.selectList("BoardMapper.select5", params);
+    List<Board> list = sqlSession.selectList("BoardMapper.select5", //
+        params);
 
-    // 문제점
-    // => no값이 없을경우 잘못된 sql문을 생성한다
+    // select5의 문제점:
+    // => no 값이 없을 경우 잘못된 SQL문을 생성한다.
+    // => 생성된 SQL 문 예:
+    // select board_id, title, contents, created_date, view_count
+    // from x_board
+    // where
+    // or title like concat('%', ?, '%') <== or 앞에 조건문이 없다.
+    // or contents like concat('%', ?, '%')
 
     for (Board board : list) {
-      System.out.printf("%d,  %s, %s, %s, %d\n", board.getNo(), board.getTitle(),
-          board.getContent(), board.getRegisteredDate(), board.getViewCount());
+      System.out.printf("%d, %s, %s, %s, %d\n", //
+          board.getNo(), //
+          board.getTitle(), //
+          board.getContent(), //
+          board.getRegisteredDate(), //
+          board.getViewCount());
     }
 
     sqlSession.close();

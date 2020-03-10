@@ -1,4 +1,4 @@
-// 다이나믹 SQL 다루기 - <bind> 사용법
+// dynamic sql 다루기 - <bind> 사용법
 package com.eomcs.mybatis.ex03;
 
 import java.io.InputStream;
@@ -9,7 +9,6 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-
 
 public class Exam0280 {
 
@@ -22,6 +21,8 @@ public class Exam0280 {
     SqlSession sqlSession = factory.openSession();
 
     // 실행 예:
+    // => 게시물 번호를 여러 개 지정하여 조회하기
+    //
 
     HashMap<String, Object> params = new HashMap<>();
 
@@ -33,17 +34,19 @@ public class Exam0280 {
 
     keyScan.close();
 
-    List<Board> boards = sqlSession.selectList("BoardMapper.select26", params);
-
+    List<Board> list = sqlSession.selectList("BoardMapper.select26", params);
     // <bind> 태그를 사용하면
-    // => like문의 문자열 패턴을 만들때 편하다.
+    // => like 문의 문자열 패턴을 만들 때 편하다.
 
-    for (Board board : boards) {
-      System.out.printf("%d,  %s, %s, %s, %d\n", board.getNo(), board.getTitle(),
-          board.getContent(), board.getRegisteredDate(), board.getViewCount());
+
+    for (Board board : list) {
+      System.out.printf("%d, %s, %s, %s, %d\n", //
+          board.getNo(), //
+          board.getTitle(), //
+          board.getContent(), //
+          board.getRegisteredDate(), //
+          board.getViewCount());
     }
-
-
     sqlSession.close();
   }
 
