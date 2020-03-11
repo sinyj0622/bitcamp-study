@@ -42,10 +42,13 @@
     p.cdt,
     p.vw_cnt,
     l.lesson_id,
-    l.titl lesson_title
+    l.titl lesson_titl,
+    f.photo_file_id,
+      f.file_path
     from lms_photo p
     inner join lms_lesson l on p.lesson_id=l.lesson_id
-    where photo_id=#{no}
+    left outer join lms_photo_file f on p.photo_id=f.photo_id
+    where p.photo_id=#{no}
 	</select>
 
 	<update id="updatePhotoBoard" parameterType="PhotoBoard">

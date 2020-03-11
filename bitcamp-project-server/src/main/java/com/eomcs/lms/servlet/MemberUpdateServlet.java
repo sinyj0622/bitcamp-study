@@ -29,16 +29,12 @@ public class MemberUpdateServlet implements Servlet {
     }
 
     newMember.setNo(oldMember.getNo());
-    newMember.setName(Prompt.getString(in, out, String.format("이름(%s)?", oldMember.getName()),
-        oldMember.getName()));
-    newMember.setEmail(Prompt.getString(in, out, String.format("이메일(%s)?", oldMember.getEmail()),
-        oldMember.getEmail()));
-    newMember.setPassword(Prompt.getString(in, out,
-        String.format("암호(%s)?", oldMember.getPassword()), oldMember.getPassword()));
-    newMember.setPhoto(Prompt.getString(in, out, String.format("사진(%s)?", oldMember.getPhoto()),
-        oldMember.getPhoto()));
-    newMember.setTel(Prompt.getString(in, out, String.format("전화(%s)?", oldMember.getTel()),
-        oldMember.getTel()));
+    newMember.setName(Prompt.getString(in, out, String.format("이름(%s)?", oldMember.getName())));
+    newMember.setEmail(Prompt.getString(in, out, String.format("이메일(%s)?", oldMember.getEmail())));
+    newMember
+        .setPassword(Prompt.getString(in, out, String.format("암호(%s)?", oldMember.getPassword())));
+    newMember.setPhoto(Prompt.getString(in, out, String.format("사진(%s)?", oldMember.getPhoto())));
+    newMember.setTel(Prompt.getString(in, out, String.format("전화(%s)?", oldMember.getTel())));
 
     if (memberDao.update(newMember) > 0) {
       out.println("회원정보를 변경했습니다!");

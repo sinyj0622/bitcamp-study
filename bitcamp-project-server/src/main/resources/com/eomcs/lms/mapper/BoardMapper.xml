@@ -12,15 +12,18 @@
 		<result column="vw_cnt" property="viewCount" />
 	</resultMap>
 
+  <sql id="selece1">
+  select
+    board_id,
+    conts,
+    cdt,
+    vw_cnt
+    from
+    lms_board
+    </sql>
 
 	<select id="selectBoard" resultMap="BoardMap">
-		select
-		board_id,
-		conts,
-		cdt,
-		vw_cnt
-		from
-		lms_board
+		<include refid="selece1"/>
 		order
 		by board_id desc
 	</select>
@@ -32,12 +35,7 @@
 	</insert>
 
 	<select id="detailBoard" resultMap="BoardMap" parameterType="int">
-		select
-		board_id,
-		conts,
-		cdt,
-		vw_cnt
-		from lms_board
+    <include refid="selece1"/>
 		where board_id=#{no}
 	</select>
 

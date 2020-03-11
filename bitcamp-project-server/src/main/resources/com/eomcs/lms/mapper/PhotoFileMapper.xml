@@ -20,8 +20,12 @@
 		order by photo_file_id asc
 	</select>
 
-	<insert id="insertPhotoFile" parameterType="PhotoFile">
-		insert into lms_photo_file(photo_id, file_path) values(#{boardNo},#{filepath})
+	<insert id="insertPhotoFile" parameterType="PhotoBoard">
+		insert into lms_photo_file(photo_id, file_path)
+		 values
+		 <foreach collection="files" item="file" separator=",">
+		 (#{no},#{file.filepath})
+		 </foreach>
 	</insert>
 
 

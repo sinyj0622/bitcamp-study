@@ -15,9 +15,13 @@
 		<result column="photo" property="photo" />
 	</resultMap>
 
+  <sql id="select1">
+  member_id, name, email, pwd, cdt, tel, photo from lms_member
+  </sql>
 
 	<select id="selectMember" resultMap="MemberMap">
-		select member_id, name, email, pwd, cdt, tel, photo from lms_member
+		select
+		<include refid="select1"/>
 	</select>
 
 	<insert id="insertMember" parameterType="Member">
@@ -26,12 +30,20 @@
 	</insert>
 
 	<select id="detailMember" resultMap="MemberMap" parameterType="int">
-		select member_id, name, email, pwd, cdt, tel, photo 
-		from lms_member where member_id=#{no}
+		select 
+		<include refid="select1"/>
+     where member_id=#{no}
 	</select>
 
 	<update id="updateMember" parameterType="Member">
-		update lms_member set name=#{name}, email=#{email},pwd=password(#{password}), tel=#{tel}, photo=#{photo}
+		update lms_member
+		 <set>
+		 <if test="name != null and name != ''"> name=#{name},</if>
+       <if test="email != null and email != ''">email=#{email},</if>
+       <if test="password != null and password != ''">pwd=password(#{password}),</if>
+        <if test="tel != null and tel != ''">tel=#{tel},</if>
+        <if test="photo != null and photo != ''"> photo=#{photo}</if>
+        </set>
 		where member_id=#{no}
 	</update>
 	<delete id="deleteMember" parameterType="int">
@@ -40,8 +52,8 @@
 	
 	<select id="findByKeyword" resultMap="MemberMap" parameterType="String">
 	<bind name="keywordPattern" value="'%' + _parameter + '%'"/>
-	select member_id, name, email, pwd, cdt, tel, photo 
-	from lms_member 
+	select 
+	<include refid="select1"/>
 	<where>
 	name like #{keywordPattern}
   or email like #{keywordPattern}
@@ -51,8 +63,7 @@
 	
 	<select id="findByEmailAndPassWord" resultMap="MemberMap" parameterType="map">
 	select 
-	member_id, name, email, pwd, cdt, tel, photo 
-	from lms_member 
+	<include refid="select1"/>
 	where email like #{email} and pwd like password(#{password})
 	</select>
 </mapper>
