@@ -4,25 +4,17 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import com.eomcs.lms.dao.PhotoBoardDao;
-import com.eomcs.lms.dao.PhotoFileDao;
 import com.eomcs.lms.domain.PhotoBoard;
 import com.eomcs.lms.domain.PhotoFile;
-import com.eomcs.sql.PlatformTransactionManager;
-import com.eomcs.sql.TransactionTemplate;
+import com.eomcs.lms.service.PhotoBoardService;
 import com.eomcs.util.Prompt;
 
 public class PhotoBoardUpdateServlet implements Servlet {
 
-  PhotoBoardDao photoBoardDao;
-  PhotoFileDao photoFileDao;
-  TransactionTemplate transactionTemplate;
+  PhotoBoardService photoBoardService;
 
-  public PhotoBoardUpdateServlet(PhotoBoardDao photoBoardDao, PhotoFileDao photoFileDao,
-      PlatformTransactionManager txManager) {
-    this.photoBoardDao = photoBoardDao;
-    this.photoFileDao = photoFileDao;
-    this.transactionTemplate = new TransactionTemplate(txManager);
+  public PhotoBoardUpdateServlet(PhotoBoardService photoBoardService) {
+    this.photoBoardService = photoBoardService;
   }
 
 
@@ -32,7 +24,7 @@ public class PhotoBoardUpdateServlet implements Servlet {
 
     int no = Prompt.getInt(in, out, "번호? ");
 
-    PhotoBoard old = photoBoardDao.findByNo(no);
+    PhotoBoard old = photoBoardService.get(no);
     if (old == null) {
       out.println("해당 번호의 사진 게시글이 없습니다.");
       return;
@@ -54,21 +46,8 @@ public class PhotoBoardUpdateServlet implements Servlet {
       photoBoard.setFiles(inputPhotoFiles(in, out));
     }
 
-    transactionTemplate.execute(() -> {
-      if (photoBoardDao.update(photoBoard) == 0) {
-        throw new Exception("사진 게시글 변경에 실패했습니다.");
-      }
-
-      if (photoBoard.getFiles() != null) {
-        // 첨부파일을 변경한다면,
-        photoFileDao.deleteAll(no);
-        photoFileDao.insert(photoBoard);
-      }
-
-      out.println("사진 게시글을 변경했습니다!");
-      return null;
-    });
-
+    photoBoardService.update(photoBoard);
+    out.println("사진 게시글을 변경했습니다!");
   }
 
   private void printPhotoFiles(PrintStream out, PhotoBoard photoBoard) throws Exception {

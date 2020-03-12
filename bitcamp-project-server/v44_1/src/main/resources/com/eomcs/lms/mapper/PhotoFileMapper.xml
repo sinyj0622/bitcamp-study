@@ -16,7 +16,7 @@
 		select photo_file_id, photo_id, file_path
 		from
 		lms_photo_file
-		where photo_id=#{no}
+		where photo_id=#{boardNo}
 		order by photo_file_id asc
 	</select>
 
@@ -30,7 +30,7 @@
 
 
 	<delete id="deletePhotoFile" parameterType="int">
-		delete from lms_photo_file where photo_id=#{no}
+		delete from lms_photo_file where photo_id=#{boardNo}
 	</delete>
 
 </mapper>

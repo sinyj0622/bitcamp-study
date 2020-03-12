@@ -2,17 +2,17 @@ package com.eomcs.lms.servlet;
 
 import java.io.PrintStream;
 import java.util.Scanner;
-import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.domain.Lesson;
+import com.eomcs.lms.service.LessonService;
 import com.eomcs.util.Prompt;
 
 public class LessonDetailServlet implements Servlet {
 
 
-  LessonDao lessonDao;
+  LessonService lessonService;
 
-  public LessonDetailServlet(LessonDao lessonDao) {
-    this.lessonDao = lessonDao;
+  public LessonDetailServlet(LessonService lessonService) {
+    this.lessonService = lessonService;
   }
 
 
@@ -20,7 +20,7 @@ public class LessonDetailServlet implements Servlet {
   public void service(Scanner in, PrintStream out) throws Exception { // 예외를 던짐
     int no = Prompt.getInt(in, out, "번호? ");
 
-    Lesson lesson = lessonDao.findByNo(no);
+    Lesson lesson = lessonService.get(no);
 
     if (lesson != null) {
       out.printf("번호: %d\n", lesson.getNo());

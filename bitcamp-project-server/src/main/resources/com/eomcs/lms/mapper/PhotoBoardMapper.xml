@@ -12,7 +12,7 @@
 		<result column="vw_cnt" property="viewCount" />
 		
    <association property="lesson" javaType="Lesson">
-    <id column="lesson_id" property="no" />
+    <id column="lesson_id" property="no"/>
     <result column="lesson_titl" property="title" />
 	</association>
 	
@@ -57,7 +57,8 @@
 	</update>
 	
 	<delete id="deletePhotoBoard" parameterType="int">
-		delete from lms_photo where photo_id=#{no}
+		delete from lms_photo
+		 where photo_id=#{no}
 	</delete>
 
 </mapper>
