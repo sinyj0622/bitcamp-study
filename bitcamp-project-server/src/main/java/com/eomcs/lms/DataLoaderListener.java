@@ -11,7 +11,7 @@ import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.dao.PhotoBoardDao;
 import com.eomcs.lms.dao.PhotoFileDao;
-import com.eomcs.lms.service.impl.BoardServiceImpl;
+import com.eomcs.lms.service.impl.BoardServiceImpl2;
 import com.eomcs.lms.service.impl.LessonServiceImpl;
 import com.eomcs.lms.service.impl.MemberServiceImpl;
 import com.eomcs.lms.service.impl.PhotoBoardServiceImpl;
@@ -52,7 +52,7 @@ public class DataLoaderListener implements ApplicationContextListener {
       PhotoFileDao photoFileDao = daoFactory.createDao(PhotoFileDao.class);
 
       context.put("memberService", new MemberServiceImpl(memberDao));
-      context.put("boardService", new BoardServiceImpl(boardDao));
+      context.put("boardService", new BoardServiceImpl2(sqlSessionFactory));
       context.put("lessonService", new LessonServiceImpl(lessonDao));
       context.put("photoBoardService",
           new PhotoBoardServiceImpl(photoBoardDao, photoFileDao, txManager));
