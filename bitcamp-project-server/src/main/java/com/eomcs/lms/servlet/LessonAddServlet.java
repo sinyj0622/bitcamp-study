@@ -6,9 +6,10 @@ import com.eomcs.lms.domain.Lesson;
 import com.eomcs.lms.service.LessonService;
 import com.eomcs.util.Component;
 import com.eomcs.util.Prompt;
+import com.eomcs.util.RequestMapping;
 
-@Component("/lesson/add")
-public class LessonAddServlet implements Servlet {
+@Component
+public class LessonAddServlet {
 
 
   LessonService lessonService;
@@ -18,7 +19,7 @@ public class LessonAddServlet implements Servlet {
   }
 
 
-  @Override
+  @RequestMapping("/lesson/add")
   public void service(Scanner in, PrintStream out) throws Exception { // 예외를 던짐
 
     Lesson lesson = new Lesson();

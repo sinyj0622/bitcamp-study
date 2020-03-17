@@ -5,9 +5,10 @@ import java.util.Scanner;
 import com.eomcs.lms.service.BoardService;
 import com.eomcs.util.Component;
 import com.eomcs.util.Prompt;
+import com.eomcs.util.RequestMapping;
 
-@Component("/board/delete")
-public class BoardDeleteServlet implements Servlet {
+@Component
+public class BoardDeleteServlet {
 
   // DAO 클래스를 구체적으로 지정하기 보다는
   // 인터페이스를 지정함으로써
@@ -20,7 +21,7 @@ public class BoardDeleteServlet implements Servlet {
   }
 
 
-  @Override
+  @RequestMapping("/board/delete")
   public void service(Scanner in, PrintStream out) throws Exception {
 
     int no = Prompt.getInt(in, out, "번호? ");

@@ -6,9 +6,10 @@ import java.util.Scanner;
 import com.eomcs.lms.domain.Board;
 import com.eomcs.lms.service.BoardService;
 import com.eomcs.util.Component;
+import com.eomcs.util.RequestMapping;
 
-@Component("/board/list")
-public class BoardListServlet implements Servlet {
+@Component
+public class BoardListServlet {
 
   // DAO 클래스를 구체적으로 지정하기 보다는
   // 인터페이스를 지정함으로써
@@ -21,7 +22,7 @@ public class BoardListServlet implements Servlet {
   }
 
 
-  @Override
+  @RequestMapping("/board/list")
   public void service(Scanner in, PrintStream out) throws Exception {
     List<Board> boards = boardService.list();
     for (Board board : boards) {

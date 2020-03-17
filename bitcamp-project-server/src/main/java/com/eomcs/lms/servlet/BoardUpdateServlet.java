@@ -6,9 +6,10 @@ import com.eomcs.lms.domain.Board;
 import com.eomcs.lms.service.BoardService;
 import com.eomcs.util.Component;
 import com.eomcs.util.Prompt;
+import com.eomcs.util.RequestMapping;
 
-@Component("/board/update")
-public class BoardUpdateServlet implements Servlet {
+@Component
+public class BoardUpdateServlet {
 
   // DAO 클래스를 구체적으로 지정하기 보다는
   // 인터페이스를 지정함으로써
@@ -20,7 +21,7 @@ public class BoardUpdateServlet implements Servlet {
     this.boardService = boardService;
   }
 
-  @Override
+  @RequestMapping("/board/update")
   public void service(Scanner in, PrintStream out) throws Exception {
 
     int no = Prompt.getInt(in, out, "번호? ");

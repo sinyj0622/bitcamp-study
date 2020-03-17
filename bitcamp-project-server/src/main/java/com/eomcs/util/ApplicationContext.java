@@ -2,6 +2,7 @@ package com.eomcs.util;
 
 import java.io.File;
 import java.io.FileFilter;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Parameter;
@@ -60,6 +61,33 @@ public class ApplicationContext {
             clazz.getName());
       }
     }
+  }
+
+
+  // 애노테이션을 상속받은 클래스받기
+  public String[] getBeanNamesForAnnotation(Class<? extends Annotation> annotationType) {
+
+    // 특정 애노테이션이 붙은 객체를 찾아보자
+
+    // => 객체 이름을 저장할 목록을 준비한다.
+    ArrayList<String> beanNames = new ArrayList<>();
+
+    // 객체풀에서 전체 객체의 이름을 꺼낸다
+    Set<String> beanNameSet = objPool.keySet();
+    for (String beanName : beanNameSet) {
+      // 객체풀에서 이름을 이용하여 객체를 꺼낸다
+      Object obj = objPool.get(beanName);
+
+      // 헤당 객체에 파라미터로 지정한 애노테이션이 붙었는지 알아낸다.
+      if (obj.getClass().getAnnotation(annotationType) != null) {
+        beanNames.add(beanName);
+      }
+    }
+
+    // ArrayList에서 문자열을 배열로 꺼내고 싶다면,
+    String[] names = new String[beanNames.size()];
+    beanNames.toArray(names);
+    return names;
   }
 
   public void printBeans() {

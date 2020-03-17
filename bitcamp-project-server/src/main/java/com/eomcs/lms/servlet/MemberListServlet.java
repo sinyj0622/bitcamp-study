@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.Scanner;
 import com.eomcs.lms.domain.Member;
 import com.eomcs.lms.service.MemberService;
-import com.eomcs.util.Component;
+import com.eomcs.util.RequestMapping;
 
-@Component("/member/list")
-public class MemberListServlet implements Servlet {
+
+public class MemberListServlet {
 
 
   MemberService memberService;
@@ -18,7 +18,7 @@ public class MemberListServlet implements Servlet {
   }
 
 
-  @Override
+  @RequestMapping("/member/list")
   public void service(Scanner in, PrintStream out) throws Exception {
     List<Member> members = memberService.list();
 

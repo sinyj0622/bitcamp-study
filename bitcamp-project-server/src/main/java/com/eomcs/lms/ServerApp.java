@@ -14,9 +14,10 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import org.apache.ibatis.session.SqlSessionFactory;
 import com.eomcs.lms.context.ApplicationContextListener;
-import com.eomcs.lms.servlet.Servlet;
 import com.eomcs.sql.SqlSessionFactoryProxy;
 import com.eomcs.util.ApplicationContext;
+import com.eomcs.util.RequestHandler;
+import com.eomcs.util.RequestMappingHandlerMapping;
 
 public class ServerApp {
 
@@ -33,6 +34,8 @@ public class ServerApp {
   // IoC 컨테이너 준비
   ApplicationContext iocContainer;
 
+  // requestHandler 맵퍼 준비
+  RequestMappingHandlerMapping handlerMapper;
 
   public void addApplicationContextListener(ApplicationContextListener listener) {
     listeners.add(listener);
@@ -62,6 +65,9 @@ public class ServerApp {
 
     // ApplicationContext(IoC 컨테이너)를 꺼낸다
     iocContainer = (ApplicationContext) context.get("iocContainer");
+
+    // request Hadler Mapper를 꺼낸다
+    handlerMapper = (RequestMappingHandlerMapping) context.get("handlerMapper");
 
     // IoC 컨테이너에서 SqlSessionFactory를 꺼낸다
     SqlSessionFactory sqlSessionFactory =
@@ -147,12 +153,12 @@ public class ServerApp {
 
 
       // 클라이언트의 요청을 처리할 객체를 찾는다.
-      Servlet servlet = (Servlet) iocContainer.getBean(request);
+      RequestHandler requestHandler = handlerMapper.getHandler(request);
 
-      if (servlet != null) {
-        // 클라이언트 요청을 처리할 객체를 찾았으면 작업을 실행시킨다.
+
+      if (requestHandler != null) {
         try {
-          servlet.service(in, out);
+          requestHandler.getMethod().invoke(requestHandler.getBean(), in, out);
 
         } catch (Exception e) {
           // 요청한 작업을 수행하다가 오류 발생할 경우 그 이유를 간단히 응답한다.

@@ -6,9 +6,10 @@ import com.eomcs.lms.domain.Lesson;
 import com.eomcs.lms.service.LessonService;
 import com.eomcs.util.Component;
 import com.eomcs.util.Prompt;
+import com.eomcs.util.RequestMapping;
 
-@Component("/lesson/update")
-public class LessonUpdateServlet implements Servlet {
+@Component
+public class LessonUpdateServlet {
 
 
   LessonService lessonService;
@@ -18,7 +19,7 @@ public class LessonUpdateServlet implements Servlet {
   }
 
 
-  @Override
+  @RequestMapping("/lesson/update")
   public void service(Scanner in, PrintStream out) throws Exception { // 예외를 던짐
     int no = Prompt.getInt(in, out, "번호? ");
 
