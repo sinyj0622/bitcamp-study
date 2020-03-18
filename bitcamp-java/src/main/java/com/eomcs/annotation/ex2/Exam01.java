@@ -27,8 +27,8 @@ public class Exam01 {
       // 값을 꺼낼 때는 메서드 호출하듯이 꺼내면 된다.
       System.out.println("MyAnnotation3.value=" + obj3.value());
     }
-
   }
+
 }
 
 
