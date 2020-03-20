@@ -25,8 +25,8 @@
     
     <bean id="e1" class="com.eomcs.spring.ioc.ex08.i.Engine">
         <property name="maker" value="비트자동차"/>
-        <property name="valve" value="16"/>
-        <property name="cylinder" value="4"/>
+        <property name="valve" value="8"/>
+        <property name="cylinder" value="3"/>
     </bean>
     
         <bean id="e2" class="com.eomcs.spring.ioc.ex08.i.Engine">

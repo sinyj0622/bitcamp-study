@@ -15,7 +15,8 @@
     -->
     
     <!-- BeanPostProcessor 인터페이스 구현체 만들고 등록하기 -->
-    <bean class="com.eomcs.spring.ioc.ex08.c.MyBeanPostProcessor"/>
+    <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
+    
     
     <bean id="c1" class="com.eomcs.spring.ioc.ex08.c.Car">
         <property name="model" value="티코"/>
