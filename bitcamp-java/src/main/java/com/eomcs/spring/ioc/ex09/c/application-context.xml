@@ -25,6 +25,7 @@
 		<!-- 특정 애노테이션이 붙은 클래스는 객체 생성에서 제외시킨다. -->
 		<context:exclude-filter type="annotation" 
 		expression="org.springframework.stereotype.Controller"/>
+		
 	</context:component-scan>
 
 </beans>
