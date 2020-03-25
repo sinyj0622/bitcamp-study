@@ -56,7 +56,9 @@
 
 ### 훈련4: Mybatis에 log4j를 설정한다.
 
-
+- com.eomcs.lms.MybatisConfig 변경
+  - org.apache.ibatis.logging.LogFactory.useLog4JLogging() 호출
+  - 즉 log4j 기능을 활성화시킨다.
 
 
 

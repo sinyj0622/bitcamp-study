@@ -1,6 +1,7 @@
 package com.eomcs.lms;
 
 import javax.sql.DataSource;
+import org.apache.ibatis.logging.LogFactory;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -33,6 +34,8 @@ public class MybatisConfig {
   public SqlSessionFactory sqlSessionFactory(DataSource dataSource, // DB 커낵션풀
       ApplicationContext appCtx // Spring IoC 컨테이너
   ) throws Exception {
+    // Mybatis의 log4j 활성화시키기
+    LogFactory.useLog4JLogging();
 
     // Spring IoC 컨테이너 용으로 mybatis 측에서 따로 제작한
     // SqlSessionFactory 이다
