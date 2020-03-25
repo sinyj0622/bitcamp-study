@@ -1,11 +1,11 @@
 package com.eomcs.lms.servlet;
 
 import java.io.PrintStream;
-import java.util.Scanner;
+import java.sql.Date;
+import java.util.Map;
 import org.springframework.stereotype.Component;
 import com.eomcs.lms.domain.Lesson;
 import com.eomcs.lms.service.LessonService;
-import com.eomcs.util.Prompt;
 import com.eomcs.util.RequestMapping;
 
 @Component
@@ -20,36 +20,33 @@ public class LessonUpdateServlet {
 
 
   @RequestMapping("/lesson/update")
-  public void service(Scanner in, PrintStream out) throws Exception { // 예외를 던짐
-    int no = Prompt.getInt(in, out, "번호? ");
+  public void service(Map<String, String> params, PrintStream out) throws Exception { // 예외를 던짐
+    Lesson lesson = new Lesson();
+    lesson.setNo(Integer.parseInt(params.get("no")));
+    lesson.setTitle(params.get("title"));
+    lesson.setDescription(params.get("description"));
+    lesson.setStartDate(Date.valueOf(params.get("startDate")));
+    lesson.setEndDate(Date.valueOf(params.get("endDate")));
+    lesson.setTotalHours(Integer.parseInt(params.get("totalHours")));
+    lesson.setDayHours(Integer.parseInt(params.get("dayHours")));
 
-    Lesson oldLesson = lessonService.get(no);
-    Lesson newLesson = new Lesson();
-
-    if (oldLesson == null) {
-      out.println("해당 번호의 게시글이 없습니다");
-      return;
-    }
-
-    newLesson.setNo(oldLesson.getNo());
-    newLesson.setTitle(Prompt.getString(in, out, String.format("수업명(%s)? ", oldLesson.getTitle())));
-    newLesson.setDescription(
-        Prompt.getString(in, out, String.format("설명(%s)? ", oldLesson.getDescription())));
-    newLesson.setStartDate(
-        Prompt.getDate(in, out, String.format("시작일(%s)? ", oldLesson.getStartDate())));
-    newLesson
-        .setEndDate(Prompt.getDate(in, out, String.format("종료일(%s)? ", oldLesson.getEndDate())));
-    newLesson.setTotalHours(
-        Prompt.getInt(in, out, String.format("총수업시간(%d)? ", oldLesson.getTotalHours())));
-    newLesson
-        .setDayHours(Prompt.getInt(in, out, String.format("일수업시간(%d)? ", oldLesson.getDayHours())));
-    out.flush();
+    out.println("<!DOCTYPE html>");
+    out.println("<html>");
+    out.println("<head>");
+    out.println("<meta charset='UTF-8'>");
+    out.println("<meta http-equiv='refresh' content='2;url=/lesson/list'>");
+    out.println("<title>수업 게시글 변경</title>");
+    out.println("</head>");
+    out.println("<body>");
+    out.println("<h1>수업 게시물 변경완료</h1>");
 
 
-    if (lessonService.update(newLesson) > 0) {
-      out.println("수업을 변경했습니다!");
+    if (lessonService.update(lesson) > 0) {
+      out.println("<p>수업을 변경했습니다!</p>");
     } else {
-      out.println("해당 번호의 수업이 없습니다.");
+      out.println("<p>해당 번호의 수업이 없습니다.</p>");
     }
+    out.println("</body>");
+    out.println("</html>");
   }
 }
