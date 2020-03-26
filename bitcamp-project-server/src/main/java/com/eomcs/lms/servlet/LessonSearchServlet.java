@@ -1,7 +1,6 @@
 package com.eomcs.lms.servlet;
 
 import java.io.PrintStream;
-import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,24 +25,24 @@ public class LessonSearchServlet {
     if (keyword.length() > 0) {
       params.put("title", keyword);
     }
-    Date date = Date.valueOf(searchParams.get("startDate"));
-    if (date != null) {
-      params.put("startDate", date.toString());
+    keyword = searchParams.get("startDate");
+    if (keyword.length() > 0) {
+      params.put("startDate", keyword);
     }
 
-    date = Date.valueOf(searchParams.get("endDate"));
-    if (date != null) {
-      params.put("endDate", date.toString());
+    keyword = searchParams.get("endDate");
+    if (keyword.length() > 0) {
+      params.put("endDate", keyword);
     }
 
-    int value = Integer.parseInt(searchParams.get("totalHours"));
-    if (value > 0) {
-      params.put("totalHours", value);
+    keyword = searchParams.get("totalHours");
+    if (keyword.length() > 0) {
+      params.put("totalHours", Integer.parseInt(keyword));
     }
 
-    value = Integer.parseInt(searchParams.get("dayHours"));
-    if (value > 0) {
-      params.put("dayHours", value);
+    keyword = searchParams.get("dayHours");
+    if (keyword.length() > 0) {
+      params.put("dayHours", Integer.parseInt(keyword));
     }
 
     out.println("<!DOCTYPE html>");
