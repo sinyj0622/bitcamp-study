@@ -31,7 +31,6 @@ public class MemberListServlet {
     out.println("   <h1>회원 정보</h1>");
     out.println("   <a href='/auth/loginForm'>로그인</a><br>");
     out.println("   <a href='/member/addForm'>새 글</a><br>");
-    out.println("   <a href='/member/search'>검색</a><br>");
     out.println("   <form action='/member/search'>");
     out.println("   <input name='memberSearch' type='text'>\n");
     out.println("       <button>검색</button>");

@@ -19,7 +19,7 @@ public class MemberSearchServlet {
   }
 
 
-  @RequestMapping("/member/search1")
+  @RequestMapping("/member/search")
   public void service(Map<String, String> params, PrintStream out) throws Exception {
     String memberSearch = params.get("memberSearch");
     List<Member> members = memberService.search(memberSearch);
@@ -52,8 +52,10 @@ public class MemberSearchServlet {
             + "</tr>\n", //
             m.getNo(), m.getName(), m.getEmail(), m.getTel(), m.getRegisteredDate());
       }
+
+      out.println("   <a href='/member/list'>목록</a><br>");
     } else {
-      out.println("<p>해당 번호의 회원이 없습니다.</p>");
+      out.println("<p>검색 결과가 없습니다.</p>");
     }
     out.println("</body>");
     out.println("</html>");

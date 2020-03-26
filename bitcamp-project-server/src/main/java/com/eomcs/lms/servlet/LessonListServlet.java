@@ -48,6 +48,14 @@ public class LessonListServlet {
           + "</tr>\n", //
           l.getNo(), l.getNo(), l.getTitle(), l.getStartDate(), l.getEndDate(), l.getTotalHours());
     }
+
+    out.println("   <form action='/lesson/search'>");
+    out.println("   수업명 <input name='title' type='text'><br>\n");
+    out.println("   시작일 <input name='startDate' type='date'><br>\n");
+    out.println("   종료일 <input name='endDate' type='date'><br>\n");
+    out.println("   총 수업시간 <input name='totalHours' type='number'><br>\n");
+    out.println("   일 수업시간 <input name='dayHours' type='number'><br>\n");
+    out.println("       <button>검색</button><br>");
     out.println("</body>");
     out.println("</html>");
   }

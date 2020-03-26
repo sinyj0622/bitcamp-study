@@ -22,10 +22,10 @@ public class LessonAddFormServlet {
     out.println("<form action='/lesson/add'>");
     out.println("수업명: <input name='title' type='text'><br>\n");
     out.println("설명: <input name='description' type='text'><br>\n");
-    out.println("시작일: <input name='startDate' type='text'><br>\n");
-    out.println("종료일: <input name='endDate' type='text'><br>\n");
-    out.println("총수업시간: <input name='totalHours' type='text'><br>\n");
-    out.println("일수업시간: <input name='dayHours' type='text'><br>\n");
+    out.println("시작일: <input name='startDate' type='date'><br>\n");
+    out.println("종료일: <input name='endDate' type='date'><br>\n");
+    out.println("총수업시간: <input name='totalHours' type='number'><br>\n");
+    out.println("일수업시간: <input name='dayHours' type='number'><br>\n");
     out.println("<button>제출</button>");
     out.println("</form>");
     out.println("</body>");

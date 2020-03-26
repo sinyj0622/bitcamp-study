@@ -13,7 +13,7 @@ public interface LessonService {
 
   List<Lesson> list() throws Exception;
 
-  List<Lesson> get(HashMap<String, Object> params) throws Exception;
+  List<Lesson> search(HashMap<String, Object> params) throws Exception;
 
   int update(Lesson newLesson) throws Exception;
 
