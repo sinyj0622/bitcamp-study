@@ -40,7 +40,7 @@ public class LoginServlet extends GenericServlet {
       if (member != null) {
         out.println("<meta http-equiv='refresh' content='2;url=../board/list'>");
       } else {
-        out.println("<meta http-equiv='refresh' content='2;url=/auth/loginForm'>");
+        out.println("<meta http-equiv='refresh' content='2;url=loginForm'>");
       }
       out.println("<title>로그인</title>");
       out.println("</head>");
