@@ -95,6 +95,7 @@
       <url-pattern>/ex06/s2</url-pattern>
   </servlet-mapping>
     
+    <!-- initParams 서블릿 초기화 파라미터 -->
   <servlet>
     <servlet-name>ex06.Servlet04</servlet-name>  
     <servlet-class>com.eomcs.web.ex06.Servlet04</servlet-class>
@@ -116,5 +117,6 @@
     </init-param>
     <load-on-startup>1</load-on-startup> <!-- 다른 서블릿이 필요한 자원생성 -->
   </servlet> 
+  
   
 </web-app>
