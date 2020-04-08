@@ -28,7 +28,7 @@ public class Servlet01 extends HttpServlet {
     ServletContext sc = this.getServletContext();
     sc.setAttribute("v1", "aaa");
 
-    // (최초로 접속하게되면)
+    // (클라이언트가 최초로 접속하게되면)
     // 2) HttpSession 보관소에 값 넣기 - 특정사용자만 사용할 데이터
     // => HttpSession 객체는 웹 브라우저에서
     // '세션 아이디(예:고객번호, 스탬프 카드)'를 제공하지 않으면,
