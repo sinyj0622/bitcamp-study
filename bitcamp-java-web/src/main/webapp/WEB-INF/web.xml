@@ -118,5 +118,11 @@
     <load-on-startup>1</load-on-startup> <!-- 다른 서블릿이 필요한 자원생성 -->
   </servlet> 
   
-  
+  <!-- 세선의 타임아웃 설정하기 -->
+  <!-- 단위는 분(minute)이다.
+  <session-config>
+  <session-timeout>1</session-timeout> 
+  </session-config>
+   -->
+   
 </web-app>

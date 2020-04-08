@@ -1,4 +1,4 @@
-// 보관소에 값 넣기
+// (공통)보관소에 값 넣기
 package com.eomcs.web.ex09;
 
 import java.io.IOException;
@@ -23,12 +23,13 @@ public class Servlet01 extends HttpServlet {
     // => http://localhost:8080/java-web/ex09/s1
     //
 
-    // 1) ServletContext 보관소에 값 넣기
+    // 1) ServletContext 보관소에 값 넣기 - 공통으로 사용할 데이터
     // => ServletContext 객체는 웹 애플리케이션이 시작될 때 생성된다.
     ServletContext sc = this.getServletContext();
     sc.setAttribute("v1", "aaa");
 
-    // 2) HttpSession 보관소에 값 넣기
+    // (최초로 접속하게되면)
+    // 2) HttpSession 보관소에 값 넣기 - 특정사용자만 사용할 데이터
     // => HttpSession 객체는 웹 브라우저에서
     // '세션 아이디(예:고객번호, 스탬프 카드)'를 제공하지 않으면,
     // getSession()을 호출할 때 생성된다.
@@ -39,7 +40,7 @@ public class Servlet01 extends HttpServlet {
     HttpSession session = request.getSession();
     session.setAttribute("v2", "bbb");
 
-    // 3) ServletRequest 보관소에 값 넣기
+    // 3) ServletRequest 보관소에 값 넣기 - 서블릿끼리 처리할 데이터, 요청처리 데이터
     // => ServletRequest 객체는 클라이언트가 요청할 때마다 생성된다.
     request.setAttribute("v3", "ccc");
 
@@ -47,6 +48,9 @@ public class Servlet01 extends HttpServlet {
     PrintWriter out = response.getWriter();
 
     out.println("보관소에 값을 넣었습니다. - /ex09/s1");
+
+
+    // 4) 특정 JSP 에서 사용할 데이터라면 pageContext 저장소
 
   }
 }
