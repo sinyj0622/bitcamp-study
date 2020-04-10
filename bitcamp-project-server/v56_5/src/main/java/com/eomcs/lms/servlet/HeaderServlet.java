@@ -28,7 +28,7 @@ public class HeaderServlet extends HttpServlet {
         "<link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css' integrity='sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh' crossorigin='anonymous'>");
     out.println("<style>");
     out.println("body {");
-    out.println("  background-color: white;");
+    out.println("  background-color: bg-light;");
     out.println("}");
 
     out.println("div.container {");
