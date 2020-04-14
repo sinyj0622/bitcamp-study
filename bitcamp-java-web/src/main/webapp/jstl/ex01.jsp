@@ -24,7 +24,7 @@
   - Core(c) : http://java.sun.com/jsp/jstl/core
   - XML(x) : http://java.sun.com/jsp/jstl/xml
   - I18N(fmt) : http://java.sun.com/jsp/jstl/fmt
-  - Database(sql) : http://java.sun.com/jsp/jstl/sql
+  - Database(sql) : http://java.sun.com/jsp/jstl/sql 안씀 자바코드로 처리
   - Functions(fn) : http://java.sun.com/jsp/jstl/functions
 - JSP 페이지에서 JSTL 라이브러리의 모듈 사용하기
   - JSTL 모듈의 네임스페이스를 가져온다.
@@ -54,7 +54,7 @@ out.println("<h2>오호라!!!</h2>");
 
 ${"<h2>오호라!!!</h2>"}
 
-<c:out value="<h2>오호라!!!<h2>"/>
+<c:out value="<h2>오호라!!!<h2>"/>  
 
 </body>
 </html>

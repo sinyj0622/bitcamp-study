@@ -4,8 +4,6 @@
     contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     trimDirectiveWhitespaces="true"%>
-<%@ page import="bitcamp.vo.Board"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,7 +22,7 @@
       
      --%>
 <jsp:useBean id="list"
-    type="java.util.List<String>" 
+    type="java.util.List<String>"
     class="java.util.ArrayList" scope="page"/>
 <%-- 자바코드로 표현해보면,
   java.util.List<String> list = 
@@ -37,6 +35,9 @@
 
 <%
 // type 속성에서 제레릭으로 String을 지정했기 때문에 항목의 타입을 String으로 선언할 수 있다.
+//list.add(new Integer()); // 제네릭에 지정된 타입과 달라서 컴파일 오류!
+list.add("신은정");
+list.add("집가고싶다");
 for (String n : list) {
   out.println(n + "<br>");
 }
