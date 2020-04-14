@@ -17,7 +17,7 @@ public class BoardListServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+  protected void service(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     try {
       ServletContext servletContext = getServletContext();
@@ -25,20 +25,17 @@ public class BoardListServlet extends HttpServlet {
           (ApplicationContext) servletContext.getAttribute("iocContainer");
       BoardService boardService = iocContainer.getBean(BoardService.class);
 
-
       List<Board> boards = boardService.list();
 
+      // JSP에게 출력을 위임하기 전에
+      // JSP가 사용할 데이터를 ServletRequest에 보관한다.
       request.setAttribute("list", boards);
+      request.setAttribute("viewUrl", "/board/list.jsp");
 
-      // JSP를 인클루드하여 출력을 맡긴다.
-      // => include 하는 쪽에서 출력 스트림의 ㅋ노텐트 타입을 설정해야 한다.
-      response.setContentType("text/html;charset=UTF-8");
-      request.getRequestDispatcher("/board/list.jsp").include(request, response);
 
     } catch (Exception e) {
       request.setAttribute("error", e);
       request.setAttribute("url", "list");
-      request.getRequestDispatcher("/error").forward(request, response);
     }
   }
 }

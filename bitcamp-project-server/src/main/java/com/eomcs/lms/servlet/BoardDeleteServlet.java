@@ -18,17 +18,14 @@ public class BoardDeleteServlet extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     try {
-
-      ServletContext servletContext = this.getServletContext();
+      ServletContext servletContext = getServletContext();
       ApplicationContext iocContainer =
           (ApplicationContext) servletContext.getAttribute("iocContainer");
       BoardService boardService = iocContainer.getBean(BoardService.class);
 
-
       int no = Integer.parseInt(request.getParameter("no"));
       if (boardService.delete(no) > 0) {
-        response.sendRedirect("list");
-
+        request.setAttribute("viewUrl", "redirect:list");
       } else {
         throw new Exception("삭제할 게시물 번호가 유효하지 않습니다.");
       }
@@ -36,7 +33,6 @@ public class BoardDeleteServlet extends HttpServlet {
     } catch (Exception e) {
       request.setAttribute("error", e);
       request.setAttribute("url", "list");
-      request.getRequestDispatcher("/error").forward(request, response);
     }
   }
 }

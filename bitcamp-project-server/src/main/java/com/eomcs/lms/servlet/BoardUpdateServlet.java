@@ -19,8 +19,7 @@ public class BoardUpdateServlet extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     try {
-
-      ServletContext servletContext = request.getServletContext();
+      ServletContext servletContext = getServletContext();
       ApplicationContext iocContainer =
           (ApplicationContext) servletContext.getAttribute("iocContainer");
       BoardService boardService = iocContainer.getBean(BoardService.class);
@@ -28,16 +27,11 @@ public class BoardUpdateServlet extends HttpServlet {
       int no = Integer.parseInt(request.getParameter("no"));
       Board board = boardService.get(no);
       request.setAttribute("board", board);
+      request.setAttribute("viewUrl", "/board/updateform.jsp");
 
-      // 출력을 담당할 jsp를 인클루딩한다
-      response.setContentType("text/html;charset=UTF-8");
-      request.getRequestDispatcher("/board/updateform.jsp").include(request, response);
-    } catch (
-
-    Exception e) {
+    } catch (Exception e) {
       request.setAttribute("error", e);
       request.setAttribute("url", "list");
-      request.getRequestDispatcher("/error").forward(request, response);
     }
   }
 
@@ -47,7 +41,7 @@ public class BoardUpdateServlet extends HttpServlet {
     try {
       request.setCharacterEncoding("UTF-8");
 
-      ServletContext servletContext = request.getServletContext();
+      ServletContext servletContext = getServletContext();
       ApplicationContext iocContainer =
           (ApplicationContext) servletContext.getAttribute("iocContainer");
       BoardService boardService = iocContainer.getBean(BoardService.class);
@@ -57,8 +51,7 @@ public class BoardUpdateServlet extends HttpServlet {
       board.setTitle(request.getParameter("title"));
 
       if (boardService.update(board) > 0) {
-        response.sendRedirect("list");
-
+        request.setAttribute("viewUrl", "redirect:list");
       } else {
         throw new Exception("변경할 게시물 번호가 유효하지 않습니다.");
       }
@@ -66,7 +59,6 @@ public class BoardUpdateServlet extends HttpServlet {
     } catch (Exception e) {
       request.setAttribute("error", e);
       request.setAttribute("url", "list");
-      request.getRequestDispatcher("/error").forward(request, response);
     }
   }
 }

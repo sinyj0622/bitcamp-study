@@ -19,8 +19,7 @@ public class BoardDetailServlet extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     try {
-
-      ServletContext servletContext = this.getServletContext();
+      ServletContext servletContext = getServletContext();
       ApplicationContext iocContainer =
           (ApplicationContext) servletContext.getAttribute("iocContainer");
       BoardService boardService = iocContainer.getBean(BoardService.class);
@@ -28,18 +27,14 @@ public class BoardDetailServlet extends HttpServlet {
       int no = Integer.parseInt(request.getParameter("no"));
       Board board = boardService.get(no);
 
-
-      // JSP가 출력할 때 사용할 수 있도록 조회 결과를 ServletRequest 보관소에 담는다
+      // JSP가 출력할 때 사용할 수 있도록
+      // 조회 결과를 ServletRequest 보관소에 담는다.
       request.setAttribute("board", board);
-
-      // 출력을 담당할 jsp를 인클루딩한다
-      response.setContentType("text/html;charset=UTF-8");
-      request.getRequestDispatcher("/board/detail.jsp").include(request, response);
+      request.setAttribute("viewUrl", "/board/detail.jsp");
 
     } catch (Exception e) {
       request.setAttribute("error", e);
       request.setAttribute("url", "list");
-      request.getRequestDispatcher("/error").forward(request, response);
     }
   }
 }

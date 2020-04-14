@@ -27,6 +27,8 @@ repositories {
 }
 
 dependencies {
+
+    implementation 'jstl:jstl:1.2'
   // log4j 1.2.x 라이브러리
   //implementation 'log4j:log4j:1.2.17'
 

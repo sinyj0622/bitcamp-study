@@ -18,9 +18,7 @@ public class BoardAddServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-
-    response.setContentType("text/html;charset=UTF-8");
-    request.getRequestDispatcher("/board/form.jsp").include(request, response);
+    request.setAttribute("viewUrl", "/board/form.jsp");
   }
 
   @Override
@@ -29,22 +27,21 @@ public class BoardAddServlet extends HttpServlet {
     try {
       request.setCharacterEncoding("UTF-8");
 
-      ServletContext servletContext = request.getServletContext(); // this.getServletContext(); 가능
+      ServletContext servletContext = getServletContext();
       ApplicationContext iocContainer =
           (ApplicationContext) servletContext.getAttribute("iocContainer");
       BoardService boardService = iocContainer.getBean(BoardService.class);
 
       Board board = new Board();
       board.setTitle(request.getParameter("title"));
+
       boardService.add(board);
 
-      response.sendRedirect("list");
+      request.setAttribute("viewUrl", "redirect:list");
 
     } catch (Exception e) {
       request.setAttribute("error", e);
       request.setAttribute("url", "list");
-      request.getRequestDispatcher("/error").forward(request, response);
-      // 현재 웹앱
     }
   }
 }

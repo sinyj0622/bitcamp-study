@@ -26,7 +26,7 @@ public class LessonDeleteServlet extends HttpServlet {
       int no = Integer.parseInt(request.getParameter("no"));
 
       if (lessonService.delete(no) > 0) { // 삭제했다면,
-        response.sendRedirect("list");
+        request.setAttribute("viewUrl", "redirect:list");
       } else {
         throw new Exception("삭제할 수업 번호가 유효하지 않습니다.");
       }

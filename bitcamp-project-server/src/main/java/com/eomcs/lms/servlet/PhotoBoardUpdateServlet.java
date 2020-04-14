@@ -43,12 +43,11 @@ public class PhotoBoardUpdateServlet extends HttpServlet {
       ArrayList<PhotoFile> photoFiles = new ArrayList<>();
       Collection<Part> parts = request.getParts();
       String dirPath = getServletContext().getRealPath("/upload/photoboard");
-
       for (Part part : parts) {
-        if (!part.getName().equals("photo") || part.getSize() <= 0) {
+        if (!part.getName().equals("photo") || //
+            part.getSize() <= 0) {
           continue;
         }
-
         String filename = UUID.randomUUID().toString();
         part.write(dirPath + "/" + filename);
         photoFiles.add(new PhotoFile().setFilepath(filename));
@@ -62,12 +61,11 @@ public class PhotoBoardUpdateServlet extends HttpServlet {
 
       lessonNo = photoBoard.getLesson().getNo();
       photoBoardService.update(photoBoard);
-      response.sendRedirect("list?lessonNo=" + lessonNo);
+      request.setAttribute("viewUrl", "redirect:list?lessonNo=" + lessonNo);
 
     } catch (Exception e) {
       request.setAttribute("error", e);
       request.setAttribute("url", "list?lessonNo=" + lessonNo);
-      request.getRequestDispatcher("/error").forward(request, response);
     }
   }
 }

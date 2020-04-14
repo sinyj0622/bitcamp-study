@@ -1,13 +1,13 @@
-<%@page import="com.eomcs.lms.domain.Board"%>
-<%@page import="java.util.List"%>
+<%@ page import="com.eomcs.lms.domain.Board"%>
+<%@ page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
-    trimDirectiveWhitespaces="true"
-    %>
+    trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<jsp:include page="/header.jsp"></jsp:include>
+<jsp:include page="/header.jsp"/>
 
-  <h1>게시글</h1>
+  <h1>게시글(JSP + EL + JSTL)</h1>
   <a href='add'>새 글</a><br>
   <table border='1'>
   <tr>
@@ -16,19 +16,17 @@
     <th>등록일</th>
     <th>조회수</th>
   </tr>
-<%
- List<Board> list = (List<Board>)request.getAttribute("list");
- for(Board item : list){
-%>
+  
+<c:forEach items="${list}" var="item">
   <tr>
-  <td><%=item.getNo() %></td> 
-  <td><a href='detail?no=<%=item.getNo()%>'><%=item.getTitle()%></a></td>
-  <td><%=item.getDate()%></td>
-  <td><%=item.getViewCount()%></td>
+    <td>${item.no}</td> 
+    <td><a href='detail?no=${item.no}'>=> ${item.title}</a></td> 
+    <td>${item.date}</td> 
+    <td>${item.viewCount}</td>
   </tr>
-  <%
-  }
-%>
+</c:forEach>
+
 </table>
 
 <jsp:include page="/footer.jsp"/>
+    
