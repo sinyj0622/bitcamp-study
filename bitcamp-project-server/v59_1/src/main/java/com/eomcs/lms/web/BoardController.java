@@ -12,17 +12,18 @@ import com.eomcs.lms.service.BoardService;
 
 @Controller
 public class BoardController {
+
   static Logger logger = LogManager.getLogger(BoardController.class);
 
   @Autowired
   BoardService boardService;
 
   public BoardController() {
-    logger.debug("BoardController 객체 생성!");
+    logger.debug("BoardController 생성됨!");
   }
 
   @RequestMapping("/board/form")
-  public String add() throws Exception {
+  public String form() throws Exception {
     return "/board/form.jsp";
   }
 
@@ -56,7 +57,7 @@ public class BoardController {
   }
 
   @RequestMapping("/board/updateForm")
-  public String update(int no, Map<String, Object> model) throws Exception {
+  public String updateForm(int no, Map<String, Object> model) throws Exception {
     model.put("board", boardService.get(no));
     return "/board/updateform.jsp";
   }
@@ -69,5 +70,4 @@ public class BoardController {
       throw new Exception("변경할 게시물 번호가 유효하지 않습니다.");
     }
   }
-
 }

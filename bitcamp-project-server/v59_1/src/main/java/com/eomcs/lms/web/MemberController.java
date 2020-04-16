@@ -23,7 +23,6 @@ public class MemberController {
 
   @RequestMapping("/member/add")
   public String add(HttpServletRequest request, Member member, Part photoFile) throws Exception {
-
     if (photoFile.getSize() > 0) {
       String dirPath = request.getServletContext().getRealPath("/upload/member");
       String filename = UUID.randomUUID().toString();

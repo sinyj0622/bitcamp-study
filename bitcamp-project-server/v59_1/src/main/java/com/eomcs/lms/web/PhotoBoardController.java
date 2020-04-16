@@ -31,8 +31,9 @@ public class PhotoBoardController {
   }
 
   @RequestMapping("/photoboard/add")
-  public String add(int lessonNo, String title, Part[] photoFiles, HttpServletRequest request)
-      throws Exception {
+  public String add(//
+      int lessonNo, String title, Part[] photoFiles, //
+      HttpServletRequest request) throws Exception {
     Lesson lesson = lessonService.get(lessonNo);
     if (lesson == null) {
       throw new Exception("수업 번호가 유효하지 않습니다.");
@@ -90,18 +91,20 @@ public class PhotoBoardController {
   }
 
   @RequestMapping("/photoboard/update")
-  public String update(int no, String title, Part[] photoFiles, HttpServletRequest request)
-      throws Exception {
+  public String update(//
+      int no, String title, Part[] photoFiles, //
+      HttpServletRequest request) throws Exception {
+
     PhotoBoard photoBoard = photoBoardService.get(no);
     photoBoard.setTitle(title);
 
     ArrayList<PhotoFile> photos = new ArrayList<>();
+    String dirPath = request.getServletContext().getRealPath("/upload/photoboard");
     for (Part photoFile : photoFiles) {
       if (photoFile.getSize() <= 0) {
         continue;
       }
       String filename = UUID.randomUUID().toString();
-      String dirPath = request.getServletContext().getRealPath("/upload/photoboard");
       photoFile.write(dirPath + "/" + filename);
       photos.add(new PhotoFile().setFilepath(filename));
     }

@@ -17,7 +17,7 @@ public class AuthController {
   MemberService memberService;
 
   @RequestMapping("/auth/form")
-  public String login(HttpServletRequest request, Map<String, Object> model) throws Exception {
+  public String form(HttpServletRequest request, Map<String, Object> model) {
     String email = "";
     Cookie[] cookies = request.getCookies();
     if (cookies != null) {
@@ -33,8 +33,9 @@ public class AuthController {
   }
 
   @RequestMapping("/auth/login")
-  public String login(HttpServletRequest request, String email, String password, String saveEmail)
-      throws Exception {
+  public String login(HttpServletRequest request, //
+      String email, String password, String saveEmail) throws Exception {
+
     Cookie cookie = new Cookie("email", email);
     if (saveEmail != null) {
       cookie.setMaxAge(60 * 60 * 24 * 30);

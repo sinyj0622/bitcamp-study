@@ -36,7 +36,7 @@ public class DispatcherServlet extends HttpServlet {
     logger.debug(handlerMapper);
   }
 
-  // GET,POST 요청 모두를 처리해야 한다.
+  // GET,POST 요청 모두를 처리해야 한다.kk
   @Override
   protected void service(//
       HttpServletRequest request, //
