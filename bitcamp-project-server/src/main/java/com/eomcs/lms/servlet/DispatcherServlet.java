@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -22,12 +25,15 @@ public class DispatcherServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   static Logger logger = LogManager.getLogger(DispatcherServlet.class);
+
   RequestMappingHandlerMapping handlerMapper = null;
 
   @Override
   public void init() throws ServletException {
-    handlerMapper =
-        (RequestMappingHandlerMapping) getServletContext().getAttribute("handlerMapper");
+    handlerMapper = (RequestMappingHandlerMapping) getServletContext()//
+        .getAttribute("handlerMapper");
+    logger.debug("init() 호출됨!");
+    logger.debug(handlerMapper);
   }
 
   // GET,POST 요청 모두를 처리해야 한다.
@@ -46,26 +52,37 @@ public class DispatcherServlet extends HttpServlet {
       ArrayList<Cookie> cookies = new ArrayList<>();
       request.setAttribute("cookies", cookies);
 
-      // 클라이언트가 요청을 처리할 request handler를 찾아 호출한다.
+      // 클라이언트 요청을 처리할 request handler를 찾아 호출한다. 메서드 정보(객체정보포함)를 달라구!!!!!!!!!!!!!!!!!!!
       RequestHandler requestHandler = handlerMapper.getHandler(pathInfo);
 
       String viewUrl = null;
+
       if (requestHandler != null) {
         // Request Handler의 메서드 호출
         try {
-          viewUrl = (String) requestHandler.getMethod().invoke( // @RequestMapping 이 붙은 메서드를 호출하는
-              requestHandler.getBean(), // Page Controller 객체
-              request, // httpServletRequest
-              response);
+          @SuppressWarnings("unchecked")
+          Map<String, Object> model = requestHandler.invoke(request, // HttpServletRequest
+              response // HttpServletResponse
+          );
+          viewUrl = (String) model.get("viewUrl");
+
+          // 요청 핸들러의 작업 결과를 꺼내서 JSP가 사용할 수 있도록
+          // ServletRequest 보관소에 저장한다.
+          Set<Entry<String, Object>> entrySet = model.entrySet();
+          for (Entry<String, Object> entry : entrySet) {
+            request.setAttribute(entry.getKey(), entry.getValue());
+          }
+
         } catch (Exception e) {
           StringWriter out = new StringWriter();
           e.printStackTrace(new PrintWriter(out));
           request.setAttribute("errorDetail", out.toString());
           request.getRequestDispatcher("/error.jsp").forward(request, response);
+          return;
         }
       } else {
         logger.info("해당 명령을 지원하지 않습니다.");
-        throw new Exception("해당 명령을 지원하지 않습니다");
+        throw new Exception("해당 명령을 지원하지 않습니다.");
       }
 
       // 인클루딩 서블릿을 실행한 후에 쿠키가 있는지 조사해서 있다면
@@ -75,8 +92,6 @@ public class DispatcherServlet extends HttpServlet {
           response.addCookie(cookie);
         }
       }
-
-
 
       // 페이지 컨트롤러가 refresh URL을 설정했다면,
       // 응답헤더에 추가한다.
