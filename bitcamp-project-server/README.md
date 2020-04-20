@@ -1,39 +1,53 @@
-# 58_1 - Front Controller 
+# 59_1 - Spring WebMVC 적용하기 II : 페이지 컨트롤러, MultipartResolver, ViewResolver
 
 ## 학습목표
 
-- multipart 형식으로 파일을 업로드하고 처리할 수 있다.
+- Spring WebMVC 프레임워크를 프로젝트에 적용할 수 있다.
+- Spring WebMVC 프레임워크의 규칙에 따라 웹 애플리케이션을 작성할 수 있다.
+
 
 ## 실습 소스 및 결과
 
-- src/main/java/com/eomcs/lms/servlet/MemberAddServlet.java 변경
-- src/main/java/com/eomcs/lms/servlet/MemberDetailServlet.java 변경
-- src/main/java/com/eomcs/lms/servlet/MemberUpdateServlet.java 변경
-- src/main/java/com/eomcs/lms/servlet/PhotoBoardAddServlet.java 변경
-- src/main/java/com/eomcs/lms/servlet/PhotoBoardDetailServlet.java 변경
-- src/main/java/com/eomcs/lms/servlet/PhotoBoardUpdateServlet.java 변경
+- src/main/java/com/eomcs/lms/ContextLoaderListener.java 삭제
+- src/main/java/com/eomcs/lms/servlet/DispatcherServlet.java 삭제
+- src/main/java/com/eomcs/lms/filter/CharacterEncodingFilter.java 삭제
+- src/main/java/com/eomcs/util/RequestHandler.java 삭제
+- src/main/java/com/eomcs/util/RequestMapping.java 삭제
+- src/main/java/com/eomcs/util/RequestMappingHandlerMapping.java 삭제
+- src/main/java/com/eomcs/lms/web/XxxController.java 변경
+- src/main/webapp/WEB-INF/web.xml 변경
+
 
 ## 실습  
 
-### 훈련1: 회원 추가에 파일 업로드 기능을 추가한다.
+### 훈련1: Spring WebMVC 프레임워크를 프로젝트에 적용한다.
 
-- com.eomcs.lms.servlet.MemberAddServlet 변경
-  - 입력폼에 multipart/form-data 인코딩 적용한다.
-  - 서블릿 3.0에 추가된 멀티파트 데이터 처리 기능 활용하여 파일을 저장한다.
+- 라이브러리 가져오기
+  - search.maven.org 에서 'spring-webmvc' 검색한다.
+  - 라이브러리 정보를 build.gradle에 추가한다.
+  - 'gradle eclipse'를 실행하여 이클립스 설정 파일을 갱신한다.
+  - 이클립스에서 프로젝트를 갱신한다.
 
-### 훈련2: 회원 조회에 사진을 출력한다.
+### 훈련2: Spring WebMVC에서 제공하는 프론트 컨트롤러 서블릿을 설정한다.
 
-- com.eomcs.lms.servlet.MemberDetailServlet 변경
-  - img 태그를 이용하여 사진을 출력한다.
-  - 사진을 변경할 수 있도록 변경폼을 multipart/form-data로 설정한다. 
+- 기존의 프론트 컨트롤러 관련 클래스는 삭제한다.
+  - com.eomcs.lms.ContextLoaderListener 삭제
+  - com.eomcs.lms.filter.CharacterEncodingFilter 삭제
+  - com.eomcs.lms.servlet.DispatcherServlet 삭제
+  - com.eomcs.util.RequestMapping 삭제
+  - com.eomcs.util.RequestHandler 삭제
+  - com.eomcs.util.RequestMappingHandlerMapping 삭제
+- src/main/webapp/WEB-INF/web.xml 변경
+  - DispatcherServlet 클래스를 등록한다.
+  - CharacterEncodingFilter 클래스를 등록한다.
+  - multipart-config를 설정한다.
 
-### 훈련3: 회원 변경에 파일 업로드 기능을 추가한다.
+### 훈련3: 페이지 컨트롤러를 Spring WebMVC 프레임워크 사용법에 따라 변경한다.
 
-- com.eomcs.lms.servlet.MemberUpdateServlet 변경
-  - 멀티파트 형식으로 넘어온 데이터를 처리한다.
-  
-### 훈련4: 사진게시판에 파일 업로드를 적용한다.
+- com.eomcs.lms.web.XxxController.java 변경
+  - @Component 대신에 @Controller로 교체한다.
+  - @RequestMapping 애노테이션의 패키지를 Spring WebMVC 라이브러리 것으로 교체한다.
 
-- com.eomcs.lms.servlet.PhotoBoardAddServlet 변경
-- com.eomcs.lms.servlet.PhotoBoardDetailServlet 변경
-- com.eomcs.lms.servlet.PhotoBoardUpdateServlet 변경
+
+
+
