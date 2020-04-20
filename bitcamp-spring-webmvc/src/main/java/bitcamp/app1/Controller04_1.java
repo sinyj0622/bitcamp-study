@@ -41,7 +41,7 @@ public class Controller04_1 {
       HttpServletResponse response2, //
       HttpSession session, //
       Map<String, Object> map, // JSP에 전달할 값을 담는
-                               // 임시 보관소
+                               // 임시 보관소, 서블릿기술을 최대한 벗어나기위해 사용
       Model model, // Map과 같다. 둘 중 한 개만 받으면 된다.
       PrintWriter out // 클라이언트에게 콘텐트를 보낼 때 사용할 출력 스트림
   ) {

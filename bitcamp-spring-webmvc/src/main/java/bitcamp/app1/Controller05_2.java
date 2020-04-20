@@ -17,7 +17,7 @@ public class Controller05_2 {
   @GetMapping("h1") 
   public String handler1() {
     // 메서드 선언부에 @ResponseBody를 붙이지 않으면 
-    // 프론트 컨트롤러는 view URL로 간주한다.
+    // 프론트 컨트롤러는 리턴값을 view component URL(JSP)로 간주한다.
     // => 리턴 URL의 '/'는 웹 애플리케이션 루트를 의미한다.
     return "/jsp/c05_2.jsp";
   }
@@ -26,7 +26,7 @@ public class Controller05_2 {
   //   http://localhost:8080/java-spring-webmvc/app1/c05_2/h2
   @GetMapping("h2") 
   public String handler2() {
-    // MVC 패턴에서는 항상 Controller에 의해 View가 통제되어야 한다.
+    // ****MVC 패턴에서는 항상 Controller에 의해 View가 통제되어야 한다.****
     // Controller를 경유하지 않고 View를 실행하게 해서는 안된다.
     // 그래야 View에 대해 일관성 있는 제어가 가능하다.
     // 문제는 jsp 파일을 웹 애플리케이션의 일반 폴더에 두게 되면 

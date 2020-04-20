@@ -107,13 +107,13 @@ public class Controller05_1 {
     headers.add("Content-Type", "text/html;charset=UTF-8");
     
     // 이렇게 응답 헤더를 따로 설정하는 방법이 존재하는 이유는
-    // 임의의 응답 헤더를 추가하는 경우가 있기 때문이다.
+    // 다음과 같이 임의의 응답 헤더를 추가하는 경우가 있기 때문이다.
     headers.add("BIT-OK", "ohora");
     
     ResponseEntity<String> entity = new ResponseEntity<>(
         "<html><body><h1>abc가각간<h1></body></html>",
         headers,
-        HttpStatus.OK // 응답 status 코드를 지정할 수 있다.
+        HttpStatus.OK // 응답 상태 코드를 지정할 수 있다.
     );
     
     return entity;
