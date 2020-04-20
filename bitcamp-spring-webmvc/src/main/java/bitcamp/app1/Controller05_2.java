@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.JstlView;
-
+ 
 @Controller 
 @RequestMapping("/c05_2")
 public class Controller05_2 {
