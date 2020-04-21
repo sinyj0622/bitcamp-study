@@ -1,11 +1,10 @@
-package com.eomcs.lms.web;
+package com.eomcs.lms.admin;
 
 import javax.servlet.Filter;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
-import com.eomcs.lms.AppConfig;
 
-public class AppWebApplicationInitializer
+public class AdminWebApplicationInitializer
     extends AbstractAnnotationConfigDispatcherServletInitializer {
 
   // String uploadTmpDir;
@@ -16,13 +15,13 @@ public class AppWebApplicationInitializer
   // }
 
   @Override
-  protected Class<?>[] getRootConfigClasses() { // 모든 디스패처이 공통으로 공유할 객체를 설정
-    return new Class<?>[] {AppConfig.class};
+  protected Class<?>[] getRootConfigClasses() {
+    return null;
   }
 
   @Override
-  protected Class<?>[] getServletConfigClasses() { // 디스패처마다 사용할 객체 설정
-    return new Class<?>[] {AppWebConfig.class};
+  protected Class<?>[] getServletConfigClasses() {
+    return new Class<?>[] {AdminWebConfig.class};
   }
 
   @Override
@@ -34,12 +33,12 @@ public class AppWebApplicationInitializer
 
   @Override
   protected String[] getServletMappings() {
-    return new String[] {"/app/*"};
+    return new String[] {"/admin/*"}; // URL Path
   }
 
   @Override
-  protected String getServletName() {
-    return "app";
+  protected String getServletName() { // 서블릿 이름
+    return "admin";
   }
 
 
