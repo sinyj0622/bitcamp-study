@@ -17,7 +17,7 @@ public class Controller01_1 {
   // @ResponseBody // 뷰 이름을 리턴 할 때는 이 애노테이션을 붙이면 안된다.
   public String handler1(Model model) {
 
-    model.addAttribute("name", "홍길동");
+    model.addAttribute("name", "홍길동"); // servletRequest 저장소에 보관된다
     model.addAttribute("age", 20); // 값이 아니라 주소가 담긴다(오토박싱)
 
     return "/jsp/c01_1.jsp";
@@ -42,6 +42,7 @@ public class Controller01_1 {
     // => 리턴 값이 없으면 요청 URL(/c01_1/h2)을 리턴 값으로 사용한다.
     // => 따라서 최종 url은?
     // /WEB-INF/jsp2/c01_1/h2.jsp
+
   }
 
   // 테스트:

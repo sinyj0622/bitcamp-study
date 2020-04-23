@@ -41,22 +41,20 @@
   <select id="findAll" resultMap="MemberMap">
     select 
       <include refid="select1"/>
-      cdt
     from 
-      lms_member
+      members
   </select>
 
   
   <select id="findByNo" resultMap="MemberMap" parameterType="int">
     select 
-      <include refid="select1"/>
-      pwd, 
-      photo
+      <include refid="select"/>
     from 
-      lms_member
+      members
     where 
-      member_id=#{no}
+      member_no=#{no}
   </select>
+  
   
   <update id="update" parameterType="Member">
     update lms_member
