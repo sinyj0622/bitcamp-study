@@ -12,15 +12,16 @@
   <button>전송</button>
 </form>
 <hr>
+// 버튼의 기본 타입은 submit.. form에 이벤트를 건다
 
 <form id="form2" action="http://www.daum.net">
 이름(*): <input type="text" id="name2"><br>
   <button id="btn2" type="button">전송</button>
 </form>
-
+// type이 버튼일 경우 버튼에 onclick 이벤트를 건다
 <hr>
 
-<form id="form3">
+<form id="form3"  action="http://www.daum.net">
 이름(*): <input type="text" id="name3"><br>
   <button id="btn3">전송</button>
 </form>
@@ -66,6 +67,8 @@ document.querySelector("#form3").addEventListener("submit", (e) => {
     return;
   }
 });
+
+
 
 </script>
 </body>
