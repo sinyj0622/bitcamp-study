@@ -8,7 +8,7 @@ import com.eomcs.lms.domain.Board;
 // 메서드 호출 규칙을 정의한다.
 //
 public interface BoardDao {
-  public int insessrt(Board board) throws Exception;
+  public int insert(Board board) throws Exception;
 
   public List<Board> findAll() throws Exception;
 

@@ -82,6 +82,9 @@ dependencies {
   
   implementation 'com.google.guava:guava:28.1-jre'
   testImplementation 'junit:junit:4.12'
+  
+  // Tiles 라이브러리 추가
+  implementation 'org.apache.tiles:tiles-jsp:3.0.8'
 }
 
 

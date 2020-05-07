@@ -20,6 +20,7 @@
       name, 
       email, 
       tel,
+      photo,
   </sql>
   
   <insert id="insert" parameterType="Member">
@@ -41,20 +42,21 @@
   <select id="findAll" resultMap="MemberMap">
     select 
       <include refid="select1"/>
+      cdt
     from 
-      members
+      lms_member
   </select>
 
   
   <select id="findByNo" resultMap="MemberMap" parameterType="int">
     select 
-      <include refid="select"/>
+      <include refid="select1"/>
+      pwd
     from 
-      members
+      lms_member
     where 
-      member_no=#{no}
+      member_id=#{no}
   </select>
-  
   
   <update id="update" parameterType="Member">
     update lms_member
@@ -94,8 +96,7 @@
     parameterType="map">
     select 
       <include refid="select1"/>
-      pwd, 
-      photo
+      pwd
     from lms_member
     where 
       email=#{email} 
