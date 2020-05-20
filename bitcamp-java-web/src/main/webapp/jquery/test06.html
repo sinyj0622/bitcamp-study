@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>jquery 만들기</title>
+</head>
+<body>
+<h1>jquery 사용</h1>
+<div id="d1">이전 값!</div>
+<div id="d2"></div>
+
+<script src="jquery06.js"></script>
+<script>
+//var tag = document.getElementById('d1');
+var tag = $('#d1');
+var tag2 = $('#d2');
+
+var content = tag.html();
+tag2.html(content);
+tag.html('바꾼값');
+tag.css("colot","red");
+tag.css("background-color", "gray");
+
+var divList = $('div');
+
+tag.css("border","5px dashed red");
+tag.css("margin",  "10px");
+
+divList.on("click", function(){
+	alert('okok')
+	
+});
+</script>
+</body>
+</html>
